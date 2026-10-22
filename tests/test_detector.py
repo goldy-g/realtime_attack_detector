@@ -160,12 +160,18 @@ class EngineRules(unittest.TestCase):
         known = {e for p in wave.state.procs.values() for e, _, _ in p.events} | {start["id"]}
         self.assertTrue(set(ids) <= known)                    # only delivered events of the tree
 
-    def test_one_alert_per_process_tree(self):
-        root = pstart("wmiprvse.exe", "evil.exe", "P1")
+    def test_children_of_an_alerted_process_are_still_judged(self):
+        root = pstart("explorer.exe", "evil.exe", "P1", parent_actor="X1")
         child = pstart("evil.exe", "whoami.exe", "P2", parent_actor="P1")    # its case mentions evil.exe too
         cb, wave, _ = self.run_wave([root, child])
-        self.assertEqual(cb.alerts, [root["id"]])
-        self.assertEqual(wave.stats["skipped_alerted"] + wave.stats["judged"], 2)
+        self.assertEqual(cb.alerts, [root["id"], child["id"]])                # an early alert must not hide the next step
+
+    def test_one_alert_per_process(self):
+        start = pstart("wmiprvse.exe", "evil.exe", "P1", parent_actor="W1")
+        flows = [flow("C:\\x\\evil.exe", "P1", "53.1.2.3", port) for port in (443, 8080)]
+        cb, wave, _ = self.run_wave([start] + flows)
+        self.assertEqual(cb.alerts, [start["id"]])                             # its later connections skip the model
+        self.assertEqual(wave.stats["skipped_alerted"], 2)
 
     def test_cancelled_wave_does_nothing(self):
         server, cb = FakeServer(), Callbacks()

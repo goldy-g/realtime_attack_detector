@@ -7,8 +7,13 @@ state and pushes cases into a priority queue.
 
 Rules (3.6):
 - the queue is ordered by fleet rarity (rarer first), then by age;
-- at most one alert per process tree: once a process is alerted on, later cases
-  in its subtree skip the model;
+- at most one alert per process: once a process is alerted on, its later cases
+  (its other connections) skip the model. Its children are still judged: an
+  alert that lands one step before the alert point is only "context" and earns
+  nothing, and a repeat alert costs nothing (duplicates and repeat false alarms
+  are free), so silencing the tree could only lose a detection (run v1.1-dev,
+  atk-efdb: cmd.exe running a downloaded .bat alerted 1 s early, and the hidden
+  PowerShell it started was never judged);
 - verdict calls always go before explanation calls;
 - when the wave closes (`callbacks.cancelled`), its pending work is dropped.
 """
@@ -41,7 +46,7 @@ class Wave:
     machine: str
     callbacks: object
     state: MachineState
-    alerted: set = field(default_factory=set)          # objectIDs of alerted processes
+    alerted: set = field(default_factory=set)          # objectIDs of processes already alerted on
     queue: list = field(default_factory=list)          # heap of (fleet, t, seq, Candidate)
     explain_jobs: list = field(default_factory=list)   # FIFO of dict
     stats: dict = field(default_factory=lambda: {"cases": 0, "judged": 0, "skipped_alerted": 0, "shed": 0,
@@ -117,7 +122,7 @@ class Engine:
         ev = cand.event
         case_proc = ev["objectID"] if cand.kind == "process" else ev.get("actorID")
         with self.lock:
-            if wave.alerted.intersection(wave.state.ancestry(case_proc)):
+            if case_proc in wave.alerted:
                 wave.stats["skipped_alerted"] += 1
                 return
             text = cases.render(wave.state, cand)
@@ -131,7 +136,7 @@ class Engine:
         alert_id = None
         if attack and not wave.callbacks.cancelled.is_set():
             with self.lock:
-                fresh = not wave.alerted.intersection(wave.state.ancestry(case_proc))
+                fresh = case_proc not in wave.alerted
                 if fresh:
                     wave.alerted.add(case_proc)
                     evidence = self._evidence(wave.state, ev["id"], case_proc)

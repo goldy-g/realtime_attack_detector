@@ -1,0 +1,45 @@
+{
+ "mode": "realtime",
+ "waves": {
+  "w02": {
+   "errors": [],
+   "warm_events": 7219,
+   "live_events": 705,
+   "warm_delivered": 7219,
+   "live_delivered": 705,
+   "alerts_lost": 0,
+   "max_lag_s": 0.006045666988939047,
+   "live_wall_s": 118.65623266715556,
+   "post_stream_wait_s": 10.076,
+   "warm_s": 0.00035088323056697845,
+   "hung": false,
+   "wall_s": 128.76947849988937,
+   "event_ms_p50": 0.000583939254283905,
+   "event_ms_p95": 0.0021661631762981415,
+   "event_ms_max": 0.0034170225262641907,
+   "n_errors": 0
+  },
+  "w07": {
+   "errors": [],
+   "warm_events": 11785,
+   "live_events": 281,
+   "warm_delivered": 11785,
+   "live_delivered": 281,
+   "alerts_lost": 0,
+   "max_lag_s": 0.005068524740636349,
+   "live_wall_s": 122.21307287504897,
+   "post_stream_wait_s": 10.039,
+   "warm_s": 0.0006340360268950462,
+   "hung": false,
+   "wall_s": 132.31369125004858,
+   "event_ms_p50": 0.00041676685214042664,
+   "event_ms_p95": 0.0020833685994148254,
+   "event_ms_max": 0.0034170225262641907,
+   "n_errors": 0
+  }
+ },
+ "total_wall_s": 261.0836546253413,
+ "event_ms_p50": 0.0005420297384262085,
+ "event_ms_p95": 0.002166139893233776,
+ "event_ms_max": 0.0034170225262641907
+}

@@ -1,0 +1,193 @@
+{
+ "label": "v0",
+ "set": "fast",
+ "mode": "realtime",
+ "graded": true,
+ "build_s": 1.2498348951339722e-06,
+ "timing": {
+  "event_ms_p50": 0.0005420297384262085,
+  "event_ms_p95": 0.002166139893233776,
+  "event_ms_max": 0.0034170225262641907,
+  "max_live_lag_s": 0.006045666988939047,
+  "warm_s_max": 0.0006340360268950462,
+  "events_dropped": 0,
+  "alerts_lost": 0,
+  "n_errors": 0,
+  "errors_sample": [],
+  "skipped_waves": [],
+  "hung": false,
+  "total_wall_s": 261.0836546253413
+ },
+ "latency": {
+  "decision_s_p50": 0.0,
+  "decision_s_p95": 0.0,
+  "explain_s_p50": 0.0,
+  "explain_s_p95": 0.0,
+  "explained": 0,
+  "explanations_with_valid_event_ids": 0,
+  "decision_count": 0,
+  "explain_count": 0
+ },
+ "run": {
+  "mode": "realtime",
+  "waves": {
+   "w02": {
+    "errors": [],
+    "warm_events": 7219,
+    "live_events": 705,
+    "warm_delivered": 7219,
+    "live_delivered": 705,
+    "alerts_lost": 0,
+    "max_lag_s": 0.006045666988939047,
+    "live_wall_s": 118.65623266715556,
+    "post_stream_wait_s": 10.076,
+    "warm_s": 0.00035088323056697845,
+    "hung": false,
+    "wall_s": 128.76947849988937,
+    "event_ms_p50": 0.000583939254283905,
+    "event_ms_p95": 0.0021661631762981415,
+    "event_ms_max": 0.0034170225262641907,
+    "n_errors": 0
+   },
+   "w07": {
+    "errors": [],
+    "warm_events": 11785,
+    "live_events": 281,
+    "warm_delivered": 11785,
+    "live_delivered": 281,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005068524740636349,
+    "live_wall_s": 122.21307287504897,
+    "post_stream_wait_s": 10.039,
+    "warm_s": 0.0006340360268950462,
+    "hung": false,
+    "wall_s": 132.31369125004858,
+    "event_ms_p50": 0.00041676685214042664,
+    "event_ms_p95": 0.0020833685994148254,
+    "event_ms_max": 0.0034170225262641907,
+    "n_errors": 0
+   }
+  },
+  "total_wall_s": 261.0836546253413,
+  "event_ms_p50": 0.0005420297384262085,
+  "event_ms_p95": 0.002166139893233776,
+  "event_ms_max": 0.0034170225262641907
+ },
+ "summary": {
+  "n_waves": 2,
+  "n_attack_waves": 1,
+  "attack_waves_detected": 0,
+  "recall": 0.0,
+  "delay_s_p50": null,
+  "delay_s_max": null,
+  "n_attacks": 1,
+  "attacks_detected": 0,
+  "caught_at_first_event": 0,
+  "caught_on_time": 0,
+  "caught_after_execution": 0,
+  "missed_attacks": 1,
+  "timeliness_score": 0.0,
+  "n_alerts": 0,
+  "false_alarms": 0,
+  "false_alarms_per_wave": 0.0,
+  "false_alarms_warmup": 0,
+  "false_alarms_live": 0,
+  "repeat_false_alarms": 0,
+  "duplicates": 0,
+  "excused": 0,
+  "context": 0,
+  "invalid": 0,
+  "late_timeout": 0,
+  "evidence_precision": 0.0,
+  "detection_metrics": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 1,
+   "recall": 0.0,
+   "f1": 0.0
+  }
+ },
+ "waves": {
+  "w02": {
+   "attack": true,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 1,
+   "attacks_detected": 0,
+   "attacks": {
+    "atk-229bd8": {
+     "attack_id": "atk-229bd8",
+     "name": "Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server",
+     "status": "missed",
+     "caught_at_event": null,
+     "n_malicious_events": 229,
+     "event_score": 0.0
+    }
+   },
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "w07": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  }
+ }
+}

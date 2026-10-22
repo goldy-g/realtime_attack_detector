@@ -1,0 +1,54 @@
+set: fast   mode: realtime   waves: w02, w07
+constructing submission.my_detector:MyDetector ...
+  build time: 0.0s
+alerts -> results/v0/alerts.jsonl
+==============================================================================
+RESULTS -- v0   (set: fast, mode: realtime, 2 waves, 1 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                         0 TP               0 FP
+  Attack missed                        1 FN
+  Recall 0.0%    F1 0.0%
+  Attacks detected: 0 / 1
+  Caught on time / after execution / missed: 0 / 0 / 1
+  Timeliness score: 0.000
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 0 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 0 context, 0 excused, 0 invalid
+OVERALL LATENCY
+                                     p50          p95          max
+  on_event() processing          0.001 ms      0.002 ms      0.003 ms
+  Maximum stream lag: 0.006 s; warm-up compute max: 0.0 s
+  Total evaluation time: 261.1 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 0.0 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+w02 -- host-8180 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 1
+  Recall 0.0%    F1 0.0%
+  Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server: Missed
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.001 ms      0.002 ms      0.003 ms
+  Stream lag max: 0.006 s
+  Events delivered: 7219 warm-up + 705 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.8 s
+w07 -- host-ffdf -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.000 ms      0.002 ms      0.003 ms
+  Stream lag max: 0.005 s
+  Events delivered: 11785 warm-up + 281 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 132.3 s
+==============================================================================
+scorecard -> results/v0/scorecard.json
+exit 0

@@ -1,0 +1,3020 @@
+{
+ "fleet_min_machines": 3,
+ "summary": {
+  "V1 · val benign": {
+   "waves": 40,
+   "per_min_median": 0.0,
+   "per_min_p95": 0.76,
+   "per_min_max": 0.96,
+   "burst_10s_max": 2,
+   "benign_candidates": 14,
+   "attacks": 0,
+   "alert_point_covered": 0,
+   "attack_has_candidate": 0,
+   "best_timeliness_mean_0s": null,
+   "best_timeliness_mean_2s": null,
+   "best_timeliness_mean_5s": null
+  },
+  "V1 · val attack": {
+   "waves": 22,
+   "per_min_median": 0.89,
+   "per_min_p95": 2.03,
+   "per_min_max": 13.59,
+   "burst_10s_max": 10,
+   "benign_candidates": 41,
+   "attacks": 22,
+   "alert_point_covered": 22,
+   "attack_has_candidate": 22,
+   "best_timeliness_mean_0s": 1.0,
+   "best_timeliness_mean_2s": 0.894,
+   "best_timeliness_mean_5s": 0.798
+  },
+  "V1 · eval": {
+   "waves": 7,
+   "per_min_median": 0.0,
+   "per_min_p95": 2.0,
+   "per_min_max": 3.15,
+   "burst_10s_max": 7,
+   "benign_candidates": 5,
+   "attacks": 3,
+   "alert_point_covered": 2,
+   "attack_has_candidate": 3,
+   "best_timeliness_mean_0s": 0.996,
+   "best_timeliness_mean_2s": 0.921,
+   "best_timeliness_mean_5s": 0.839
+  },
+  "V2 · val benign": {
+   "waves": 40,
+   "per_min_median": 0.0,
+   "per_min_p95": 1.11,
+   "per_min_max": 1.93,
+   "burst_10s_max": 4,
+   "benign_candidates": 27,
+   "attacks": 0,
+   "alert_point_covered": 0,
+   "attack_has_candidate": 0,
+   "best_timeliness_mean_0s": null,
+   "best_timeliness_mean_2s": null,
+   "best_timeliness_mean_5s": null
+  },
+  "V2 · val attack": {
+   "waves": 22,
+   "per_min_median": 3.33,
+   "per_min_p95": 3.99,
+   "per_min_max": 17.22,
+   "burst_10s_max": 14,
+   "benign_candidates": 56,
+   "attacks": 22,
+   "alert_point_covered": 22,
+   "attack_has_candidate": 22,
+   "best_timeliness_mean_0s": 1.0,
+   "best_timeliness_mean_2s": 0.894,
+   "best_timeliness_mean_5s": 0.798
+  },
+  "V2 · eval": {
+   "waves": 7,
+   "per_min_median": 0.97,
+   "per_min_p95": 4.27,
+   "per_min_max": 5.0,
+   "burst_10s_max": 8,
+   "benign_candidates": 9,
+   "attacks": 3,
+   "alert_point_covered": 3,
+   "attack_has_candidate": 3,
+   "best_timeliness_mean_0s": 1.0,
+   "best_timeliness_mean_2s": 0.924,
+   "best_timeliness_mean_5s": 0.839
+  },
+  "V3 · val benign": {
+   "waves": 40,
+   "per_min_median": 0.0,
+   "per_min_p95": 0.0,
+   "per_min_max": 0.0,
+   "burst_10s_max": 0,
+   "benign_candidates": 0,
+   "attacks": 0,
+   "alert_point_covered": 0,
+   "attack_has_candidate": 0,
+   "best_timeliness_mean_0s": null,
+   "best_timeliness_mean_2s": null,
+   "best_timeliness_mean_5s": null
+  },
+  "V3 · val attack": {
+   "waves": 22,
+   "per_min_median": 2.67,
+   "per_min_p95": 3.09,
+   "per_min_max": 3.47,
+   "burst_10s_max": 7,
+   "benign_candidates": 10,
+   "attacks": 22,
+   "alert_point_covered": 21,
+   "attack_has_candidate": 22,
+   "best_timeliness_mean_0s": 0.994,
+   "best_timeliness_mean_2s": 0.887,
+   "best_timeliness_mean_5s": 0.793
+  },
+  "V3 · eval": {
+   "waves": 7,
+   "per_min_median": 0.0,
+   "per_min_p95": 3.5,
+   "per_min_max": 3.6,
+   "burst_10s_max": 8,
+   "benign_candidates": 2,
+   "attacks": 3,
+   "alert_point_covered": 3,
+   "attack_has_candidate": 3,
+   "best_timeliness_mean_0s": 1.0,
+   "best_timeliness_mean_2s": 0.924,
+   "best_timeliness_mean_5s": 0.839
+  }
+ },
+ "waves": [
+  {
+   "wave": "atk-0dfa",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.97,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.67,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-8cc8c6": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8986,
+        "5": 0.8433
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 2.69,
+     "burst_10s": 8,
+     "labels": {
+      "context": 3,
+      "malicious": 5
+     },
+     "attacks": {
+      "atk-8cc8c6": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8986,
+        "5": 0.8433
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 6,
+     "per_min": 2.02,
+     "burst_10s": 6,
+     "labels": {
+      "context": 3,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-8cc8c6": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8986,
+        "5": 0.8433
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-2758",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.21,
+   "variants": {
+    "V1": {
+     "n": 30,
+     "per_min": 13.59,
+     "burst_10s": 10,
+     "labels": {
+      "benign": 28,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-3c3aad": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8284,
+        "5": 0.8209
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 38,
+     "per_min": 17.22,
+     "burst_10s": 14,
+     "labels": {
+      "benign": 31,
+      "malicious": 7
+     },
+     "attacks": {
+      "atk-3c3aad": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8284,
+        "5": 0.8209
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 6,
+     "per_min": 2.72,
+     "burst_10s": 5,
+     "labels": {
+      "malicious": 6
+     },
+     "attacks": {
+      "atk-3c3aad": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8284,
+        "5": 0.8209
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-339f-1",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.87,
+   "variants": {
+    "V1": {
+     "n": 5,
+     "per_min": 1.74,
+     "burst_10s": 2,
+     "labels": {
+      "context": 2,
+      "malicious": 2,
+      "benign": 1
+     },
+     "attacks": {
+      "atk-e8aecc": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9455,
+        "5": 0.8564
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 7,
+     "per_min": 2.44,
+     "burst_10s": 3,
+     "labels": {
+      "context": 2,
+      "malicious": 4,
+      "benign": 1
+     },
+     "attacks": {
+      "atk-e8aecc": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9455,
+        "5": 0.8564
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 5,
+     "per_min": 1.74,
+     "burst_10s": 2,
+     "labels": {
+      "context": 2,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-e8aecc": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9455,
+        "5": 0.8564
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-5582",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.39,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.84,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-a4959a": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9613,
+        "5": 0.8774
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 3.34,
+     "burst_10s": 8,
+     "labels": {
+      "context": 5,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-a4959a": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9613,
+        "5": 0.8774
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.92,
+     "burst_10s": 7,
+     "labels": {
+      "context": 5,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-a4959a": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9613,
+        "5": 0.8774
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-8329",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.71,
+   "variants": {
+    "V1": {
+     "n": 4,
+     "per_min": 1.48,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2,
+      "benign": 2
+     },
+     "attacks": {
+      "atk-00b186": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9091,
+        "5": 0.7273
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 9,
+     "per_min": 3.32,
+     "burst_10s": 7,
+     "labels": {
+      "context": 4,
+      "malicious": 3,
+      "benign": 2
+     },
+     "attacks": {
+      "atk-00b186": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9091,
+        "5": 0.7273
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 6,
+     "per_min": 2.22,
+     "burst_10s": 6,
+     "labels": {
+      "context": 4,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-00b186": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9091,
+        "5": 0.7273
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-875d",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.31,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.86,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-36c5c6": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9706,
+        "5": 0.8941
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 7,
+     "per_min": 3.03,
+     "burst_10s": 7,
+     "labels": {
+      "benign": 4,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-36c5c6": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9706,
+        "5": 0.8941
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 5,
+     "per_min": 2.16,
+     "burst_10s": 5,
+     "labels": {
+      "benign": 3,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-36c5c6": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9706,
+        "5": 0.8941
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-8875",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.26,
+   "variants": {
+    "V1": {
+     "n": 3,
+     "per_min": 1.32,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2,
+      "benign": 1
+     },
+     "attacks": {
+      "atk-7adfe0": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9036,
+        "5": 0.8325
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 9,
+     "per_min": 3.97,
+     "burst_10s": 8,
+     "labels": {
+      "context": 3,
+      "malicious": 5,
+      "benign": 1
+     },
+     "attacks": {
+      "atk-7adfe0": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9036,
+        "5": 0.8325
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 3.09,
+     "burst_10s": 7,
+     "labels": {
+      "context": 3,
+      "malicious": 4
+     },
+     "attacks": {
+      "atk-7adfe0": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9036,
+        "5": 0.8325
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-9935",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.66,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.75,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-5b535f": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9761,
+        "5": 0.9043
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 10,
+     "per_min": 3.76,
+     "burst_10s": 8,
+     "labels": {
+      "context": 5,
+      "malicious": 3,
+      "benign": 2
+     },
+     "attacks": {
+      "atk-5b535f": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9761,
+        "5": 0.9043
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.63,
+     "burst_10s": 7,
+     "labels": {
+      "context": 5,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-5b535f": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9761,
+        "5": 0.9043
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-9ba4",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.29,
+   "variants": {
+    "V1": {
+     "n": 4,
+     "per_min": 1.75,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2,
+      "benign": 2
+     },
+     "attacks": {
+      "atk-630671": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.883,
+        "5": 0.7979
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 11,
+     "per_min": 4.8,
+     "burst_10s": 9,
+     "labels": {
+      "malicious": 9,
+      "benign": 2
+     },
+     "attacks": {
+      "atk-630671": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.883,
+        "5": 0.7979
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 3.05,
+     "burst_10s": 7,
+     "labels": {
+      "malicious": 7
+     },
+     "attacks": {
+      "atk-630671": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.883,
+        "5": 0.7979
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-a5ce",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.4,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.83,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-b12a4d": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9333,
+        "5": 0.7889
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 3.34,
+     "burst_10s": 8,
+     "labels": {
+      "context": 5,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-b12a4d": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9333,
+        "5": 0.7889
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.92,
+     "burst_10s": 7,
+     "labels": {
+      "context": 5,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-b12a4d": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9333,
+        "5": 0.7889
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-c8f1",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.46,
+   "variants": {
+    "V1": {
+     "n": 3,
+     "per_min": 1.22,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 1,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-c6c1b9": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.925,
+        "5": 0.7625
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 9,
+     "per_min": 3.66,
+     "burst_10s": 8,
+     "labels": {
+      "benign": 1,
+      "context": 5,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-c6c1b9": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.925,
+        "5": 0.7625
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.85,
+     "burst_10s": 7,
+     "labels": {
+      "context": 5,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-c6c1b9": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.925,
+        "5": 0.7625
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-eaa4",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 4.86,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.41,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-d31c37": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8289,
+        "5": 0.6842
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 1.65,
+     "burst_10s": 4,
+     "labels": {
+      "benign": 5,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-d31c37": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8289,
+        "5": 0.6842
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 5,
+     "per_min": 1.03,
+     "burst_10s": 3,
+     "labels": {
+      "benign": 3,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-d31c37": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8289,
+        "5": 0.6842
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-efdb",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.46,
+   "variants": {
+    "V1": {
+     "n": 5,
+     "per_min": 2.03,
+     "burst_10s": 4,
+     "labels": {
+      "benign": 3,
+      "context": 1,
+      "malicious": 1
+     },
+     "attacks": {
+      "atk-087660": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9855,
+        "5": 0.8986
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 7,
+     "per_min": 2.85,
+     "burst_10s": 4,
+     "labels": {
+      "benign": 3,
+      "context": 2,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-087660": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9855,
+        "5": 0.8986
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 5,
+     "per_min": 2.03,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 2,
+      "context": 2,
+      "malicious": 1
+     },
+     "attacks": {
+      "atk-087660": {
+       "alert_point_is_candidate": false,
+       "first_candidate_after_s": 7.727,
+       "best_timeliness": {
+        "0": 0.8768,
+        "2": 0.8333,
+        "5": 0.7826
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-f890",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.51,
+   "variants": {
+    "V1": {
+     "n": 3,
+     "per_min": 1.2,
+     "burst_10s": 3,
+     "labels": {
+      "benign": 1,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-7ee042": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8973,
+        "5": 0.827
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 10,
+     "per_min": 3.99,
+     "burst_10s": 9,
+     "labels": {
+      "benign": 1,
+      "context": 4,
+      "malicious": 5
+     },
+     "attacks": {
+      "atk-7ee042": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8973,
+        "5": 0.827
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.79,
+     "burst_10s": 7,
+     "labels": {
+      "context": 3,
+      "malicious": 4
+     },
+     "attacks": {
+      "atk-7ee042": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8973,
+        "5": 0.827
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-fdda",
+   "kind": "attack",
+   "split": "dev",
+   "live_min": 2.02,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.99,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-a549ed": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8771,
+        "5": 0.8045
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 3.97,
+     "burst_10s": 8,
+     "labels": {
+      "context": 3,
+      "malicious": 5
+     },
+     "attacks": {
+      "atk-a549ed": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8771,
+        "5": 0.8045
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 3.47,
+     "burst_10s": 7,
+     "labels": {
+      "context": 3,
+      "malicious": 4
+     },
+     "attacks": {
+      "atk-a549ed": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8771,
+        "5": 0.8045
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "ben-0494",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.26,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-13c0",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.82,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 2,
+     "per_min": 0.71,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 2
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-174c",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.09,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.48,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 1,
+     "per_min": 0.48,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-1d1b",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.68,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-1ed1",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.96,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-2d02",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.08,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.96,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 2
+     }
+    },
+    "V2": {
+     "n": 4,
+     "per_min": 1.93,
+     "burst_10s": 4,
+     "labels": {
+      "benign": 4
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-37ee",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.9,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-385b",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.55,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-3a95",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.77,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-3d5f",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.55,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-3ef0",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.51,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-40b6",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.74,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-58d7",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.65,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-5d9e",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.65,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-60bb",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.29,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-6dca",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.51,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-7a4e",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.75,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-9635",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.1,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-97f2",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.38,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.84,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 2
+     }
+    },
+    "V2": {
+     "n": 2,
+     "per_min": 0.84,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 2
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-9e32",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.65,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.38,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 1,
+     "per_min": 0.38,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-a3cb",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.7,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 3,
+     "per_min": 1.11,
+     "burst_10s": 3,
+     "labels": {
+      "benign": 3
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-ac6e",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.79,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-b05d",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.74,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.36,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 1,
+     "per_min": 0.36,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-b0cb",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.42,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.41,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 1,
+     "per_min": 0.41,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-b819",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.53,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-b8e4",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.69,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-c5cc",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.72,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-d94a",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.51,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-dbab",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.87,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-e6a2",
+   "kind": "benign",
+   "split": "dev",
+   "live_min": 2.71,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.37,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 3,
+     "per_min": 1.11,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 3
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "atk-1038",
+   "kind": "attack",
+   "split": "holdout",
+   "live_min": 2.18,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.92,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-c8a3d3": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9143,
+        "5": 0.6857
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 3.66,
+     "burst_10s": 8,
+     "labels": {
+      "context": 5,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-c8a3d3": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9143,
+        "5": 0.6857
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 3.2,
+     "burst_10s": 7,
+     "labels": {
+      "context": 5,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-c8a3d3": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9143,
+        "5": 0.6857
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-3c03",
+   "kind": "attack",
+   "split": "holdout",
+   "live_min": 2.82,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.71,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-48400a": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8936,
+        "5": 0.8426
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 2.83,
+     "burst_10s": 8,
+     "labels": {
+      "malicious": 8
+     },
+     "attacks": {
+      "atk-48400a": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8936,
+        "5": 0.8426
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 6,
+     "per_min": 2.12,
+     "burst_10s": 6,
+     "labels": {
+      "malicious": 6
+     },
+     "attacks": {
+      "atk-48400a": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8936,
+        "5": 0.8426
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-6d5d",
+   "kind": "attack",
+   "split": "holdout",
+   "live_min": 2.78,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.72,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-628e1c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8756,
+        "5": 0.8109
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 2.88,
+     "burst_10s": 8,
+     "labels": {
+      "malicious": 8
+     },
+     "attacks": {
+      "atk-628e1c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8756,
+        "5": 0.8109
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.52,
+     "burst_10s": 7,
+     "labels": {
+      "malicious": 7
+     },
+     "attacks": {
+      "atk-628e1c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8756,
+        "5": 0.8109
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-7f7a",
+   "kind": "attack",
+   "split": "holdout",
+   "live_min": 2.49,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.8,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-ef26d5": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.867,
+        "5": 0.7979
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 3.22,
+     "burst_10s": 8,
+     "labels": {
+      "malicious": 8
+     },
+     "attacks": {
+      "atk-ef26d5": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.867,
+        "5": 0.7979
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.82,
+     "burst_10s": 7,
+     "labels": {
+      "malicious": 7
+     },
+     "attacks": {
+      "atk-ef26d5": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.867,
+        "5": 0.7979
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-e7e0",
+   "kind": "attack",
+   "split": "holdout",
+   "live_min": 2.6,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.77,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-40928c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8913,
+        "5": 0.8348
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 7,
+     "per_min": 2.7,
+     "burst_10s": 7,
+     "labels": {
+      "malicious": 7
+     },
+     "attacks": {
+      "atk-40928c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8913,
+        "5": 0.8348
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 6,
+     "per_min": 2.31,
+     "burst_10s": 6,
+     "labels": {
+      "malicious": 6
+     },
+     "attacks": {
+      "atk-40928c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8913,
+        "5": 0.8348
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-f3ac-1",
+   "kind": "attack",
+   "split": "holdout",
+   "live_min": 2.41,
+   "variants": {
+    "V1": {
+     "n": 5,
+     "per_min": 2.07,
+     "burst_10s": 3,
+     "labels": {
+      "benign": 2,
+      "context": 2,
+      "malicious": 1
+     },
+     "attacks": {
+      "atk-210b72": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.5833,
+        "5": 0.5
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 9,
+     "per_min": 3.73,
+     "burst_10s": 5,
+     "labels": {
+      "benign": 3,
+      "context": 5,
+      "malicious": 1
+     },
+     "attacks": {
+      "atk-210b72": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.5833,
+        "5": 0.5
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.9,
+     "burst_10s": 4,
+     "labels": {
+      "benign": 2,
+      "context": 4,
+      "malicious": 1
+     },
+     "attacks": {
+      "atk-210b72": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.5833,
+        "5": 0.5
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "atk-f59c",
+   "kind": "attack",
+   "split": "holdout",
+   "live_min": 2.74,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.73,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-892458": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9259,
+        "5": 0.7654
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 8,
+     "per_min": 2.92,
+     "burst_10s": 8,
+     "labels": {
+      "context": 5,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-892458": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9259,
+        "5": 0.7654
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 2.55,
+     "burst_10s": 7,
+     "labels": {
+      "context": 5,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-892458": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9259,
+        "5": 0.7654
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "ben-0597",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.24,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-3fed",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.02,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-4460",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.62,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 0.76,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 2
+     }
+    },
+    "V2": {
+     "n": 4,
+     "per_min": 1.53,
+     "burst_10s": 4,
+     "labels": {
+      "benign": 4
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-594f",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.49,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-60ee",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.7,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-9099",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.65,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.38,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 2,
+     "per_min": 0.75,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 2
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-9135",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.57,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 1,
+     "per_min": 0.39,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-cce5",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.03,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-d467",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.09,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.48,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 1,
+     "per_min": 0.48,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "ben-ea7c",
+   "kind": "benign",
+   "split": "holdout",
+   "live_min": 2.79,
+   "variants": {
+    "V1": {
+     "n": 1,
+     "per_min": 0.36,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V2": {
+     "n": 1,
+     "per_min": 0.36,
+     "burst_10s": 1,
+     "labels": {
+      "benign": 1
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "w01",
+   "kind": "attack",
+   "split": "eval",
+   "live_min": 8.9,
+   "variants": {
+    "V1": {
+     "n": 28,
+     "per_min": 3.15,
+     "burst_10s": 7,
+     "labels": {
+      "benign": 5,
+      "context": 22,
+      "malicious": 1
+     },
+     "attacks": {
+      "atk-1c3642": {
+       "alert_point_is_candidate": false,
+       "first_candidate_after_s": 0.823,
+       "best_timeliness": {
+        "0": 0.9892,
+        "2": 0.9677,
+        "5": 0.9534
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 38,
+     "per_min": 4.27,
+     "burst_10s": 8,
+     "labels": {
+      "context": 31,
+      "benign": 5,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-1c3642": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9785,
+        "5": 0.9534
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 32,
+     "per_min": 3.6,
+     "burst_10s": 8,
+     "labels": {
+      "context": 28,
+      "benign": 2,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-1c3642": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.9785,
+        "5": 0.9534
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "w02",
+   "kind": "attack",
+   "split": "eval",
+   "live_min": 2.0,
+   "variants": {
+    "V1": {
+     "n": 4,
+     "per_min": 2.0,
+     "burst_10s": 2,
+     "labels": {
+      "context": 2,
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-229bd8": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.952,
+        "5": 0.7991
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 6,
+     "per_min": 3.0,
+     "burst_10s": 3,
+     "labels": {
+      "context": 2,
+      "malicious": 4
+     },
+     "attacks": {
+      "atk-229bd8": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.952,
+        "5": 0.7991
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 5,
+     "per_min": 2.5,
+     "burst_10s": 2,
+     "labels": {
+      "context": 2,
+      "malicious": 3
+     },
+     "attacks": {
+      "atk-229bd8": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.952,
+        "5": 0.7991
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "w03",
+   "kind": "attack",
+   "split": "eval",
+   "live_min": 2.0,
+   "variants": {
+    "V1": {
+     "n": 2,
+     "per_min": 1.0,
+     "burst_10s": 2,
+     "labels": {
+      "malicious": 2
+     },
+     "attacks": {
+      "atk-82bc9c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8424,
+        "5": 0.7636
+       }
+      }
+     }
+    },
+    "V2": {
+     "n": 10,
+     "per_min": 5.0,
+     "burst_10s": 8,
+     "labels": {
+      "malicious": 8,
+      "benign": 2
+     },
+     "attacks": {
+      "atk-82bc9c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8424,
+        "5": 0.7636
+       }
+      }
+     }
+    },
+    "V3": {
+     "n": 7,
+     "per_min": 3.5,
+     "burst_10s": 7,
+     "labels": {
+      "malicious": 7
+     },
+     "attacks": {
+      "atk-82bc9c": {
+       "alert_point_is_candidate": true,
+       "first_candidate_after_s": 0.0,
+       "best_timeliness": {
+        "0": 1.0,
+        "2": 0.8424,
+        "5": 0.7636
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "wave": "w04",
+   "kind": "benign",
+   "split": "eval",
+   "live_min": 2.33,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "w05",
+   "kind": "benign",
+   "split": "eval",
+   "live_min": 2.03,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "w06",
+   "kind": "benign",
+   "split": "eval",
+   "live_min": 2.27,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  },
+  {
+   "wave": "w07",
+   "kind": "benign",
+   "split": "eval",
+   "live_min": 2.06,
+   "variants": {
+    "V1": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    },
+    "V2": {
+     "n": 2,
+     "per_min": 0.97,
+     "burst_10s": 2,
+     "labels": {
+      "benign": 2
+     }
+    },
+    "V3": {
+     "n": 0,
+     "per_min": 0.0,
+     "burst_10s": 0,
+     "labels": {}
+    }
+   }
+  }
+ ]
+}

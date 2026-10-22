@@ -50,8 +50,10 @@ def verdict_messages(case_text: str) -> list[dict]:
     return [{"role": "system", "content": VERDICT_SYSTEM}, {"role": "user", "content": case_text}]
 
 
-def explain_messages(case_text: str, followed: list[str], confidence: int) -> list[dict]:
+def explain_messages(case_text: str, followed: list[str], confidence: int, facts: tuple = ()) -> list[dict]:
     body = case_text + "\n\nThe verdict was attack, confidence {}.".format(confidence)
+    if facts:                                   # an expert's reasons (experts.py): read from the event by code
+        body += "\nFacts checked by code: {}.".format("; ".join(facts))
     if followed:
         body += "\nWhat the same processes did after the alert:\n" + "\n".join("- " + x for x in followed)
     return [{"role": "system", "content": EXPLAIN_SYSTEM}, {"role": "user", "content": body}]

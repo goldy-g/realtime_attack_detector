@@ -174,6 +174,7 @@ class Status:
         self.run_dir, self.meta = run_dir, meta
         self.answers = load_answers(meta.get("answers"))
         self.scored: dict[str, dict] = {}     # wave id -> outcome, once the wave is finished
+        self.marks: dict[str, dict] = {}      # wave id -> {started, live, waiting}: when each phase began
         data_dir = os.path.join(ROOT, {"eval": "data/eval", "validation": "data/cache/val"}.get(meta.get("source"), ""))
         path = os.path.join(data_dir, "waves.json")
         self.known = {w["wave_id"]: w for w in load_json(path)["waves"]} if os.path.isfile(path) else {}
@@ -215,7 +216,9 @@ class Status:
                 "warmup_events": w.get("warmup_events", k.get("warmup_events")),
                 "live_events": w.get("live_events", k.get("live_events")),
                 "live_start": k.get("live_start"), "live_end": k.get("live_end"), "live_window_s": window,
-                "source_attack": k.get("source_attack")}
+                "source_attack": k.get("source_attack"),
+                "n_attacks": len(self.answers.get(w["id"], {}).get("attacks") or []),
+                "malicious_events": len(self.answers.get(w["id"], {}).get("malicious_event_ids") or [])}
 
     def rows_live(self, parsed: dict) -> list[dict]:
         alerts = self.alerts_by_wave()
@@ -231,7 +234,14 @@ class Status:
                            detected=sc.get("detected"), n_attacks=sc.get("n_attacks"),
                            timeliness=(sum(sc["scores"]) / len(sc["scores"])) if sc.get("scores") else None)
             elif parsed["current"] and parsed["current"][0] == w["id"]:
-                row.update(state="running", phase=phase_of(parsed["current"][1]))
+                phase = phase_of(parsed["current"][1])
+                mk = self.marks.setdefault(w["id"], {"started": time.time()})
+                if phase in ("live", "waiting for alerts", "explanations"):
+                    mk.setdefault("live", time.time())
+                if phase in ("waiting for alerts", "explanations"):
+                    mk.setdefault("waiting", time.time())
+                row.update(state="running", phase=phase, t_started=mk.get("started"),
+                           t_live=mk.get("live"), t_waiting=mk.get("waiting"))
             rows.append(row)
         return rows
 
@@ -265,6 +275,10 @@ class Status:
         card = load_json(self.path("scorecard.json")) if final and os.path.exists(self.path("scorecard.json")) else None
         runinfo = load_json(self.path("alerts.run.json")) if final and os.path.exists(self.path("alerts.run.json")) else {}
         rows = self.rows_final(card, runinfo) if card else self.rows_live(parsed)
+        if final and not card:                # the run ended early: unplayed waves are not running
+            for r in rows:
+                if r["state"] in ("running", "pending"):
+                    r["state"] = "skipped"
 
         done = [r for r in rows if r["state"] == "done"]
         scores = [s for r in done for s in ([r["timeliness"]] * (r.get("n_attacks") or 0) if r.get("timeliness") is not None else [])]
@@ -447,7 +461,12 @@ def main() -> int:
         run_dir = os.path.abspath(args.status)
         meta_path = os.path.join(run_dir, "meta.json")
         meta = load_json(meta_path) if os.path.exists(meta_path) else meta_from_results(run_dir)
-        print(progress_line(Status(run_dir, meta).build(final=True)))
+        error = None
+        if not os.path.exists(os.path.join(run_dir, "scorecard.json")):
+            meta.setdefault("finished_at", load_json(os.path.join(run_dir, "status.json")).get("updated_at", now_iso()))
+            write_json(meta_path, meta)
+            error = "stopped before it finished"
+        print(progress_line(Status(run_dir, meta).build(final=True, error=error)))
         return 0
     if not args.label or not passthrough:
         ap.error("give a label and the evaluator arguments after --")

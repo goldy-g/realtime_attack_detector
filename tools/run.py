@@ -174,6 +174,9 @@ class Status:
         self.run_dir, self.meta = run_dir, meta
         self.answers = load_answers(meta.get("answers"))
         self.scored: dict[str, dict] = {}     # wave id -> outcome, once the wave is finished
+        data_dir = os.path.join(ROOT, {"eval": "data/eval", "validation": "data/cache/val"}.get(meta.get("source"), ""))
+        path = os.path.join(data_dir, "waves.json")
+        self.known = {w["wave_id"]: w for w in load_json(path)["waves"]} if os.path.isfile(path) else {}
 
     def path(self, name: str) -> str:
         return os.path.join(self.run_dir, name)
@@ -204,10 +207,15 @@ class Status:
                 }
         return self.scored[wave_id]
 
-    @staticmethod
-    def base_row(w: dict) -> dict:
-        return {"id": w["id"], "kind": w["kind"], "machine": w.get("machine"), "state": "pending", "alerts": 0,
-                "warmup_events": w.get("warmup_events"), "live_events": w.get("live_events")}
+    def base_row(self, w: dict) -> dict:
+        k = self.known.get(w["id"], {})
+        window = (metrics.parse_ts(k["live_end"]) - metrics.parse_ts(k["live_start"])) if k.get("live_start") else None
+        return {"id": w["id"], "kind": w["kind"], "machine": w.get("machine") or k.get("machine"),
+                "state": "pending", "alerts": 0,
+                "warmup_events": w.get("warmup_events", k.get("warmup_events")),
+                "live_events": w.get("live_events", k.get("live_events")),
+                "live_start": k.get("live_start"), "live_end": k.get("live_end"), "live_window_s": window,
+                "source_attack": k.get("source_attack")}
 
     def rows_live(self, parsed: dict) -> list[dict]:
         alerts = self.alerts_by_wave()
@@ -238,6 +246,7 @@ class Status:
             rows.append({
                 **self.base_row(w), "state": "done", "alerts": v["n_alerts"],
                 "warm_s": wi.get("warm_s"), "live_s": wi.get("live_wall_s"), "wall_s": wi.get("wall_s"),
+                "post_wait_s": wi.get("post_stream_wait_s"),
                 "attacks": attack_rows(v["attacks"]),
                 "outcome": outcome_of(bool(v["attack"]), v["n_attacks"], v["attacks_detected"], v["false_alarms"]),
                 "false_alarms": v["false_alarms"], "detected": v["attacks_detected"], "n_attacks": v["n_attacks"],

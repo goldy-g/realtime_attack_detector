@@ -1,0 +1,331 @@
+{
+ "label": "v1.1-dev",
+ "note": "stage 3 end to end: 45 dev waves, real time; cases rendered as of their own event",
+ "detector": "submission.my_detector:MyDetector",
+ "source": "validation",
+ "set": "dev",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "/Users/yuval/work/career/intreviews-active/checkpoint/hw-candidate/hw/data/cache/val/answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --data data/cache/val --set dev --out results/v1.1-dev/alerts.jsonl --report results/v1.1-dev/scorecard.json --label v1.1-dev",
+ "triggered_at": "2026-10-22T21:33:42+03:00",
+ "expected_s": 7480.1,
+ "waves": [
+  {
+   "id": "atk-0dfa",
+   "machine": "host-0dfa",
+   "kind": "attack",
+   "warmup_events": 7689,
+   "live_events": 411
+  },
+  {
+   "id": "atk-2758",
+   "machine": "host-2758",
+   "kind": "attack",
+   "warmup_events": 6303,
+   "live_events": 2210
+  },
+  {
+   "id": "atk-339f-1",
+   "machine": "host-339f",
+   "kind": "attack",
+   "warmup_events": 8004,
+   "live_events": 741
+  },
+  {
+   "id": "atk-5582",
+   "machine": "host-5582",
+   "kind": "attack",
+   "warmup_events": 14334,
+   "live_events": 359
+  },
+  {
+   "id": "atk-8329",
+   "machine": "host-8329",
+   "kind": "attack",
+   "warmup_events": 5233,
+   "live_events": 483
+  },
+  {
+   "id": "atk-875d",
+   "machine": "host-875d",
+   "kind": "attack",
+   "warmup_events": 4437,
+   "live_events": 360
+  },
+  {
+   "id": "atk-8875",
+   "machine": "host-8875",
+   "kind": "attack",
+   "warmup_events": 12773,
+   "live_events": 350
+  },
+  {
+   "id": "atk-9935",
+   "machine": "host-9935",
+   "kind": "attack",
+   "warmup_events": 7551,
+   "live_events": 423
+  },
+  {
+   "id": "atk-9ba4",
+   "machine": "host-9ba4",
+   "kind": "attack",
+   "warmup_events": 5180,
+   "live_events": 725
+  },
+  {
+   "id": "atk-a5ce",
+   "machine": "host-a5ce",
+   "kind": "attack",
+   "warmup_events": 5486,
+   "live_events": 258
+  },
+  {
+   "id": "atk-c8f1",
+   "machine": "host-c8f1",
+   "kind": "attack",
+   "warmup_events": 8675,
+   "live_events": 398
+  },
+  {
+   "id": "atk-eaa4",
+   "machine": "host-eaa4",
+   "kind": "attack",
+   "warmup_events": 10557,
+   "live_events": 2876
+  },
+  {
+   "id": "atk-efdb",
+   "machine": "host-efdb",
+   "kind": "attack",
+   "warmup_events": 7798,
+   "live_events": 810
+  },
+  {
+   "id": "atk-f890",
+   "machine": "host-f890",
+   "kind": "attack",
+   "warmup_events": 5215,
+   "live_events": 387
+  },
+  {
+   "id": "atk-fdda",
+   "machine": "host-fdda",
+   "kind": "attack",
+   "warmup_events": 5297,
+   "live_events": 434
+  },
+  {
+   "id": "ben-0494",
+   "machine": "host-0494",
+   "kind": "benign",
+   "warmup_events": 16223,
+   "live_events": 610
+  },
+  {
+   "id": "ben-13c0",
+   "machine": "host-13c0",
+   "kind": "benign",
+   "warmup_events": 13635,
+   "live_events": 1206
+  },
+  {
+   "id": "ben-174c",
+   "machine": "host-174c",
+   "kind": "benign",
+   "warmup_events": 7561,
+   "live_events": 638
+  },
+  {
+   "id": "ben-1d1b",
+   "machine": "host-1d1b",
+   "kind": "benign",
+   "warmup_events": 6048,
+   "live_events": 183
+  },
+  {
+   "id": "ben-1ed1",
+   "machine": "host-1ed1",
+   "kind": "benign",
+   "warmup_events": 12822,
+   "live_events": 182
+  },
+  {
+   "id": "ben-2d02",
+   "machine": "host-2d02",
+   "kind": "benign",
+   "warmup_events": 4186,
+   "live_events": 296
+  },
+  {
+   "id": "ben-37ee",
+   "machine": "host-37ee",
+   "kind": "benign",
+   "warmup_events": 4842,
+   "live_events": 226
+  },
+  {
+   "id": "ben-385b",
+   "machine": "host-385b",
+   "kind": "benign",
+   "warmup_events": 5957,
+   "live_events": 173
+  },
+  {
+   "id": "ben-3a95",
+   "machine": "host-3a95",
+   "kind": "benign",
+   "warmup_events": 7672,
+   "live_events": 190
+  },
+  {
+   "id": "ben-3d5f",
+   "machine": "host-3d5f",
+   "kind": "benign",
+   "warmup_events": 10397,
+   "live_events": 151
+  },
+  {
+   "id": "ben-3ef0",
+   "machine": "host-3ef0",
+   "kind": "benign",
+   "warmup_events": 7783,
+   "live_events": 160
+  },
+  {
+   "id": "ben-40b6",
+   "machine": "host-40b6",
+   "kind": "benign",
+   "warmup_events": 5203,
+   "live_events": 188
+  },
+  {
+   "id": "ben-58d7",
+   "machine": "host-58d7",
+   "kind": "benign",
+   "warmup_events": 4460,
+   "live_events": 242
+  },
+  {
+   "id": "ben-5d9e",
+   "machine": "host-5d9e",
+   "kind": "benign",
+   "warmup_events": 4173,
+   "live_events": 133
+  },
+  {
+   "id": "ben-60bb",
+   "machine": "host-60bb",
+   "kind": "benign",
+   "warmup_events": 3793,
+   "live_events": 173
+  },
+  {
+   "id": "ben-6dca",
+   "machine": "host-6dca",
+   "kind": "benign",
+   "warmup_events": 7768,
+   "live_events": 172
+  },
+  {
+   "id": "ben-7a4e",
+   "machine": "host-7a4e",
+   "kind": "benign",
+   "warmup_events": 10629,
+   "live_events": 184
+  },
+  {
+   "id": "ben-9635",
+   "machine": "host-9635",
+   "kind": "benign",
+   "warmup_events": 4465,
+   "live_events": 129
+  },
+  {
+   "id": "ben-97f2",
+   "machine": "host-97f2",
+   "kind": "benign",
+   "warmup_events": 3919,
+   "live_events": 139
+  },
+  {
+   "id": "ben-9e32",
+   "machine": "host-9e32",
+   "kind": "benign",
+   "warmup_events": 10018,
+   "live_events": 275
+  },
+  {
+   "id": "ben-a3cb",
+   "machine": "host-a3cb",
+   "kind": "benign",
+   "warmup_events": 5125,
+   "live_events": 167
+  },
+  {
+   "id": "ben-ac6e",
+   "machine": "host-ac6e",
+   "kind": "benign",
+   "warmup_events": 4293,
+   "live_events": 175
+  },
+  {
+   "id": "ben-b05d",
+   "machine": "host-b05d",
+   "kind": "benign",
+   "warmup_events": 10814,
+   "live_events": 458
+  },
+  {
+   "id": "ben-b0cb",
+   "machine": "host-b0cb",
+   "kind": "benign",
+   "warmup_events": 9885,
+   "live_events": 247
+  },
+  {
+   "id": "ben-b819",
+   "machine": "host-b819",
+   "kind": "benign",
+   "warmup_events": 3717,
+   "live_events": 144
+  },
+  {
+   "id": "ben-b8e4",
+   "machine": "host-b8e4",
+   "kind": "benign",
+   "warmup_events": 5236,
+   "live_events": 148
+  },
+  {
+   "id": "ben-c5cc",
+   "machine": "host-c5cc",
+   "kind": "benign",
+   "warmup_events": 4618,
+   "live_events": 142
+  },
+  {
+   "id": "ben-d94a",
+   "machine": "host-d94a",
+   "kind": "benign",
+   "warmup_events": 4213,
+   "live_events": 372
+  },
+  {
+   "id": "ben-dbab",
+   "machine": "host-dbab",
+   "kind": "benign",
+   "warmup_events": 4323,
+   "live_events": 196
+  },
+  {
+   "id": "ben-e6a2",
+   "machine": "host-e6a2",
+   "kind": "benign",
+   "warmup_events": 5927,
+   "live_events": 159
+  }
+ ],
+ "finished_at": "2026-10-22T23:37:25+03:00"
+}

@@ -1,0 +1,663 @@
+set: dev   mode: realtime   waves: atk-0dfa, atk-2758, atk-339f-1, atk-5582, atk-8329, atk-875d, atk-8875, atk-9935, atk-9ba4, atk-a5ce, atk-c8f1, atk-eaa4, atk-efdb, atk-f890, atk-fdda, ben-0494, ben-13c0, ben-174c, ben-1d1b, ben-1ed1, ben-2d02, ben-37ee, ben-385b, ben-3a95, ben-3d5f, ben-3ef0, ben-40b6, ben-58d7, ben-5d9e, ben-60bb, ben-6dca, ben-7a4e, ben-9635, ben-97f2, ben-9e32, ben-a3cb, ben-ac6e, ben-b05d, ben-b0cb, ben-b819, ben-b8e4, ben-c5cc, ben-d94a, ben-dbab, ben-e6a2
+constructing submission.my_detector:MyDetector ...
+  build time: 18.9s
+  wave atk-0dfa     1 alerts  warm-up   0.0s  live 177.2s  lag max  0.01s
+  wave atk-2758     2 alerts  warm-up   0.0s  live 129.7s  lag max  0.01s
+  wave atk-339f-1   1 alerts  warm-up   0.0s  live 170.7s  lag max  0.01s
+  wave atk-5582     1 alerts  warm-up   0.0s  live 141.1s  lag max  0.01s
+  wave atk-8329     1 alerts  warm-up   0.0s  live 158.8s  lag max  0.01s
+  wave atk-875d     1 alerts  warm-up   0.0s  live 136.0s  lag max  0.01s
+  wave atk-8875     1 alerts  warm-up   0.0s  live 135.3s  lag max  0.01s
+  wave atk-9935     1 alerts  warm-up   0.0s  live 158.0s  lag max  0.01s
+  wave atk-9ba4     1 alerts  warm-up   0.0s  live 137.1s  lag max  0.02s
+  wave atk-a5ce     1 alerts  warm-up   0.0s  live 143.0s  lag max  0.01s
+  wave atk-c8f1     1 alerts  warm-up   0.0s  live 146.0s  lag max  0.01s
+  wave atk-eaa4     1 alerts  warm-up   0.0s  live 291.5s  lag max  0.01s
+  wave atk-efdb     1 alerts  warm-up   0.0s  live 147.6s  lag max  0.01s
+  wave atk-f890     1 alerts  warm-up   0.0s  live 148.4s  lag max  0.01s
+  wave atk-fdda     1 alerts  warm-up   0.0s  live 118.2s  lag max  0.01s
+  wave ben-0494     0 alerts  warm-up   0.0s  live 135.5s  lag max  0.01s
+  wave ben-13c0     0 alerts  warm-up   0.0s  live 167.8s  lag max  0.01s
+  wave ben-174c     0 alerts  warm-up   0.0s  live 121.9s  lag max  0.01s
+  wave ben-1d1b     0 alerts  warm-up   0.0s  live 158.2s  lag max  0.01s
+  wave ben-1ed1     0 alerts  warm-up   0.0s  live 176.8s  lag max  0.01s
+  wave ben-2d02     0 alerts  warm-up   0.0s  live 124.6s  lag max  0.01s
+  wave ben-37ee     0 alerts  warm-up   0.0s  live 173.0s  lag max  0.01s
+  wave ben-385b     0 alerts  warm-up   0.0s  live 151.9s  lag max  0.01s
+  wave ben-3a95     0 alerts  warm-up   0.0s  live 164.4s  lag max  0.01s
+  wave ben-3d5f     0 alerts  warm-up   0.0s  live 152.5s  lag max  0.01s
+  wave ben-3ef0     0 alerts  warm-up   0.0s  live 149.1s  lag max  0.01s
+  wave ben-40b6     0 alerts  warm-up   0.0s  live 164.3s  lag max  0.01s
+  wave ben-58d7     0 alerts  warm-up   0.0s  live 156.4s  lag max  0.01s
+  wave ben-5d9e     0 alerts  warm-up   0.0s  live 157.8s  lag max  0.01s
+  wave ben-60bb     0 alerts  warm-up   0.0s  live 135.7s  lag max  0.01s
+  wave ben-6dca     0 alerts  warm-up   0.0s  live 150.7s  lag max  0.01s
+  wave ben-7a4e     0 alerts  warm-up   0.0s  live 160.8s  lag max  0.01s
+  wave ben-9635     0 alerts  warm-up   0.0s  live 125.9s  lag max  0.01s
+  wave ben-97f2     0 alerts  warm-up   0.0s  live 138.4s  lag max  0.01s
+  wave ben-9e32     0 alerts  warm-up   0.0s  live 154.0s  lag max  0.01s
+  wave ben-a3cb     0 alerts  warm-up   0.0s  live 159.8s  lag max  0.01s
+  wave ben-ac6e     0 alerts  warm-up   0.0s  live 166.0s  lag max  0.01s
+  wave ben-b05d     0 alerts  warm-up   0.0s  live 161.0s  lag max  0.01s
+  wave ben-b0cb     0 alerts  warm-up   0.0s  live 144.5s  lag max  0.01s
+  wave ben-b819     0 alerts  warm-up   0.0s  live 150.3s  lag max  0.01s
+  wave ben-b8e4     0 alerts  warm-up   0.0s  live 160.4s  lag max  0.01s
+  wave ben-c5cc     0 alerts  warm-up   0.0s  live 161.5s  lag max  0.01s
+  wave ben-d94a     0 alerts  warm-up   0.0s  live 148.7s  lag max  0.01s
+  wave ben-dbab     0 alerts  warm-up   0.0s  live 171.9s  lag max  0.01s
+  wave ben-e6a2     0 alerts  warm-up   0.0s  live 161.0s  lag max  0.01s
+alerts -> results/v1.1-dev/alerts.jsonl
+==============================================================================
+RESULTS -- v1.1-dev   (set: dev, mode: realtime, 45 waves, 15 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                        14 TP               1 FP
+  Attack missed                        1 FN
+  Precision 93.3%    Recall 93.3%    F1 93.3%
+  Attacks detected: 14 / 15
+  Caught on time / after execution / missed: 14 / 0 / 1
+  Timeliness score: 0.782
+  False alarms: 1 (0.02 per wave; 0 warm-up, 1 live)
+  Alerts: 16 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 1 context, 0 excused, 0 invalid
+  Evidence precision: 100.0%
+OVERALL LATENCY
+                                     p50          p95          max
+  Event -> alert                 3.167 s       7.273 s      16.482 s
+  Alert -> explanation           6.572 s      83.459 s      88.294 s
+  on_event() processing          0.020 ms      0.088 ms      8.683 ms
+  Explanations received: 16; (15 of 16 list valid event IDs)
+  Attack onset -> detection: 3.169 s p50, 4.208 s max
+  Maximum stream lag: 0.020 s; warm-up compute max: 0.0 s
+  Total evaluation time: 7402.3 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 18.9 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+atk-0dfa -- host-0dfa -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 23 / 217; detection delay 1.990 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 1.990 s       1.990 s       1.990 s
+  Alert -> explanation           7.625 s       7.625 s       7.625 s
+  on_event() processing          0.025 ms      0.077 ms      0.261 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 7689 warm-up + 411 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 187.3 s
+atk-2758 -- host-2758 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 1 / 0
+  Precision 50.0%    Recall 100.0%    F1 66.7%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 24 / 134; detection delay 2.281 s
+  Alerts: 2; true detections: 1; false alarms: 1 (0 warm-up, 1 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 9.380 s      15.772 s      16.482 s
+  Alert -> explanation          85.071 s      87.972 s      88.294 s
+  on_event() processing          0.009 ms      0.055 ms      3.192 ms
+  Explanations received: 2; (1 of 2 list valid event IDs)
+  Stream lag max: 0.007 s
+  Events delivered: 6303 warm-up + 2210 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 143.3 s
+atk-339f-1 -- host-339f -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Phishing Word document run by bantonio: PowerShell download cradle, Empire agents, UAC bypasses: Caught on time, malicious event 22 / 202; detection delay 3.068 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.065 s       3.065 s       3.065 s
+  Alert -> explanation           7.773 s       7.773 s       7.773 s
+  on_event() processing          0.016 ms      0.070 ms      0.297 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 8004 warm-up + 741 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 180.8 s
+atk-5582 -- host-5582 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 14 / 155; detection delay 3.270 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.269 s       3.269 s       3.269 s
+  Alert -> explanation           6.858 s       6.858 s       6.858 s
+  on_event() processing          0.032 ms      0.087 ms      0.179 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 14334 warm-up + 359 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 151.2 s
+atk-8329 -- host-8329 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server: Caught on time, malicious event 19 / 77; detection delay 3.595 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.585 s       3.585 s       3.585 s
+  Alert -> explanation           5.572 s       5.572 s       5.572 s
+  on_event() processing          0.027 ms      0.101 ms      0.295 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.014 s
+  Events delivered: 5233 warm-up + 483 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 168.9 s
+atk-875d -- host-875d -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of an in-memory PowerShell agent, credential theft, discovery and spread to the domain controller: Caught on time, malicious event 19 / 170; detection delay 4.022 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 4.012 s       4.012 s       4.012 s
+  Alert -> explanation           6.424 s       6.424 s       6.424 s
+  on_event() processing          0.035 ms      0.101 ms      0.244 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.010 s
+  Events delivered: 4437 warm-up + 360 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 146.2 s
+atk-8875 -- host-8875 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 32 / 197; detection delay 3.390 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.390 s       3.390 s       3.390 s
+  Alert -> explanation           6.620 s       6.620 s       6.620 s
+  on_event() processing          0.034 ms      0.104 ms      1.084 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 12773 warm-up + 350 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 145.5 s
+atk-9935 -- host-9935 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 19 / 209; detection delay 3.700 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.696 s       3.696 s       3.696 s
+  Alert -> explanation           6.490 s       6.490 s       6.490 s
+  on_event() processing          0.026 ms      0.085 ms      0.196 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 7551 warm-up + 423 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 168.1 s
+atk-9ba4 -- host-9ba4 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 38 / 188; detection delay 2.588 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.586 s       2.586 s       2.586 s
+  Alert -> explanation           7.404 s       7.404 s       7.404 s
+  on_event() processing          0.019 ms      0.089 ms      8.683 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.020 s
+  Events delivered: 5180 warm-up + 725 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 147.2 s
+atk-a5ce -- host-a5ce -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server: Caught on time, malicious event 19 / 90; detection delay 3.694 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.693 s       3.693 s       3.693 s
+  Alert -> explanation           6.424 s       6.424 s       6.424 s
+  on_event() processing          0.033 ms      0.103 ms      0.271 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 5486 warm-up + 258 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 153.1 s
+atk-c8f1 -- host-c8f1 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 19 / 80; detection delay 3.044 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.042 s       3.042 s       3.042 s
+  Alert -> explanation           6.524 s       6.524 s       6.524 s
+  on_event() processing          0.034 ms      0.119 ms      0.635 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 8675 warm-up + 398 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 156.1 s
+atk-eaa4 -- host-eaa4 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a PowerShell implant, C2 beaconing, ping sweep and WMI lateral movement: Caught on time, malicious event 25 / 76; detection delay 2.605 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.604 s       2.604 s       2.604 s
+  Alert -> explanation           5.844 s       5.844 s       5.844 s
+  on_event() processing          0.015 ms      0.080 ms      3.803 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.006 s
+  Events delivered: 10557 warm-up + 2876 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 301.6 s
+atk-efdb -- host-efdb -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 1
+  Recall 0.0%    F1 0.0%
+  Downloaded batch file drops a hidden PowerShell Empire agent: UAC bypass, in-memory injection, credential and network reconnaissance, lateral-movement attempts, Run-key persistence: Missed
+  Alerts: 1; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 1 / 0 / 0 / 0
+                                     p50          p95          max
+  Event -> alert                 2.126 s       2.126 s       2.126 s
+  Alert -> explanation           5.265 s       5.265 s       5.265 s
+  on_event() processing          0.014 ms      0.074 ms      0.219 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 7798 warm-up + 810 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 157.7 s
+atk-f890 -- host-f890 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 33 / 185; detection delay 4.208 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 4.203 s       4.203 s       4.203 s
+  Alert -> explanation           6.734 s       6.734 s       6.734 s
+  on_event() processing          0.036 ms      0.126 ms      3.266 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.007 s
+  Events delivered: 5215 warm-up + 387 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 158.5 s
+atk-fdda -- host-fdda -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 23 / 179; detection delay 2.649 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.644 s       2.644 s       2.644 s
+  Alert -> explanation           4.983 s       4.983 s       4.983 s
+  on_event() processing          0.027 ms      0.082 ms      0.353 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 5297 warm-up + 434 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.3 s
+ben-0494 -- host-0494 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.016 ms      0.076 ms      0.607 ms
+  Stream lag max: 0.005 s
+  Events delivered: 16223 warm-up + 610 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 145.7 s
+ben-13c0 -- host-13c0 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.011 ms      0.079 ms      0.408 ms
+  Stream lag max: 0.005 s
+  Events delivered: 13635 warm-up + 1206 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 177.9 s
+ben-174c -- host-174c -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.012 ms      0.081 ms      0.351 ms
+  Stream lag max: 0.006 s
+  Events delivered: 7561 warm-up + 638 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 132.0 s
+ben-1d1b -- host-1d1b -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.027 ms      0.095 ms      0.242 ms
+  Stream lag max: 0.005 s
+  Events delivered: 6048 warm-up + 183 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 168.3 s
+ben-1ed1 -- host-1ed1 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.030 ms      0.080 ms      0.240 ms
+  Stream lag max: 0.005 s
+  Events delivered: 12822 warm-up + 182 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 187.0 s
+ben-2d02 -- host-2d02 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.006 ms      0.066 ms      0.130 ms
+  Stream lag max: 0.005 s
+  Events delivered: 4186 warm-up + 296 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 134.7 s
+ben-37ee -- host-37ee -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.033 ms      0.090 ms      1.724 ms
+  Stream lag max: 0.005 s
+  Events delivered: 4842 warm-up + 226 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 183.2 s
+ben-385b -- host-385b -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.032 ms      0.084 ms      0.216 ms
+  Stream lag max: 0.005 s
+  Events delivered: 5957 warm-up + 173 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 162.0 s
+ben-3a95 -- host-3a95 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.028 ms      0.085 ms      0.687 ms
+  Stream lag max: 0.005 s
+  Events delivered: 7672 warm-up + 190 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 174.5 s
+ben-3d5f -- host-3d5f -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.028 ms      0.085 ms      0.328 ms
+  Stream lag max: 0.005 s
+  Events delivered: 10397 warm-up + 151 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 162.6 s
+ben-3ef0 -- host-3ef0 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.021 ms      0.082 ms      0.129 ms
+  Stream lag max: 0.005 s
+  Events delivered: 7783 warm-up + 160 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 159.2 s
+ben-40b6 -- host-40b6 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.030 ms      0.075 ms      0.143 ms
+  Stream lag max: 0.005 s
+  Events delivered: 5203 warm-up + 188 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 174.4 s
+ben-58d7 -- host-58d7 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.017 ms      0.078 ms      0.166 ms
+  Stream lag max: 0.005 s
+  Events delivered: 4460 warm-up + 242 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 166.5 s
+ben-5d9e -- host-5d9e -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.032 ms      0.086 ms      0.467 ms
+  Stream lag max: 0.005 s
+  Events delivered: 4173 warm-up + 133 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 167.9 s
+ben-60bb -- host-60bb -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.035 ms      0.087 ms      0.281 ms
+  Stream lag max: 0.005 s
+  Events delivered: 3793 warm-up + 173 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 145.8 s
+ben-6dca -- host-6dca -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.042 ms      0.150 ms      0.573 ms
+  Stream lag max: 0.010 s
+  Events delivered: 7768 warm-up + 172 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 160.8 s
+ben-7a4e -- host-7a4e -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.045 ms      0.128 ms      0.470 ms
+  Stream lag max: 0.010 s
+  Events delivered: 10629 warm-up + 184 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 171.0 s
+ben-9635 -- host-9635 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.034 ms      0.129 ms      0.320 ms
+  Stream lag max: 0.010 s
+  Events delivered: 4465 warm-up + 129 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 136.0 s
+ben-97f2 -- host-97f2 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.026 ms      0.100 ms      0.260 ms
+  Stream lag max: 0.010 s
+  Events delivered: 3919 warm-up + 139 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 148.5 s
+ben-9e32 -- host-9e32 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.032 ms      0.121 ms      0.730 ms
+  Stream lag max: 0.010 s
+  Events delivered: 10018 warm-up + 275 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 164.1 s
+ben-a3cb -- host-a3cb -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.026 ms      0.091 ms      0.244 ms
+  Stream lag max: 0.010 s
+  Events delivered: 5125 warm-up + 167 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 170.0 s
+ben-ac6e -- host-ac6e -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.028 ms      0.095 ms      0.478 ms
+  Stream lag max: 0.010 s
+  Events delivered: 4293 warm-up + 175 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 176.1 s
+ben-b05d -- host-b05d -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.030 ms      0.097 ms      0.482 ms
+  Stream lag max: 0.010 s
+  Events delivered: 10814 warm-up + 458 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 171.2 s
+ben-b0cb -- host-b0cb -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.038 ms      0.147 ms      0.583 ms
+  Stream lag max: 0.010 s
+  Events delivered: 9885 warm-up + 247 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 154.6 s
+ben-b819 -- host-b819 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.029 ms      0.100 ms      0.293 ms
+  Stream lag max: 0.010 s
+  Events delivered: 3717 warm-up + 144 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 160.4 s
+ben-b8e4 -- host-b8e4 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.020 ms      0.097 ms      0.179 ms
+  Stream lag max: 0.010 s
+  Events delivered: 5236 warm-up + 148 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 170.5 s
+ben-c5cc -- host-c5cc -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.023 ms      0.077 ms      0.320 ms
+  Stream lag max: 0.005 s
+  Events delivered: 4618 warm-up + 142 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 171.6 s
+ben-d94a -- host-d94a -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.025 ms      0.109 ms      0.220 ms
+  Stream lag max: 0.010 s
+  Events delivered: 4213 warm-up + 372 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 158.7 s
+ben-dbab -- host-dbab -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.026 ms      0.114 ms      0.540 ms
+  Stream lag max: 0.010 s
+  Events delivered: 4323 warm-up + 196 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 182.0 s
+ben-e6a2 -- host-e6a2 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.021 ms      0.090 ms      0.212 ms
+  Stream lag max: 0.010 s
+  Events delivered: 5927 warm-up + 159 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 171.0 s
+==============================================================================
+scorecard -> results/v1.1-dev/scorecard.json

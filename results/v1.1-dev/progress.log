@@ -1,0 +1,26 @@
+RUN v1.1-dev started · 45 waves (validation dev, realtime) · expected ~2:04:40
+RUN v1.1-dev running · 1/45 waves · 1 alerts · 1/15 attacks caught · 0 false alarms · 5:01 of ~2:04:59
+RUN v1.1-dev running · 3/45 waves · 4 alerts · 3/15 attacks caught · 1 false alarms · 10:02 of ~2:04:59
+RUN v1.1-dev running · 5/45 waves · 6 alerts · 5/15 attacks caught · 1 false alarms · 15:03 of ~2:04:59
+RUN v1.1-dev running · 7/45 waves · 8 alerts · 7/15 attacks caught · 1 false alarms · 20:04 of ~2:04:59
+RUN v1.1-dev running · 9/45 waves · 10 alerts · 9/15 attacks caught · 1 false alarms · 25:05 of ~2:04:59
+RUN v1.1-dev running · 11/45 waves · 12 alerts · 11/15 attacks caught · 1 false alarms · 30:06 of ~2:04:59
+RUN v1.1-dev running · 12/45 waves · 13 alerts · 12/15 attacks caught · 1 false alarms · 35:08 of ~2:04:59
+RUN v1.1-dev running · 14/45 waves · 15 alerts · 13/15 attacks caught · 1 false alarms · 40:09 of ~2:04:59
+RUN v1.1-dev running · 16/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 45:10 of ~2:04:59
+RUN v1.1-dev running · 18/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 50:11 of ~2:04:59
+RUN v1.1-dev running · 19/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 55:12 of ~2:04:59
+RUN v1.1-dev running · 21/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:00:14 of ~2:04:59
+RUN v1.1-dev running · 23/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:05:15 of ~2:04:59
+RUN v1.1-dev running · 25/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:10:17 of ~2:04:59
+RUN v1.1-dev running · 27/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:15:18 of ~2:04:59
+RUN v1.1-dev running · 29/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:20:20 of ~2:04:59
+RUN v1.1-dev running · 31/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:25:21 of ~2:04:59
+RUN v1.1-dev running · 32/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:30:21 of ~2:04:59
+RUN v1.1-dev running · 34/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:35:22 of ~2:04:59
+RUN v1.1-dev running · 36/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:40:22 of ~2:04:59
+RUN v1.1-dev running · 38/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:45:22 of ~2:04:59
+RUN v1.1-dev running · 40/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:50:22 of ~2:04:59
+RUN v1.1-dev running · 42/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 1:55:24 of ~2:04:59
+RUN v1.1-dev running · 43/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · 2:00:24 of ~2:04:59
+RUN v1.1-dev finished · 45/45 waves · 16 alerts · 14/15 attacks caught · 1 false alarms · timeliness 0.782 · 0 dropped, 0 errors · 2:03:43

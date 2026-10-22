@@ -1,0 +1,391 @@
+{
+ "patterns": {
+  "Office app starts a shell": {
+   "by_label": {
+    "malicious": 1
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 1,
+   "top_benign_shapes": []
+  },
+  "PowerShell download cradle": {
+   "by_label": {
+    "malicious": 2
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 1,
+   "top_benign_shapes": []
+  },
+  "PowerShell with a hidden window": {
+   "by_label": {
+    "malicious": 30
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 22,
+   "top_benign_shapes": []
+  },
+  "PowerShell with an encoded command": {
+   "by_label": {
+    "malicious": 31
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 22,
+   "top_benign_shapes": []
+  },
+  "WMI starts PowerShell": {
+   "by_label": {
+    "malicious": 21
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 20,
+   "top_benign_shapes": []
+  },
+  "child of WMI (wmiprvse.exe)": {
+   "by_label": {
+    "malicious": 21,
+    "benign": 4
+   },
+   "benign_machines": 4,
+   "alert_points_matched_train": 20,
+   "top_benign_shapes": [
+    [
+     "conhost.exe ← wmiprvse.exe :: \\??\\C:\\Windows\\system#\\conhost.exe #xffffffff -ForceV#",
+     4
+    ]
+   ]
+  },
+  "credential tool or lsass dump (mimikatz, procdump, comsvcs MiniDump)": {
+   "by_label": {
+    "benign": 51
+   },
+   "benign_machines": 36,
+   "alert_points_matched_train": 0,
+   "top_benign_shapes": [
+    [
+     "lsass.exe ← wininit.exe :: C:\\Windows\\system#\\lsass.exe",
+     41
+    ],
+    [
+     "lsass.exe ← conhost.exe :: C:\\Windows\\system#\\lsass.exe",
+     3
+    ],
+    [
+     "lsass.exe ← svchost.exe :: C:\\Windows\\system#\\lsass.exe",
+     2
+    ],
+    [
+     "lsass.exe ← cmd.exe :: C:\\Windows\\system#\\lsass.exe",
+     2
+    ],
+    [
+     "lsass.exe ←  :: C:\\Windows\\system#\\lsass.exe",
+     2
+    ],
+    [
+     "lsass.exe ← ping.exe :: C:\\Windows\\system#\\lsass.exe",
+     1
+    ]
+   ]
+  },
+  "outbound RDP (mstsc.exe to 3389)": {
+   "by_label": {
+    "benign": 14,
+    "malicious": 2
+   },
+   "benign_machines": 2,
+   "alert_points_matched_train": 0,
+   "top_benign_shapes": [
+    [
+     "mstsc.exe → 10.149.2.131:3389",
+     4
+    ],
+    [
+     "mstsc.exe → 10.192.86.5:3389",
+     2
+    ],
+    [
+     "mstsc.exe → 10.85.23.168:3389",
+     1
+    ],
+    [
+     "mstsc.exe → 10.146.30.55:3389",
+     1
+    ],
+    [
+     "mstsc.exe → 10.76.80.16:3389",
+     1
+    ],
+    [
+     "mstsc.exe → 10.52.255.113:3389",
+     1
+    ],
+    [
+     "mstsc.exe → 10.88.12.228:3389",
+     1
+    ],
+    [
+     "mstsc.exe → 10.54.161.71:3389",
+     1
+    ],
+    [
+     "mstsc.exe → 10.194.62.184:3389",
+     1
+    ],
+    [
+     "mstsc.exe → 10.30.105.142:3389",
+     1
+    ]
+   ]
+  },
+  "outbound to a non-private address": {
+   "by_label": {
+    "benign": 18963,
+    "malicious": 107,
+    "context": 5
+   },
+   "benign_machines": 59,
+   "alert_points_matched_train": 1,
+   "top_benign_shapes": [
+    [
+     "firefox.exe → 5.221.97.162:80",
+     1066
+    ],
+    [
+     "firefox.exe → 98.61.14.5:80",
+     854
+    ],
+    [
+     "firefox.exe → 98.61.14.5:443",
+     854
+    ],
+    [
+     "firefox.exe → 86.62.223.5:443",
+     444
+    ],
+    [
+     "firefox.exe → 212.215.32.5:443",
+     342
+    ],
+    [
+     "firefox.exe → 212.215.32.5:80",
+     337
+    ],
+    [
+     "firefox.exe → 212.215.32.2:80",
+     309
+    ],
+    [
+     "firefox.exe → 134.151.45.5:443",
+     274
+    ],
+    [
+     "firefox.exe → 134.151.45.5:80",
+     272
+    ],
+    [
+     "firefox.exe → 87.245.103.5:80",
+     270
+    ],
+    [
+     "firefox.exe → 87.245.103.5:443",
+     256
+    ],
+    [
+     "firefox.exe → 211.25.186.5:80",
+     248
+    ]
+   ]
+  },
+  "program run from Downloads/Temp": {
+   "by_label": {
+    "benign": 4459,
+    "malicious": 47,
+    "excused": 1,
+    "context": 2
+   },
+   "benign_machines": 62,
+   "alert_points_matched_train": 1,
+   "top_benign_shapes": [
+    [
+     "searchprotocolhost.exe ← searchindexer.exe :: \"C:\\Windows\\system#\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe#_ Global\\UsGthrCtrlFltPipeMssGthrPipe# # -# \"Software\\Microsoft\\",
+     3052
+    ],
+    [
+     "searchprotocolhost.exe ←  :: \"C:\\Windows\\system#\\SearchProtocolHost.exe\" Global\\UsGthrFltPipeMssGthrPipe#_ Global\\UsGthrCtrlFltPipeMssGthrPipe# # -# \"Software\\Microsoft\\",
+     59
+    ],
+    [
+     "chrome.exe ← chrome.exe :: \"C:\\Program Files (x#)\\Google\\Chrome\\Application\\chrome.exe\" --type=utility --channel=\"#.#.#\\#\" --lang=en-US --utility-allowed-dir=\"C:\\Users",
+     5
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\knilsson\\AppData\\Local\\Temp\\rust_mozprofile.SFd#Z#agl#",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\knilsson\\AppData\\Local\\Temp\\rust_mozprofile.ksyy#i#m#R",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\AKARPE~#\\AppData\\Local\\Temp\\rust_mozprofile.ZGBwnnGGZB",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\AKARPE~#\\AppData\\Local\\Temp\\rust_mozprofile.iJdPOziv#c",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\AKARPE~#\\AppData\\Local\\Temp\\rust_mozprofile.iLMiH#mq#U",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\AKARPE~#\\AppData\\Local\\Temp\\rust_mozprofile.anfyXL#ZRO",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\kallon\\AppData\\Local\\Temp\\rust_mozprofile.sCDF#T#VKSio",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\kallon\\AppData\\Local\\Temp\\rust_mozprofile.quMaKEQtqFk#",
+     1
+    ],
+    [
+     "firefox.exe ← geckodriver.exe :: \"\\\\?\\C:\\Program Files (x#)\\Mozilla Firefox\\firefox.exe\" -marionette -profile C:\\Users\\kallon\\AppData\\Local\\Temp\\rust_mozprofile.#OcmE#IO#z",
+     1
+    ]
+   ]
+  },
+  "recon command (whoami, net, nltest, ipconfig, systeminfo, tasklist, netstat, …)": {
+   "by_label": {
+    "benign": 769,
+    "malicious": 20
+   },
+   "benign_machines": 50,
+   "alert_points_matched_train": 0,
+   "top_benign_shapes": [
+    [
+     "netstat.exe ← cmd.exe :: netstat  -n ",
+     351
+    ],
+    [
+     "tasklist.exe ← cmd.exe :: tasklist",
+     320
+    ],
+    [
+     "tasklist.exe ← cmd.exe :: tasklist  /fi \"IMAGENAME eq  mantra.exe\"",
+     63
+    ],
+    [
+     "tasklist.exe ← cmd.exe :: tasklist  /fi \"IMAGENAME eq mantra.exe\"",
+     27
+    ],
+    [
+     "tasklist.exe ← conhost.exe :: tasklist",
+     3
+    ],
+    [
+     "netstat.exe ← ping.exe :: netstat  -n ",
+     1
+    ],
+    [
+     "tasklist.exe ← taskhostw.exe :: tasklist",
+     1
+    ],
+    [
+     "netstat.exe ← conhost.exe :: netstat  -n ",
+     1
+    ],
+    [
+     "tasklist.exe ← searchprotocolhost.exe :: tasklist",
+     1
+    ],
+    [
+     "ipconfig.exe ← cmd.exe :: ipconfig  /all",
+     1
+    ]
+   ]
+  },
+  "remote execution or tunnelling tool (psexec, wmic /node, winrs, plink)": {
+   "by_label": {
+    "malicious": 1
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 0,
+   "top_benign_shapes": []
+  },
+  "scheduled task or service created (schtasks /create, sc create)": {
+   "by_label": {
+    "benign": 2654,
+    "excused": 4
+   },
+   "benign_machines": 61,
+   "alert_points_matched_train": 0,
+   "top_benign_shapes": [
+    [
+     "schtasks.exe ← cmd.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     2630
+    ],
+    [
+     "schtasks.exe ← conhost.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     16
+    ],
+    [
+     "schtasks.exe ← bcdedit.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     2
+    ],
+    [
+     "schtasks.exe ← dllhost.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     1
+    ],
+    [
+     "schtasks.exe ← winlogon.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     1
+    ],
+    [
+     "schtasks.exe ← googleupdate.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     1
+    ],
+    [
+     "schtasks.exe ← tiworker.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     1
+    ],
+    [
+     "schtasks.exe ← svchost.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     1
+    ],
+    [
+     "schtasks.exe ← adobearm.exe :: schtasks  /create /tn KickoffAutoLoginRandom /tr \"python C:/ncr/kickoff/kickoff.py -d C:/ncr/kickoff -m AUTOLOGIN\" /sc MINUTE /mo # /ru \"SYS",
+     1
+    ]
+   ]
+  },
+  "script from Downloads/Temp": {
+   "by_label": {
+    "context": 1,
+    "malicious": 1
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 0,
+   "top_benign_shapes": []
+  },
+  "user or group change (net user /add, net localgroup /add)": {
+   "by_label": {
+    "malicious": 8
+   },
+   "benign_machines": 0,
+   "alert_points_matched_train": 0,
+   "top_benign_shapes": []
+  }
+ },
+ "totals": {
+  "FLOW benign": 84461,
+  "PROCESS benign": 288742,
+  "FLOW context": 64,
+  "PROCESS malicious": 878,
+  "FLOW malicious": 803,
+  "PROCESS context": 11,
+  "PROCESS excused": 87,
+  "FLOW excused": 381
+ }
+}

@@ -62,6 +62,11 @@ SLM had 0/1) and `dropped_beacon` (1/1 where prompt v0 had 0/1). The card's upda
   fragments of the word "powershell". As a ranker it reaches holdout AUC 0.995, but it knows
   little more than "PowerShell means attack", a cruder version of what `hidden_powershell`
   says with reasons.
+- **Training them better does not change this** (`sq1_training.md`, 14 setups: cleaning,
+  attack types weighted equally, concept features, monotonic boosting, honest thresholds).
+  Better training lifts how the unseen types rank, but no setup beats the SLM as a raiser and
+  none catches the updater. Dev's attacks are almost all one type, so every model learns "it is
+  PowerShell" and gives no weight to patterns no dev attack shows.
 - **Not tried: fine-tuning Laya.** It needs PyTorch training on the CPU that is timing the
   detector, and the ngram model suggests what training on these 117 attack cases would teach
   it.

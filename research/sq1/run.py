@@ -29,11 +29,15 @@ Writes research/out/sq1_results.md.
 
 from __future__ import annotations
 
-import bisect
-import json
 import os
-import re
-import statistics
+
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ.setdefault(_v, "1")          # one core: a real-time detector run may be timing itself on this CPU
+
+import bisect  # noqa: E402
+import json  # noqa: E402
+import re  # noqa: E402
+import statistics  # noqa: E402
 import sys
 import warnings
 from collections import Counter, defaultdict

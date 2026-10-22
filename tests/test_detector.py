@@ -18,6 +18,7 @@ sys.path.insert(0, ROOT)
 from submission import cases, config, experts  # noqa: E402
 from submission.baseline import Candidate, Fleet, Triage  # noqa: E402
 from submission.engine import Engine, Wave, parse_verdict  # noqa: E402
+from submission.llm import LlamaServer, ServerError  # noqa: E402
 from submission.state import MachineState, norm_path, ts_seconds, user_text  # noqa: E402
 
 N = [0]
@@ -59,6 +60,7 @@ class FakeServer:
 
     def __init__(self, marker="evil.exe"):
         self.marker, self.calls, self.texts = marker, [], []
+        self.stopping = False
 
     def chat(self, messages, max_tokens, slot, grammar=None, timeout=None):
         text = messages[-1]["content"]
@@ -267,6 +269,29 @@ class ExpertRules(unittest.TestCase):
                     "powershell -ExecutionPolicy Bypass -File a.ps1"):
             self.assertEqual(experts.hidden_powershell(self.cand("svchost.exe", "powershell.exe", cmd)), (), cmd)
         self.assertEqual(experts.hidden_powershell(self.cand("explorer.exe", "notepad.exe", "-enc -w hidden")), ())
+
+
+class ServerShutdown(unittest.TestCase):
+    """At exit, stop() cuts off the model call in flight; that must not start a new server (seen on Windows)."""
+
+    def test_no_start_after_stop(self):
+        server = LlamaServer("/nonexistent/llama-server", "/nonexistent/model.gguf")
+        server.stop()
+        with self.assertRaises(ServerError):
+            server.start()
+
+    def test_engine_does_not_restart_a_stopped_server(self):
+        server = FakeServer()
+        server.alive = lambda: False
+        started = []
+        server.start = lambda: started.append(1)
+        engine = Engine(server)
+        server.stopping = True
+        engine._recover()
+        self.assertEqual(started, [])
+        server.stopping = False
+        engine._recover()
+        self.assertEqual(started, [1])
 
 
 if __name__ == "__main__":

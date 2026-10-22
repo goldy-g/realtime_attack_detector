@@ -1,0 +1,37 @@
+{
+ "label": "oracle-eval-rt",
+ "note": "demo of the live pane: oracle on two attack waves and one benign wave, real time",
+ "detector": "tools.oracle_detector:OracleDetector",
+ "source": "eval",
+ "set": "subset",
+ "mode": "realtime",
+ "explain": false,
+ "answers": "data/cache/eval_answers.json",
+ "command": "python evaluator/evaluate.py --detector tools.oracle_detector:OracleDetector --waves w02,w03,w04 --answers data/cache/eval_answers.json --no-explain --out results/oracle-eval-rt/alerts.jsonl --report results/oracle-eval-rt/scorecard.json --label oracle-eval-rt",
+ "triggered_at": "2026-10-22T17:12:24+03:00",
+ "expected_s": 410.4,
+ "waves": [
+  {
+   "id": "w02",
+   "machine": "host-8180",
+   "kind": "attack",
+   "warmup_events": 7219,
+   "live_events": 705
+  },
+  {
+   "id": "w03",
+   "machine": "host-d2af",
+   "kind": "attack",
+   "warmup_events": 5597,
+   "live_events": 303
+  },
+  {
+   "id": "w04",
+   "machine": "host-6cf7",
+   "kind": "benign",
+   "warmup_events": 7611,
+   "live_events": 232
+  }
+ ],
+ "finished_at": "2026-10-22T17:17:37+03:00"
+}

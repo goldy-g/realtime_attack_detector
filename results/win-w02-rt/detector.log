@@ -1,0 +1,6 @@
+2026-10-23 00:59:14,689 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 4.1s, verdict 7.96s
+2026-10-23 00:59:14,689 WARNING gemma-4-E4B_q4_0-it.gguf too slow here (7.96s > 4.0s); switching to gemma-4-E2B_q4_0-it.gguf
+2026-10-23 00:59:42,400 INFO model gemma-4-E2B_q4_0-it.gguf: loaded in 4.4s, verdict 4.73s
+2026-10-23 01:00:04,911 INFO host-8180 process outlook.exe→winword.exe fleet=0 -> normal 90 (3.45s)
+2026-10-23 01:00:09,277 INFO host-8180 process winword.exe→winword.exe fleet=0 -> normal 90 (4.23s)
+2026-10-23 01:00:23,905 INFO host-8180 process winword.exe→cmd.exe fleet=0 -> attack 95 (4.90s) ALERT w02-A0001

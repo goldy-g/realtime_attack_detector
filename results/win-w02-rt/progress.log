@@ -1,0 +1,6 @@
+RUN win-w02-rt started · 1 waves (eval subset, realtime) · expected ~2:10
+RUN win-w02-rt building · 0/1 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 0:47 of ~2:10
+RUN win-w02-rt running · 0/1 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 1:33 of ~3:26
+RUN win-w02-rt running · 0/1 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 2:20 of ~3:26
+RUN win-w02-rt running · 0/1 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 3:06 of ~3:26
+RUN win-w02-rt finished · 1/1 waves · 1 alerts · 1/1 attacks caught · 0 false alarms · timeliness 0.799 · 0 dropped, 0 errors · 3:28

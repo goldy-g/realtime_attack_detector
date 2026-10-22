@@ -1,0 +1,52 @@
+set: subset w02   mode: realtime   waves: w02
+constructing submission.my_detector:MyDetector ...
+  build time: 76.2s
+  wave w02          1 alerts  warm-up   0.0s  live 118.7s  lag max  0.02s
+alerts -> results\win-w02-rt\alerts.jsonl
+==============================================================================
+RESULTS -- win-w02-rt   (set: subset w02, mode: realtime, 1 waves, 1 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                         1 TP               0 FP
+  Attack missed                        0 FN
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Attacks detected: 1 / 1
+  Caught on time / after execution / missed: 1 / 0 / 0
+  Timeliness score: 0.799
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 1 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 0 context, 0 excused, 0 invalid
+  Evidence precision: 100.0%
+OVERALL LATENCY
+                                     p50          p95          max
+  Event -> alert                 4.902 s       4.902 s       4.902 s
+  Alert -> explanation          25.399 s      25.399 s      25.399 s
+  on_event() processing          0.059 ms      0.142 ms      0.333 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Attack onset -> detection: 4.902 s p50, 4.902 s max
+  Maximum stream lag: 0.024 s; warm-up compute max: 0.0 s
+  Total evaluation time: 128.9 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 76.2 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+w02 -- host-8180 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server: Caught on time, malicious event 47 / 229; detection delay 4.902 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 4.902 s       4.902 s       4.902 s
+  Alert -> explanation          25.399 s      25.399 s      25.399 s
+  on_event() processing          0.059 ms      0.142 ms      0.333 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.024 s
+  Events delivered: 7219 warm-up + 705 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.9 s
+==============================================================================
+scorecard -> results\win-w02-rt\scorecard.json

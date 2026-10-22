@@ -1,0 +1,140 @@
+{
+ "label": "win-smoke",
+ "set": "subset w02",
+ "mode": "instant",
+ "graded": false,
+ "build_s": 85.64643430011347,
+ "timing": {
+  "event_ms_p50": 0.005999929271638393,
+  "event_ms_p95": 0.013559986837208262,
+  "event_ms_max": 0.5419000517576933,
+  "max_live_lag_s": 0.0,
+  "warm_s_max": 0.06098810106050223,
+  "events_dropped": 0,
+  "alerts_lost": 0,
+  "n_errors": 0,
+  "errors_sample": [],
+  "skipped_waves": [],
+  "hung": false,
+  "total_wall_s": 10.288124699960463
+ },
+ "latency": {
+  "decision_s_p50": 0.0,
+  "decision_s_p95": 0.0,
+  "explain_s_p50": 0.0,
+  "explain_s_p95": 0.0,
+  "explained": 0,
+  "explanations_with_valid_event_ids": 0,
+  "decision_count": 0,
+  "explain_count": 0
+ },
+ "run": {
+  "mode": "instant",
+  "waves": {
+   "w02": {
+    "errors": [],
+    "warm_events": 7219,
+    "live_events": 705,
+    "warm_delivered": 7219,
+    "live_delivered": 705,
+    "alerts_lost": 0,
+    "max_lag_s": 0.0,
+    "live_wall_s": 0.006920199957676232,
+    "post_stream_wait_s": 10.018,
+    "warm_s": 0.06098810106050223,
+    "hung": false,
+    "wall_s": 10.284818300046027,
+    "event_ms_p50": 0.005999929271638393,
+    "event_ms_p95": 0.013559986837208262,
+    "event_ms_max": 0.5419000517576933,
+    "n_errors": 0
+   }
+  },
+  "total_wall_s": 10.288124699960463,
+  "event_ms_p50": 0.005999929271638393,
+  "event_ms_p95": 0.013559986837208262,
+  "event_ms_max": 0.5419000517576933
+ },
+ "summary": {
+  "n_waves": 1,
+  "n_attack_waves": 1,
+  "attack_waves_detected": 0,
+  "recall": 0.0,
+  "delay_s_p50": null,
+  "delay_s_max": null,
+  "n_attacks": 1,
+  "attacks_detected": 0,
+  "caught_at_first_event": 0,
+  "caught_on_time": 0,
+  "caught_after_execution": 0,
+  "missed_attacks": 1,
+  "timeliness_score": 0.0,
+  "n_alerts": 0,
+  "false_alarms": 0,
+  "false_alarms_per_wave": 0.0,
+  "false_alarms_warmup": 0,
+  "false_alarms_live": 0,
+  "repeat_false_alarms": 0,
+  "duplicates": 0,
+  "excused": 0,
+  "context": 0,
+  "invalid": 0,
+  "late_timeout": 0,
+  "evidence_precision": 0.0,
+  "detection_metrics": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 1,
+   "recall": 0.0,
+   "f1": 0.0
+  }
+ },
+ "waves": {
+  "w02": {
+   "attack": true,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 1,
+   "attacks_detected": 0,
+   "attacks": {
+    "atk-229bd8": {
+     "attack_id": "atk-229bd8",
+     "name": "Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server",
+     "status": "missed",
+     "caught_at_event": null,
+     "n_malicious_events": 229,
+     "event_score": 0.0
+    }
+   },
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  }
+ }
+}

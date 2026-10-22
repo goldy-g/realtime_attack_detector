@@ -1,0 +1,45 @@
+{
+ "mode": "realtime",
+ "waves": {
+  "w02": {
+   "errors": [],
+   "warm_events": 7219,
+   "live_events": 705,
+   "warm_delivered": 7219,
+   "live_delivered": 705,
+   "alerts_lost": 0,
+   "max_lag_s": 0.018642257316969335,
+   "live_wall_s": 118.65686440002173,
+   "post_stream_wait_s": 10.062,
+   "warm_s": 0.03419990139082074,
+   "hung": false,
+   "wall_s": 128.85483569989447,
+   "event_ms_p50": 0.05389994475990534,
+   "event_ms_p95": 0.15209990087896552,
+   "event_ms_max": 3.5838999319821596,
+   "n_errors": 0
+  },
+  "w07": {
+   "errors": [],
+   "warm_events": 11785,
+   "live_events": 281,
+   "warm_delivered": 11785,
+   "live_delivered": 281,
+   "alerts_lost": 0,
+   "max_lag_s": 0.006043696077540517,
+   "live_wall_s": 122.2089660000056,
+   "post_stream_wait_s": 10.063,
+   "warm_s": 0.044678597478196025,
+   "hung": false,
+   "wall_s": 132.41940620006062,
+   "event_ms_p50": 0.0654999166727066,
+   "event_ms_p95": 0.1178000820800662,
+   "event_ms_max": 0.4264999879524112,
+   "n_errors": 0
+  }
+ },
+ "total_wall_s": 261.2784381000092,
+ "event_ms_p50": 0.05635002162307501,
+ "event_ms_p95": 0.14567503239959478,
+ "event_ms_max": 3.5838999319821596
+}

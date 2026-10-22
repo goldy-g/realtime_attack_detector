@@ -1,0 +1,9 @@
+2026-10-23 01:18:40,356 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 6.3s, verdict 8.04s
+2026-10-23 01:18:40,356 WARNING gemma-4-E4B_q4_0-it.gguf too slow here (8.04s > 4.0s); switching to gemma-4-E2B_q4_0-it.gguf
+2026-10-23 01:19:07,902 INFO model gemma-4-E2B_q4_0-it.gguf: loaded in 4.3s, verdict 4.66s
+2026-10-23 01:19:30,433 INFO host-8180 process outlook.exe→winword.exe fleet=0 -> normal 90 (3.47s)
+2026-10-23 01:19:34,809 INFO host-8180 process winword.exe→winword.exe fleet=0 -> normal 90 (4.25s)
+2026-10-23 01:19:49,484 INFO host-8180 process winword.exe→cmd.exe fleet=0 -> attack 95 (4.98s) ALERT w02-A0001
+2026-10-23 01:21:22,740 INFO wave host-8180 done: {'cases': 6, 'judged': 3, 'skipped_alerted': 3, 'shed': 0, 'alerts': 1, 'explained': 1, 'fallback_explanations': 0}
+2026-10-23 01:21:29,348 INFO host-ffdf flow python.exe→135 fleet=60 -> normal 85 (5.73s)
+2026-10-23 01:21:35,254 INFO host-ffdf flow python.exe→49158 fleet=50 -> normal 85 (5.90s)

@@ -1,0 +1,45 @@
+2026-10-23 00:08:56,716 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 6.4s, verdict 7.91s
+2026-10-23 00:08:56,718 WARNING gemma-4-E4B_q4_0-it.gguf too slow here (7.91s > 4.0s); switching to gemma-4-E2B_q4_0-it.gguf
+2026-10-23 00:09:28,088 INFO model gemma-4-E2B_q4_0-it.gguf: loaded in 4.9s, verdict 5.14s
+2026-10-23 00:09:39,981 INFO host-8180 process outlook.exe→winword.exe fleet=0 -> normal 90 (4.42s)
+2026-10-23 00:09:45,605 ERROR model worker: verdict failed
+Traceback (most recent call last):
+  File "C:\Users\97252\Desktop\yuval\Goldy\cp_home_assignment\submission\engine.py", line 96, in _run
+    self._verdict(wave, job[1])
+  File "C:\Users\97252\Desktop\yuval\Goldy\cp_home_assignment\submission\engine.py", line 127, in _verdict
+    out = self.server.chat(prompts.verdict_messages(text), max_tokens=16, slot=VERDICT_SLOT,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\97252\Desktop\yuval\Goldy\cp_home_assignment\submission\llm.py", line 85, in chat
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\urllib\request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\urllib\request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "C:\Python312\Lib\urllib\request.py", line 1373, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\urllib\request.py", line 1348, in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+  File "C:\Python312\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-10-23 00:09:45,675 WARNING llama-server died; restarting

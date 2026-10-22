@@ -1,0 +1,23 @@
+{
+ "label": "win-w02-rt",
+ "note": null,
+ "detector": "submission.my_detector:MyDetector",
+ "source": "eval",
+ "set": "subset",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "data\\cache\\eval_answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --waves w02 --answers 'data\\cache\\eval_answers.json' --out 'results\\win-w02-rt\\alerts.jsonl' --report 'results\\win-w02-rt\\scorecard.json' --label win-w02-rt",
+ "triggered_at": "2026-10-23T00:58:31+03:00",
+ "expected_s": 130.3,
+ "waves": [
+  {
+   "id": "w02",
+   "machine": "host-8180",
+   "kind": "attack",
+   "warmup_events": 7219,
+   "live_events": 705
+  }
+ ],
+ "finished_at": "2026-10-23T01:01:59+03:00"
+}

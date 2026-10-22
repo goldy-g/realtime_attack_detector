@@ -1,0 +1,46 @@
+set: subset w02   mode: instant   waves: w02
+*** --mode instant: DEBUG RUN, NOT GRADED -- delays are event-time, not wall-time ***
+constructing submission.my_detector:MyDetector ...
+  build time: 85.6s
+  wave w02          0 alerts  warm-up   0.1s  live   0.0s  lag max  0.00s
+alerts -> results\win-smoke\alerts.jsonl
+==============================================================================
+*** --mode instant: DEBUG RUN, NOT GRADED -- delays are event-time, not wall-time ***
+RESULTS -- win-smoke   (set: subset w02, mode: instant, 1 waves, 1 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                         0 TP               0 FP
+  Attack missed                        1 FN
+  Recall 0.0%    F1 0.0%
+  Attacks detected: 0 / 1
+  Caught on time / after execution / missed: 0 / 0 / 1
+  Timeliness score: 0.000
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 0 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 0 context, 0 excused, 0 invalid
+OVERALL LATENCY
+                                     p50          p95          max
+  on_event() processing          0.006 ms      0.014 ms      0.542 ms
+  Maximum stream lag: 0.000 s; warm-up compute max: 0.1 s
+  Total evaluation time: 10.3 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 85.6 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+w02 -- host-8180 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 1
+  Recall 0.0%    F1 0.0%
+  Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server: Missed
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.006 ms      0.014 ms      0.542 ms
+  Stream lag max: 0.000 s
+  Events delivered: 7219 warm-up + 705 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 10.3 s
+*** --mode instant: DEBUG RUN, NOT GRADED -- delays are event-time, not wall-time ***
+==============================================================================
+scorecard -> results\win-smoke\scorecard.json

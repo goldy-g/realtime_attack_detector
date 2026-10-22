@@ -1,0 +1,19 @@
+﻿
+=== gemma-4-E2B_q4_0-it.gguf 8
+call 0 wall 7.78s | cached 0 new 741 at 112 t/s (6.64s) | wrote 15 at 12.5 t/s (1.12s) | other 0.02s
+call 1 wall 4.63s | cached 444 new 297 at 91 t/s (3.27s) | wrote 15 at 10.3 t/s (1.36s) | other 0.01s
+call 2 wall 5.44s | cached 444 new 297 at 73 t/s (4.06s) | wrote 15 at 10.4 t/s (1.35s) | other 0.03s
+call 3 wall 5.31s | cached 444 new 297 at 76 t/s (3.92s) | wrote 15 at 10.1 t/s (1.38s) | other 0.01s
+server log: C:\Users\97252\AppData\Local\Temp\detector-llama-server-15668.log
+=== gemma-4-E2B_q4_0-it.gguf 4
+call 0 wall 11.02s | cached 0 new 741 at 75 t/s (9.94s) | wrote 15 at 13.2 t/s (1.06s) | other 0.02s
+call 1 wall 5.30s | cached 444 new 297 at 70 t/s (4.21s) | wrote 15 at 13.0 t/s (1.08s) | other 0.01s
+call 2 wall 5.32s | cached 444 new 297 at 70 t/s (4.27s) | wrote 15 at 13.5 t/s (1.04s) | other 0.01s
+call 3 wall 5.39s | cached 444 new 297 at 70 t/s (4.27s) | wrote 15 at 12.6 t/s (1.11s) | other 0.01s
+server log: C:\Users\97252\AppData\Local\Temp\detector-llama-server-28308.log
+=== gemma-4-E4B_q4_0-it.gguf 8
+call 0 wall 20.56s | cached 0 new 741 at 40 t/s (18.35s) | wrote 15 at 6.4 t/s (2.18s) | other 0.03s
+call 1 wall 10.16s | cached 444 new 297 at 37 t/s (7.96s) | wrote 15 at 6.4 t/s (2.19s) | other 0.01s
+call 2 wall 10.45s | cached 444 new 297 at 36 t/s (8.20s) | wrote 15 at 6.3 t/s (2.23s) | other 0.02s
+call 3 wall 10.14s | cached 444 new 297 at 37 t/s (7.93s) | wrote 15 at 6.3 t/s (2.21s) | other 0.01s
+server log: C:\Users\97252\AppData\Local\Temp\detector-llama-server-25032.log

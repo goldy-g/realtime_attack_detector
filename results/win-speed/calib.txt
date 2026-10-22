@@ -1,0 +1,13 @@
+﻿
+=== threads 4 gemma-4-E4B_q4_0-it.gguf
+threads 4 model gemma-4-E4B_q4_0-it.gguf max_verdict_s 99.0
+2026-10-23 00:17:24,327 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 4.1s, verdict 9.19s
+chosen gemma-4-E4B_q4_0-it.gguf build_s 63.2
+=== threads 4 gemma-4-E2B_q4_0-it.gguf
+threads 4 model gemma-4-E2B_q4_0-it.gguf max_verdict_s 99.0
+2026-10-23 00:18:10,179 INFO model gemma-4-E2B_q4_0-it.gguf: loaded in 4.3s, verdict 5.22s
+chosen gemma-4-E2B_q4_0-it.gguf build_s 37.9
+=== threads 8 gemma-4-E2B_q4_0-it.gguf
+threads 8 model gemma-4-E2B_q4_0-it.gguf max_verdict_s 99.0
+2026-10-23 00:18:47,598 INFO model gemma-4-E2B_q4_0-it.gguf: loaded in 2.9s, verdict 5.24s
+chosen gemma-4-E2B_q4_0-it.gguf build_s 36.5

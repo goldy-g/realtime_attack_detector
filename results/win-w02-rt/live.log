@@ -1,0 +1,62 @@
+set: subset w02   mode: realtime   waves: w02
+constructing submission.my_detector:MyDetector ...
+  build time: 76.2s
+  wave w02 (host-8180): loading...  wave w02 (host-8180): warm-up...  wave w02 (host-8180): 129s        wave w02 (host-8180): 128s        wave w02 (host-8180): 127s        wave w02 (host-8180): 126s        wave w02 (host-8180): 125s        wave w02 (host-8180): 124s        wave w02 (host-8180): 123s        wave w02 (host-8180): 122s        wave w02 (host-8180): 121s        wave w02 (host-8180): 120s        wave w02 (host-8180): 119s        wave w02 (host-8180): 118s        wave w02 (host-8180): 117s        wave w02 (host-8180): 116s        wave w02 (host-8180): 115s        wave w02 (host-8180): 114s        wave w02 (host-8180): 113s        wave w02 (host-8180): 112s        wave w02 (host-8180): 111s        wave w02 (host-8180): 110s        wave w02 (host-8180): 109s        wave w02 (host-8180): 108s        wave w02 (host-8180): 107s        wave w02 (host-8180): 106s        wave w02 (host-8180): 105s        wave w02 (host-8180): 104s        wave w02 (host-8180): 103s        wave w02 (host-8180): 102s        wave w02 (host-8180): 101s        wave w02 (host-8180): 100s        wave w02 (host-8180): 99s         wave w02 (host-8180): 98s         wave w02 (host-8180): 97s         wave w02 (host-8180): 96s         wave w02 (host-8180): 95s         wave w02 (host-8180): 94s         wave w02 (host-8180): 93s         wave w02 (host-8180): 92s         wave w02 (host-8180): 91s         wave w02 (host-8180): 90s         wave w02 (host-8180): 89s         wave w02 (host-8180): 88s         wave w02 (host-8180): 87s         wave w02 (host-8180): 86s         wave w02 (host-8180): 85s         wave w02 (host-8180): 84s         wave w02 (host-8180): 83s         wave w02 (host-8180): 82s         wave w02 (host-8180): 81s         wave w02 (host-8180): 80s         wave w02 (host-8180): 79s         wave w02 (host-8180): 78s         wave w02 (host-8180): 77s         wave w02 (host-8180): 76s         wave w02 (host-8180): 75s         wave w02 (host-8180): 74s         wave w02 (host-8180): 73s         wave w02 (host-8180): 72s         wave w02 (host-8180): 71s         wave w02 (host-8180): 70s         wave w02 (host-8180): 69s         wave w02 (host-8180): 68s         wave w02 (host-8180): 67s         wave w02 (host-8180): 66s         wave w02 (host-8180): 65s         wave w02 (host-8180): 64s         wave w02 (host-8180): 63s         wave w02 (host-8180): 62s         wave w02 (host-8180): 61s         wave w02 (host-8180): 60s         wave w02 (host-8180): 59s         wave w02 (host-8180): 58s         wave w02 (host-8180): 57s         wave w02 (host-8180): 56s         wave w02 (host-8180): 55s         wave w02 (host-8180): 54s         wave w02 (host-8180): 53s         wave w02 (host-8180): 52s         wave w02 (host-8180): 51s         wave w02 (host-8180): 50s         wave w02 (host-8180): 49s         wave w02 (host-8180): 48s         wave w02 (host-8180): 47s         wave w02 (host-8180): 46s         wave w02 (host-8180): 45s         wave w02 (host-8180): 44s         wave w02 (host-8180): 43s         wave w02 (host-8180): 42s         wave w02 (host-8180): 41s         wave w02 (host-8180): 40s         wave w02 (host-8180): 39s         wave w02 (host-8180): 38s         wave w02 (host-8180): 37s         wave w02 (host-8180): 36s         wave w02 (host-8180): 35s         wave w02 (host-8180): 34s         wave w02 (host-8180): 33s         wave w02 (host-8180): 32s         wave w02 (host-8180): 31s         wave w02 (host-8180): 30s         wave w02 (host-8180): 29s         wave w02 (host-8180): 28s         wave w02 (host-8180): 27s         wave w02 (host-8180): 26s         wave w02 (host-8180): 25s         wave w02 (host-8180): 24s         wave w02 (host-8180): 23s         wave w02 (host-8180): 22s         wave w02 (host-8180): 21s         wave w02 (host-8180): 20s         wave w02 (host-8180): 19s         wave w02 (host-8180): 18s         wave w02 (host-8180): 17s         wave w02 (host-8180): 16s         wave w02 (host-8180): 15s         wave w02 (host-8180): 14s         wave w02 (host-8180): 13s         wave w02 (host-8180): 12s         wave w02 (host-8180): 11s         wave w02 (host-8180): 10s - waiting for alerts  wave w02 (host-8180): 9s - waiting for alerts   wave w02 (host-8180): 8s - waiting for alerts   wave w02 (host-8180): 7s - waiting for alerts   wave w02 (host-8180): 6s - waiting for alerts   wave w02 (host-8180): 5s - waiting for alerts   wave w02 (host-8180): 4s - waiting for alerts   wave w02 (host-8180): 3s - waiting for alerts   wave w02 (host-8180): 2s - waiting for alerts   wave w02 (host-8180): 1s - waiting for alerts   wave w02 (host-8180): 0s                          1 alerts  warm-up   0.0s  live 118.7s  lag max  0.02s
+
+alerts -> results\win-w02-rt\alerts.jsonl
+
+==============================================================================
+RESULTS -- win-w02-rt   (set: subset w02, mode: realtime, 1 waves, 1 with an attack)
+==============================================================================
+
+OVERALL DETECTION SUMMARY
+
+                              Actual attack    Benign activity
+  Alert raised                         1 TP               0 FP
+  Attack missed                        0 FN
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+
+  Attacks detected: 1 / 1
+  Caught on time / after execution / missed: 1 / 0 / 0
+  Timeliness score: 0.799
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 1 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 0 context, 0 excused, 0 invalid
+  Evidence precision: 100.0%
+
+OVERALL LATENCY
+
+                                     p50          p95          max
+  Event -> alert                 4.902 s       4.902 s       4.902 s 
+  Alert -> explanation          25.399 s      25.399 s      25.399 s 
+  on_event() processing          0.059 ms      0.142 ms      0.333 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Attack onset -> detection: 4.902 s p50, 4.902 s max
+  Maximum stream lag: 0.024 s; warm-up compute max: 0.0 s
+  Total evaluation time: 128.9 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 76.2 s (not counted above)
+
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+
+w02 -- host-8180 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server: Caught on time, malicious event 47 / 229; detection delay 4.902 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+
+                                     p50          p95          max
+  Event -> alert                 4.902 s       4.902 s       4.902 s 
+  Alert -> explanation          25.399 s      25.399 s      25.399 s 
+  on_event() processing          0.059 ms      0.142 ms      0.333 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.024 s
+  Events delivered: 7219 warm-up + 705 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.9 s
+==============================================================================
+scorecard -> results\win-w02-rt\scorecard.json

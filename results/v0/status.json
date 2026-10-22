@@ -23,9 +23,14 @@
    "alerts": 0,
    "warmup_events": 7219,
    "live_events": 705,
+   "live_start": "2000-06-20T10:39:10.000-04:00",
+   "live_end": "2000-06-20T10:41:10.000-04:00",
+   "live_window_s": 120.0,
+   "source_attack": null,
    "warm_s": 0.00035088323056697845,
    "live_s": 118.65623266715556,
    "wall_s": 128.76947849988937,
+   "post_wait_s": 10.076,
    "attacks": [
     {
      "name": "Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server",
@@ -52,9 +57,14 @@
    "alerts": 0,
    "warmup_events": 11785,
    "live_events": 281,
+   "live_start": "2000-05-25T10:31:06.986-04:00",
+   "live_end": "2000-05-25T10:33:10.717-04:00",
+   "live_window_s": 123.73100006580353,
+   "source_attack": null,
    "warm_s": 0.0006340360268950462,
    "live_s": 122.21307287504897,
    "wall_s": 132.31369125004858,
+   "post_wait_s": 10.039,
    "attacks": [],
    "outcome": "clean",
    "false_alarms": 0,
@@ -85,5 +95,5 @@
  },
  "error": null,
  "exit_code": null,
- "updated_at": "2026-10-22T16:50:33+03:00"
+ "updated_at": "2026-10-22T17:01:48+03:00"
 }

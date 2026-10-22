@@ -145,6 +145,8 @@ class Engine:
         return w is not None and (bool(w.queue) or bool(w.explain_jobs))
 
     def _recover(self) -> None:
+        if self.server.stopping:        # shutting down: a call cut off by stop() is not a crash
+            return
         if not self.server.alive():
             log.warning("llama-server died; restarting")
             try:

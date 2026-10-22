@@ -18,8 +18,24 @@
   {
    "id": "w01",
    "kind": "attack",
+   "machine": "host-83fa",
    "state": "done",
    "alerts": 1,
+   "warmup_events": 8733,
+   "live_events": 17055,
+   "warm_s": 0.0004140143282711506,
+   "live_s": 0.009063499979674816,
+   "wall_s": 10.169999166857451,
+   "attacks": [
+    {
+     "name": "RDP hop: admin Remote Desktop session from another workstation, document browsing, RDP onward to the next machine",
+     "status": "caught_on_time",
+     "delay_s": 0.0,
+     "caught_at_event": 1,
+     "n_malicious": 279,
+     "score": 1.0
+    }
+   ],
    "outcome": "detected",
    "false_alarms": 0,
    "detected": 1,
@@ -31,8 +47,24 @@
   {
    "id": "w02",
    "kind": "attack",
+   "machine": "host-8180",
    "state": "done",
    "alerts": 1,
+   "warmup_events": 7219,
+   "live_events": 705,
+   "warm_s": 0.0004821144975721836,
+   "live_s": 0.00048858392983675,
+   "wall_s": 10.097739750053734,
+   "attacks": [
+    {
+     "name": "Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server",
+     "status": "caught_on_time",
+     "delay_s": 0.0,
+     "caught_at_event": 1,
+     "n_malicious": 229,
+     "score": 1.0
+    }
+   ],
    "outcome": "detected",
    "false_alarms": 0,
    "detected": 1,
@@ -44,8 +76,24 @@
   {
    "id": "w03",
    "kind": "attack",
+   "machine": "host-d2af",
    "state": "done",
    "alerts": 1,
+   "warmup_events": 5597,
+   "live_events": 303,
+   "warm_s": 0.00029021594673395157,
+   "live_s": 0.00017841672524809837,
+   "wall_s": 10.084624750074,
+   "attacks": [
+    {
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "delay_s": 0.0,
+     "caught_at_event": 1,
+     "n_malicious": 165,
+     "score": 1.0
+    }
+   ],
    "outcome": "detected",
    "false_alarms": 0,
    "detected": 1,
@@ -57,8 +105,15 @@
   {
    "id": "w04",
    "kind": "benign",
+   "machine": "host-6cf7",
    "state": "done",
    "alerts": 0,
+   "warmup_events": 7611,
+   "live_events": 232,
+   "warm_s": 0.00042618438601493835,
+   "live_s": 0.00014804210513830185,
+   "wall_s": 10.090045209042728,
+   "attacks": [],
    "outcome": "clean",
    "false_alarms": 0,
    "detected": 0,
@@ -70,8 +125,15 @@
   {
    "id": "w05",
    "kind": "benign",
+   "machine": "host-34cf",
    "state": "done",
    "alerts": 0,
+   "warmup_events": 11658,
+   "live_events": 120,
+   "warm_s": 0.0006446847692131996,
+   "live_s": 9.433366358280182e-05,
+   "wall_s": 10.09434620803222,
+   "attacks": [],
    "outcome": "clean",
    "false_alarms": 0,
    "detected": 0,
@@ -83,8 +145,15 @@
   {
    "id": "w06",
    "kind": "benign",
+   "machine": "host-366b",
    "state": "done",
    "alerts": 0,
+   "warmup_events": 6972,
+   "live_events": 217,
+   "warm_s": 0.0004693577066063881,
+   "live_s": 0.0001459997147321701,
+   "wall_s": 10.084988332819194,
+   "attacks": [],
    "outcome": "clean",
    "false_alarms": 0,
    "detected": 0,
@@ -96,8 +165,15 @@
   {
    "id": "w07",
    "kind": "benign",
+   "machine": "host-ffdf",
    "state": "done",
    "alerts": 0,
+   "warmup_events": 11785,
+   "live_events": 281,
+   "warm_s": 0.0007005529478192329,
+   "live_s": 0.00016125012189149857,
+   "wall_s": 10.111556207761168,
+   "attacks": [],
    "outcome": "clean",
    "false_alarms": 0,
    "detected": 0,
@@ -127,5 +203,5 @@
  },
  "error": null,
  "exit_code": null,
- "updated_at": "2026-10-22T16:16:13+03:00"
+ "updated_at": "2026-10-22T16:50:33+03:00"
 }

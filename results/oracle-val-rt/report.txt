@@ -1,0 +1,88 @@
+set: fast   mode: realtime   waves: atk-0dfa, atk-2758, ben-0494, ben-13c0
+constructing tools.oracle_detector:OracleDetector ...
+  build time: 0.1s
+  wave atk-0dfa     1 alerts  warm-up   0.0s  live 177.2s  lag max  0.01s
+  wave atk-2758     1 alerts  warm-up   0.0s  live 129.7s  lag max  0.01s
+  wave ben-0494     0 alerts  warm-up   0.0s  live 135.5s  lag max  0.01s
+  wave ben-13c0     0 alerts  warm-up   0.0s  live 167.8s  lag max  0.01s
+alerts -> results/oracle-val-rt/alerts.jsonl
+==============================================================================
+RESULTS -- oracle-val-rt   (set: fast, mode: realtime, 4 waves, 2 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                         2 TP               0 FP
+  Attack missed                        0 FN
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Attacks detected: 2 / 2
+  Caught on time / after execution / missed: 2 / 0 / 0
+  Timeliness score: 1.000
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 2 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 0 context, 0 excused, 0 invalid
+  Evidence precision: 0.0%
+OVERALL LATENCY
+                                     p50          p95          max
+  Event -> alert                 0.000 s       0.000 s       0.000 s
+  on_event() processing          0.000 ms      0.003 ms      0.077 ms
+  Attack onset -> detection: 0.005 s p50, 0.005 s max
+  Maximum stream lag: 0.006 s; warm-up compute max: 0.0 s
+  Total evaluation time: 650.5 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 0.1 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+atk-0dfa -- host-0dfa -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 1 / 217; detection delay 0.005 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 0.0%
+                                     p50          p95          max
+  Event -> alert                 0.000 s       0.000 s       0.000 s
+  on_event() processing          0.001 ms      0.004 ms      0.077 ms
+  Stream lag max: 0.006 s
+  Events delivered: 7689 warm-up + 411 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 187.2 s
+atk-2758 -- host-2758 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 1 / 134; detection delay 0.005 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 0.0%
+                                     p50          p95          max
+  Event -> alert                 0.000 s       0.000 s       0.000 s
+  on_event() processing          0.000 ms      0.001 ms      0.021 ms
+  Stream lag max: 0.006 s
+  Events delivered: 6303 warm-up + 2210 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 139.8 s
+ben-0494 -- host-0494 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.001 ms      0.003 ms      0.004 ms
+  Stream lag max: 0.005 s
+  Events delivered: 16223 warm-up + 610 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 145.6 s
+ben-13c0 -- host-13c0 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.001 ms      0.003 ms      0.031 ms
+  Stream lag max: 0.006 s
+  Events delivered: 13635 warm-up + 1206 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 177.8 s
+==============================================================================
+scorecard -> results/oracle-val-rt/scorecard.json

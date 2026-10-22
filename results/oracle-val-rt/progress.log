@@ -1,0 +1,9 @@
+RUN oracle-val-rt started · 4 waves (validation fast, realtime) · expected ~10:57
+RUN oracle-val-rt running · 0/4 waves · 0 alerts · 0/2 attacks caught · 0 false alarms · 1:23 of ~10:57
+RUN oracle-val-rt running · 0/4 waves · 0 alerts · 0/2 attacks caught · 0 false alarms · 2:45 of ~10:57
+RUN oracle-val-rt running · 1/4 waves · 1 alerts · 1/2 attacks caught · 0 false alarms · 4:07 of ~10:57
+RUN oracle-val-rt running · 2/4 waves · 2 alerts · 2/2 attacks caught · 0 false alarms · 5:29 of ~10:57
+RUN oracle-val-rt running · 2/4 waves · 2 alerts · 2/2 attacks caught · 0 false alarms · 6:52 of ~10:57
+RUN oracle-val-rt running · 3/4 waves · 2 alerts · 2/2 attacks caught · 0 false alarms · 8:14 of ~10:57
+RUN oracle-val-rt running · 3/4 waves · 2 alerts · 2/2 attacks caught · 0 false alarms · 9:36 of ~10:57
+RUN oracle-val-rt finished · 4/4 waves · 2 alerts · 2/2 attacks caught · 0 false alarms · timeliness 1.000 · 0 dropped, 0 errors · 10:52

@@ -1,0 +1,44 @@
+{
+ "label": "oracle-val-rt",
+ "note": "oracle on validation fast set in real time: checks real-time timing and the live pane",
+ "detector": "tools.oracle_detector:OracleDetector",
+ "source": "validation",
+ "set": "fast",
+ "mode": "realtime",
+ "explain": false,
+ "answers": "/Users/yuval/work/career/intreviews-active/checkpoint/hw-candidate/hw/data/cache/val/answers.json",
+ "command": "python evaluator/evaluate.py --detector tools.oracle_detector:OracleDetector --data data/cache/val --set fast --no-explain --out results/oracle-val-rt/alerts.jsonl --report results/oracle-val-rt/scorecard.json --label oracle-val-rt",
+ "triggered_at": "2026-10-22T16:41:36+03:00",
+ "expected_s": 656.8,
+ "waves": [
+  {
+   "id": "atk-0dfa",
+   "machine": "host-0dfa",
+   "kind": "attack",
+   "warmup_events": 7689,
+   "live_events": 411
+  },
+  {
+   "id": "atk-2758",
+   "machine": "host-2758",
+   "kind": "attack",
+   "warmup_events": 6303,
+   "live_events": 2210
+  },
+  {
+   "id": "ben-0494",
+   "machine": "host-0494",
+   "kind": "benign",
+   "warmup_events": 16223,
+   "live_events": 610
+  },
+  {
+   "id": "ben-13c0",
+   "machine": "host-13c0",
+   "kind": "benign",
+   "warmup_events": 13635,
+   "live_events": 1206
+  }
+ ],
+ "finished_at": "2026-10-22T16:52:28+03:00"
+}

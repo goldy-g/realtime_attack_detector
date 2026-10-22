@@ -1,0 +1,348 @@
+{
+ "label": "oracle-val-rt",
+ "set": "fast",
+ "mode": "realtime",
+ "graded": true,
+ "build_s": 0.09358641598373652,
+ "timing": {
+  "event_ms_p50": 0.00045821070671081543,
+  "event_ms_p95": 0.0026673078536987305,
+  "event_ms_max": 0.07687509059906006,
+  "max_live_lag_s": 0.0059530651196837425,
+  "warm_s_max": 0.0008148346096277237,
+  "events_dropped": 0,
+  "alerts_lost": 0,
+  "n_errors": 0,
+  "errors_sample": [],
+  "skipped_waves": [],
+  "hung": false,
+  "total_wall_s": 650.510858583264
+ },
+ "latency": {
+  "decision_s_p50": 1.5e-05,
+  "decision_s_p95": 2.8499999999999998e-05,
+  "explain_s_p50": 0.0,
+  "explain_s_p95": 0.0,
+  "explained": 0,
+  "explanations_with_valid_event_ids": 0,
+  "decision_count": 2,
+  "decision_s_max": 3e-05,
+  "explain_count": 0
+ },
+ "run": {
+  "mode": "realtime",
+  "waves": {
+   "atk-0dfa": {
+    "errors": [],
+    "warm_events": 7689,
+    "live_events": 411,
+    "warm_delivered": 7689,
+    "live_delivered": 411,
+    "alerts_lost": 0,
+    "max_lag_s": 0.0059530651196837425,
+    "live_wall_s": 177.1781670837663,
+    "post_stream_wait_s": 10.041,
+    "warm_s": 0.0003620288334786892,
+    "hung": false,
+    "wall_s": 187.24929333291948,
+    "event_ms_p50": 0.0009168870747089386,
+    "event_ms_p95": 0.0036249402910470963,
+    "event_ms_max": 0.07687509059906006,
+    "n_errors": 0
+   },
+   "atk-2758": {
+    "errors": [],
+    "warm_events": 6303,
+    "live_events": 2210,
+    "warm_delivered": 6303,
+    "live_delivered": 2210,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005788576323539019,
+    "live_wall_s": 129.72550387494266,
+    "post_stream_wait_s": 10.023,
+    "warm_s": 0.00032071489840745926,
+    "hung": false,
+    "wall_s": 139.77906862506643,
+    "event_ms_p50": 0.00029103830456733704,
+    "event_ms_p95": 0.001125037670135498,
+    "event_ms_max": 0.021374784409999847,
+    "n_errors": 0
+   },
+   "ben-0494": {
+    "errors": [],
+    "warm_events": 16223,
+    "live_events": 610,
+    "warm_delivered": 16223,
+    "live_delivered": 610,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005085871089249849,
+    "live_wall_s": 135.5400687912479,
+    "post_stream_wait_s": 10.032,
+    "warm_s": 0.0008148346096277237,
+    "hung": false,
+    "wall_s": 145.6374054593034,
+    "event_ms_p50": 0.000541098415851593,
+    "event_ms_p95": 0.0026668421924114227,
+    "event_ms_max": 0.00437488779425621,
+    "n_errors": 0
+   },
+   "ben-13c0": {
+    "errors": [],
+    "warm_events": 13635,
+    "live_events": 1206,
+    "warm_delivered": 13635,
+    "live_delivered": 1206,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005761885549873114,
+    "live_wall_s": 167.75331145804375,
+    "post_stream_wait_s": 10.022,
+    "warm_s": 0.0007245391607284546,
+    "hung": false,
+    "wall_s": 177.84415500005707,
+    "event_ms_p50": 0.000500120222568512,
+    "event_ms_p95": 0.0030831433832645416,
+    "event_ms_max": 0.03133295103907585,
+    "n_errors": 0
+   }
+  },
+  "total_wall_s": 650.510858583264,
+  "event_ms_p50": 0.00045821070671081543,
+  "event_ms_p95": 0.0026673078536987305,
+  "event_ms_max": 0.07687509059906006
+ },
+ "summary": {
+  "n_waves": 4,
+  "n_attack_waves": 2,
+  "attack_waves_detected": 2,
+  "recall": 1.0,
+  "delay_s_p50": 0.004999995231628418,
+  "delay_s_max": 0.004999995231628418,
+  "n_attacks": 2,
+  "attacks_detected": 2,
+  "caught_at_first_event": 2,
+  "caught_on_time": 2,
+  "caught_after_execution": 0,
+  "missed_attacks": 0,
+  "timeliness_score": 1.0,
+  "n_alerts": 2,
+  "false_alarms": 0,
+  "false_alarms_per_wave": 0.0,
+  "false_alarms_warmup": 0,
+  "false_alarms_live": 0,
+  "repeat_false_alarms": 0,
+  "duplicates": 0,
+  "excused": 0,
+  "context": 0,
+  "invalid": 0,
+  "late_timeout": 0,
+  "evidence_precision": 0.0,
+  "detection_metrics": {
+   "tp": 2,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0
+  }
+ },
+ "waves": {
+  "atk-0dfa": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.004999995231628418,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-8cc8c6": {
+     "attack_id": "atk-8cc8c6",
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-0dfa-A0001",
+     "alert_ts": "2000-04-03T14:45:00.040-04:00",
+     "delay_s": 0.004999995231628418,
+     "caught_at_event": 1,
+     "n_malicious_events": 217,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 1,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    0.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-0dfa-A0001",
+     "event_id": "a1ae96c8-b48d-739d-3955-fd1598ab9d34",
+     "phase": "live",
+     "chain_id": "c5eebbec-0507-d334-f3ea-17bea135bf4a",
+     "attack_id": "atk-8cc8c6",
+     "outcome": "detection",
+     "delay_s": 0.004999995231628418,
+     "explanation_event_ids_valid": []
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 3e-05,
+    "decision_s_p95": 3e-05,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 1,
+    "decision_s_max": 3e-05,
+    "explain_count": 0
+   }
+  },
+  "atk-2758": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.004999995231628418,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-3c3aad": {
+     "attack_id": "atk-3c3aad",
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-2758-A0001",
+     "alert_ts": "2000-02-06T14:44:54.120-04:00",
+     "delay_s": 0.004999995231628418,
+     "caught_at_event": 1,
+     "n_malicious_events": 134,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 1,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    0.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-2758-A0001",
+     "event_id": "f1f87a57-655c-fa3f-6b08-26c6239544b2",
+     "phase": "live",
+     "chain_id": "dc67076c-8a74-1a15-4f59-696715167a30",
+     "attack_id": "atk-3c3aad",
+     "outcome": "detection",
+     "delay_s": 0.004999995231628418,
+     "explanation_event_ids_valid": []
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 1,
+    "decision_s_max": 0.0,
+    "explain_count": 0
+   }
+  },
+  "ben-0494": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-13c0": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  }
+ }
+}

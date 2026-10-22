@@ -1,0 +1,76 @@
+set: subset w02,w03,w04   mode: realtime   waves: w02, w03, w04
+constructing tools.oracle_detector:OracleDetector ...
+  build time: 0.0s
+  wave w02          1 alerts  warm-up   0.0s  live 118.7s  lag max  0.01s
+  wave w03          1 alerts  warm-up   0.0s  live 117.9s  lag max  0.01s
+  wave w04          0 alerts  warm-up   0.0s  live 136.6s  lag max  0.01s
+alerts -> results/oracle-eval-rt2/alerts.jsonl
+==============================================================================
+RESULTS -- oracle-eval-rt2   (set: subset w02,w03,w04, mode: realtime, 3 waves, 2 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                         2 TP               0 FP
+  Attack missed                        0 FN
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Attacks detected: 2 / 2
+  Caught on time / after execution / missed: 2 / 0 / 0
+  Timeliness score: 1.000
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 2 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 0 context, 0 excused, 0 invalid
+  Evidence precision: 0.0%
+OVERALL LATENCY
+                                     p50          p95          max
+  Event -> alert                 0.000 s       0.000 s       0.000 s
+  on_event() processing          0.001 ms      0.003 ms      0.087 ms
+  Attack onset -> detection: 0.002 s p50, 0.002 s max
+  Maximum stream lag: 0.005 s; warm-up compute max: 0.0 s
+  Total evaluation time: 403.4 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 0.0 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+w02 -- host-8180 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server: Caught on time, malicious event 1 / 229; detection delay 0.002 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 0.0%
+                                     p50          p95          max
+  Event -> alert                 0.000 s       0.000 s       0.000 s
+  on_event() processing          0.001 ms      0.003 ms      0.087 ms
+  Stream lag max: 0.005 s
+  Events delivered: 7219 warm-up + 705 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.7 s
+w03 -- host-d2af -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 1 / 165; detection delay 0.001 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 0.0%
+                                     p50          p95          max
+  Event -> alert                 0.000 s       0.000 s       0.000 s
+  on_event() processing          0.001 ms      0.003 ms      0.053 ms
+  Stream lag max: 0.005 s
+  Events delivered: 5597 warm-up + 303 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.0 s
+w04 -- host-6cf7 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.001 ms      0.003 ms      0.008 ms
+  Stream lag max: 0.005 s
+  Events delivered: 7611 warm-up + 232 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 146.7 s
+==============================================================================
+scorecard -> results/oracle-eval-rt2/scorecard.json

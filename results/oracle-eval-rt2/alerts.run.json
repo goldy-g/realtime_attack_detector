@@ -1,0 +1,63 @@
+{
+ "mode": "realtime",
+ "waves": {
+  "w02": {
+   "errors": [],
+   "warm_events": 7219,
+   "live_events": 705,
+   "warm_delivered": 7219,
+   "live_delivered": 705,
+   "alerts_lost": 0,
+   "max_lag_s": 0.005128348246216774,
+   "live_wall_s": 118.65601299982518,
+   "post_stream_wait_s": 10.027,
+   "warm_s": 0.0003442554734647274,
+   "hung": false,
+   "wall_s": 128.71703691594303,
+   "event_ms_p50": 0.0008330680429935455,
+   "event_ms_p95": 0.002624932676553726,
+   "event_ms_max": 0.08675036951899529,
+   "n_errors": 0
+  },
+  "w03": {
+   "errors": [],
+   "warm_events": 5597,
+   "live_events": 303,
+   "warm_delivered": 5597,
+   "live_delivered": 303,
+   "alerts_lost": 0,
+   "max_lag_s": 0.005122647620737553,
+   "live_wall_s": 117.89827533392236,
+   "post_stream_wait_s": 10.031,
+   "warm_s": 0.00036915112286806107,
+   "hung": false,
+   "wall_s": 127.96946824993938,
+   "event_ms_p50": 0.0012917444109916687,
+   "event_ms_p95": 0.0026672612875699997,
+   "event_ms_max": 0.05320785567164421,
+   "n_errors": 0
+  },
+  "w04": {
+   "errors": [],
+   "warm_events": 7611,
+   "live_events": 232,
+   "warm_delivered": 7611,
+   "live_delivered": 232,
+   "alerts_lost": 0,
+   "max_lag_s": 0.005086669232696295,
+   "live_wall_s": 136.61682495800778,
+   "post_stream_wait_s": 10.058,
+   "warm_s": 0.0005018645897507668,
+   "hung": false,
+   "wall_s": 146.7238127910532,
+   "event_ms_p50": 0.0007499475032091141,
+   "event_ms_p95": 0.0028519425541162487,
+   "event_ms_max": 0.00837491825222969,
+   "n_errors": 0
+  }
+ },
+ "total_wall_s": 403.41096895793453,
+ "event_ms_p50": 0.0009585637599229813,
+ "event_ms_p95": 0.0027497299015522003,
+ "event_ms_max": 0.08675036951899529
+}

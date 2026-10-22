@@ -1,0 +1,702 @@
+[
+ {
+  "model": "Qwen3.5-4B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 65,
+   "benign_cases": 144,
+   "benign_flagged": 66,
+   "benign_wave_cases_flagged": 35,
+   "auc": 0.735
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 7,
+   "attack_any_case_flagged": 7,
+   "malicious_cases": 47,
+   "malicious_flagged": 39,
+   "benign_cases": 29,
+   "benign_flagged": 14,
+   "benign_wave_cases_flagged": 5,
+   "auc": 0.674
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 23,
+   "attack_any_case_flagged": 23,
+   "malicious_cases": 117,
+   "malicious_flagged": 104,
+   "benign_cases": 173,
+   "benign_flagged": 80,
+   "benign_wave_cases_flagged": 40,
+   "auc": 0.713
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 2,
+   "first_case_flagged": 2
+  },
+  "gpu_s_per_case_median": 0.614,
+  "prompt_tokens_median": 676.0
+ },
+ {
+  "model": "Qwen3.5-2B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 52,
+   "benign_cases": 144,
+   "benign_flagged": 86,
+   "benign_wave_cases_flagged": 42,
+   "auc": 0.583
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 8,
+   "attack_any_case_flagged": 8,
+   "malicious_cases": 47,
+   "malicious_flagged": 34,
+   "benign_cases": 29,
+   "benign_flagged": 21,
+   "benign_wave_cases_flagged": 8,
+   "auc": 0.499
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 24,
+   "attack_any_case_flagged": 24,
+   "malicious_cases": 117,
+   "malicious_flagged": 86,
+   "benign_cases": 173,
+   "benign_flagged": 107,
+   "benign_wave_cases_flagged": 50,
+   "auc": 0.565
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 3,
+   "first_case_flagged": 3
+  },
+  "gpu_s_per_case_median": 0.3,
+  "prompt_tokens_median": 676.0
+ },
+ {
+  "model": "Gemma-4-E4B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 55,
+   "benign_cases": 144,
+   "benign_flagged": 11,
+   "benign_wave_cases_flagged": 6,
+   "auc": 0.922
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 7,
+   "attack_any_case_flagged": 7,
+   "malicious_cases": 47,
+   "malicious_flagged": 36,
+   "benign_cases": 29,
+   "benign_flagged": 3,
+   "benign_wave_cases_flagged": 1,
+   "auc": 0.877
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 23,
+   "attack_any_case_flagged": 23,
+   "malicious_cases": 117,
+   "malicious_flagged": 91,
+   "benign_cases": 173,
+   "benign_flagged": 14,
+   "benign_wave_cases_flagged": 7,
+   "auc": 0.909
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 2,
+   "first_case_flagged": 2
+  },
+  "gpu_s_per_case_median": 0.578,
+  "prompt_tokens_median": 693.0
+ },
+ {
+  "model": "Gemma-4-E2B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 14,
+   "attack_any_case_flagged": 15,
+   "malicious_cases": 70,
+   "malicious_flagged": 48,
+   "benign_cases": 144,
+   "benign_flagged": 30,
+   "benign_wave_cases_flagged": 15,
+   "auc": 0.843
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 4,
+   "attack_any_case_flagged": 7,
+   "malicious_cases": 47,
+   "malicious_flagged": 20,
+   "benign_cases": 29,
+   "benign_flagged": 6,
+   "benign_wave_cases_flagged": 3,
+   "auc": 0.735
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 18,
+   "attack_any_case_flagged": 22,
+   "malicious_cases": 117,
+   "malicious_flagged": 68,
+   "benign_cases": 173,
+   "benign_flagged": 36,
+   "benign_wave_cases_flagged": 18,
+   "auc": 0.808
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 20,
+   "first_case_flagged": 16
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 2,
+   "first_case_flagged": 2
+  },
+  "gpu_s_per_case_median": 0.312,
+  "prompt_tokens_median": 693.0
+ },
+ {
+  "model": "Granite-4.2-8B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 70,
+   "benign_cases": 144,
+   "benign_flagged": 113,
+   "benign_wave_cases_flagged": 56,
+   "auc": 0.748
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 9,
+   "attack_any_case_flagged": 9,
+   "malicious_cases": 47,
+   "malicious_flagged": 47,
+   "benign_cases": 29,
+   "benign_flagged": 25,
+   "benign_wave_cases_flagged": 12,
+   "auc": 0.698
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 25,
+   "attack_any_case_flagged": 25,
+   "malicious_cases": 117,
+   "malicious_flagged": 117,
+   "benign_cases": 173,
+   "benign_flagged": 138,
+   "benign_wave_cases_flagged": 68,
+   "auc": 0.739
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 4,
+   "first_case_flagged": 4
+  },
+  "gpu_s_per_case_median": 1.085,
+  "prompt_tokens_median": 633.5
+ },
+ {
+  "model": "Granite-4.2-3B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 1,
+   "attack_any_case_flagged": 3,
+   "malicious_cases": 70,
+   "malicious_flagged": 3,
+   "benign_cases": 144,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.538
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 1,
+   "malicious_cases": 47,
+   "malicious_flagged": 1,
+   "benign_cases": 29,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.511
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 1,
+   "attack_any_case_flagged": 4,
+   "malicious_cases": 117,
+   "malicious_flagged": 4,
+   "benign_cases": 173,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.531
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 2,
+   "first_case_flagged": 0
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 2,
+   "first_case_flagged": 1
+  },
+  "gpu_s_per_case_median": 0.391,
+  "prompt_tokens_median": 633.5
+ },
+ {
+  "model": "LFM2.5-8B-A1B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 70,
+   "benign_cases": 144,
+   "benign_flagged": 144,
+   "benign_wave_cases_flagged": 71,
+   "auc": 0.51
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 9,
+   "attack_any_case_flagged": 9,
+   "malicious_cases": 47,
+   "malicious_flagged": 47,
+   "benign_cases": 29,
+   "benign_flagged": 29,
+   "benign_wave_cases_flagged": 12,
+   "auc": 0.5
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 25,
+   "attack_any_case_flagged": 25,
+   "malicious_cases": 117,
+   "malicious_flagged": 117,
+   "benign_cases": 173,
+   "benign_flagged": 173,
+   "benign_wave_cases_flagged": 83,
+   "auc": 0.509
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 4,
+   "first_case_flagged": 4
+  },
+  "gpu_s_per_case_median": 0.269,
+  "prompt_tokens_median": 618.5
+ },
+ {
+  "model": "LFM2.5-2.6B",
+  "n": 354,
+  "invalid": 354,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 0,
+   "malicious_cases": 70,
+   "malicious_flagged": 0,
+   "benign_cases": 144,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.5
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 0,
+   "malicious_cases": 47,
+   "malicious_flagged": 0,
+   "benign_cases": 29,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.5
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 0,
+   "malicious_cases": 117,
+   "malicious_flagged": 0,
+   "benign_cases": 173,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.5
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 0,
+   "first_case_flagged": 0
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 0,
+   "first_case_flagged": 0
+  },
+  "gpu_s_per_case_median": 0.421,
+  "prompt_tokens_median": 619.5
+ },
+ {
+  "model": "LFM2.5-1.2B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 0,
+   "malicious_cases": 70,
+   "malicious_flagged": 0,
+   "benign_cases": 144,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.5
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 0,
+   "malicious_cases": 47,
+   "malicious_flagged": 0,
+   "benign_cases": 29,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.5
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 0,
+   "malicious_cases": 117,
+   "malicious_flagged": 0,
+   "benign_cases": 173,
+   "benign_flagged": 0,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.5
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 0,
+   "first_case_flagged": 0
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 0,
+   "first_case_flagged": 0
+  },
+  "gpu_s_per_case_median": 0.146,
+  "prompt_tokens_median": 656.5
+ },
+ {
+  "model": "Ministral-3-8B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 15,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 63,
+   "benign_cases": 144,
+   "benign_flagged": 38,
+   "benign_wave_cases_flagged": 20,
+   "auc": 0.834
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 8,
+   "attack_any_case_flagged": 8,
+   "malicious_cases": 47,
+   "malicious_flagged": 40,
+   "benign_cases": 29,
+   "benign_flagged": 3,
+   "benign_wave_cases_flagged": 1,
+   "auc": 0.893
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 23,
+   "attack_any_case_flagged": 24,
+   "malicious_cases": 117,
+   "malicious_flagged": 103,
+   "benign_cases": 173,
+   "benign_flagged": 41,
+   "benign_wave_cases_flagged": 21,
+   "auc": 0.837
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 20
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 3,
+   "first_case_flagged": 3
+  },
+  "gpu_s_per_case_median": 1.091,
+  "prompt_tokens_median": 673.5
+ },
+ {
+  "model": "Ministral-3-3B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 6,
+   "attack_any_case_flagged": 14,
+   "malicious_cases": 70,
+   "malicious_flagged": 25,
+   "benign_cases": 144,
+   "benign_flagged": 8,
+   "benign_wave_cases_flagged": 3,
+   "auc": 0.652
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 7,
+   "malicious_cases": 47,
+   "malicious_flagged": 17,
+   "benign_cases": 29,
+   "benign_flagged": 1,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.664
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 6,
+   "attack_any_case_flagged": 21,
+   "malicious_cases": 117,
+   "malicious_flagged": 42,
+   "benign_cases": 173,
+   "benign_flagged": 9,
+   "benign_wave_cases_flagged": 3,
+   "auc": 0.655
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 20,
+   "first_case_flagged": 5
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 1,
+   "first_case_flagged": 1
+  },
+  "gpu_s_per_case_median": 0.9,
+  "prompt_tokens_median": 673.5
+ },
+ {
+  "model": "Foundation-Sec-1.1-8B",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 6,
+   "malicious_cases": 70,
+   "malicious_flagged": 8,
+   "benign_cases": 144,
+   "benign_flagged": 5,
+   "benign_wave_cases_flagged": 2,
+   "auc": 0.598
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 3,
+   "malicious_cases": 47,
+   "malicious_flagged": 3,
+   "benign_cases": 29,
+   "benign_flagged": 1,
+   "benign_wave_cases_flagged": 0,
+   "auc": 0.552
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 0,
+   "attack_any_case_flagged": 9,
+   "malicious_cases": 117,
+   "malicious_flagged": 11,
+   "benign_cases": 173,
+   "benign_flagged": 6,
+   "benign_wave_cases_flagged": 2,
+   "auc": 0.58
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 7,
+   "first_case_flagged": 0
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 2,
+   "first_case_flagged": 0
+  },
+  "gpu_s_per_case_median": 1.215,
+  "prompt_tokens_median": 613.0
+ },
+ {
+  "model": "Qwen3-4B-2507 (prev)",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 40,
+   "benign_cases": 144,
+   "benign_flagged": 29,
+   "benign_wave_cases_flagged": 17,
+   "auc": 0.7
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 7,
+   "attack_any_case_flagged": 7,
+   "malicious_cases": 47,
+   "malicious_flagged": 23,
+   "benign_cases": 29,
+   "benign_flagged": 6,
+   "benign_wave_cases_flagged": 3,
+   "auc": 0.683
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 23,
+   "attack_any_case_flagged": 23,
+   "malicious_cases": 117,
+   "malicious_flagged": 63,
+   "benign_cases": 173,
+   "benign_flagged": 35,
+   "benign_wave_cases_flagged": 20,
+   "auc": 0.696
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 2,
+   "first_case_flagged": 2
+  },
+  "gpu_s_per_case_median": 0.957,
+  "prompt_tokens_median": 661.0
+ },
+ {
+  "model": "Qwen3-1.7B (prev)",
+  "n": 354,
+  "invalid": 0,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 69,
+   "benign_cases": 144,
+   "benign_flagged": 134,
+   "benign_wave_cases_flagged": 69,
+   "auc": 0.542
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 8,
+   "attack_any_case_flagged": 8,
+   "malicious_cases": 47,
+   "malicious_flagged": 45,
+   "benign_cases": 29,
+   "benign_flagged": 27,
+   "benign_wave_cases_flagged": 11,
+   "auc": 0.665
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 24,
+   "attack_any_case_flagged": 24,
+   "malicious_cases": 117,
+   "malicious_flagged": 114,
+   "benign_cases": 173,
+   "benign_flagged": 161,
+   "benign_wave_cases_flagged": 80,
+   "auc": 0.572
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 3,
+   "first_case_flagged": 3
+  },
+  "gpu_s_per_case_median": 0.83,
+  "prompt_tokens_median": 665.0
+ }
+]

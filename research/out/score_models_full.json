@@ -1,0 +1,52 @@
+[
+ {
+  "model": "Gemma-4-E4B",
+  "n": 703,
+  "invalid": 1,
+  "dev": {
+   "attacks": 16,
+   "attack_first_case_flagged": 16,
+   "attack_any_case_flagged": 16,
+   "malicious_cases": 70,
+   "malicious_flagged": 55,
+   "benign_cases": 409,
+   "benign_flagged": 38,
+   "benign_wave_cases_flagged": 6,
+   "auc": 0.924
+  },
+  "holdout": {
+   "attacks": 9,
+   "attack_first_case_flagged": 7,
+   "attack_any_case_flagged": 7,
+   "malicious_cases": 47,
+   "malicious_flagged": 36,
+   "benign_cases": 113,
+   "benign_flagged": 9,
+   "benign_wave_cases_flagged": 1,
+   "auc": 0.897
+  },
+  "all": {
+   "attacks": 25,
+   "attack_first_case_flagged": 23,
+   "attack_any_case_flagged": 23,
+   "malicious_cases": 117,
+   "malicious_flagged": 91,
+   "benign_cases": 522,
+   "benign_flagged": 47,
+   "benign_wave_cases_flagged": 7,
+   "auc": 0.913
+  },
+  "type_WMI": {
+   "attacks": 21,
+   "any_case_flagged": 21,
+   "first_case_flagged": 21
+  },
+  "type_other": {
+   "attacks": 4,
+   "any_case_flagged": 2,
+   "first_case_flagged": 2
+  },
+  "gpu_s_per_case_median": 0.951,
+  "prompt_tokens_median": 683
+ }
+]

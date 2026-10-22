@@ -109,6 +109,12 @@ def load_answers(path: str | None) -> dict:
     return answers
 
 
+def attack_rows(attacks: dict) -> list[dict]:
+    return [{"name": a.get("name"), "status": a.get("status"), "delay_s": a.get("delay_s"),
+             "caught_at_event": a.get("caught_at_event"), "n_malicious": a.get("n_malicious_events"),
+             "score": a.get("event_score")} for a in attacks.values()]
+
+
 def outcome_of(attack_wave: bool, n_attacks: int, detected: int, false_alarms: int) -> str:
     if attack_wave:
         return "detected" if n_attacks and detected == n_attacks else ("partial" if detected else "missed")
@@ -129,7 +135,8 @@ def parse_log(text: str) -> dict:
             if (m := WAVE_RE.search(piece)):
                 out["current"] = (m.group(1), m.group(3).strip())
             if (m := DONE_RE.search(piece)):
-                out["done"].append({"alerts": int(m.group(1)), "lag_s": float(m.group(4)),
+                out["done"].append({"alerts": int(m.group(1)), "warm_s": float(m.group(2)),
+                                    "live_s": float(m.group(3)), "lag_s": float(m.group(4)),
                                     "dropped": int(m.group(5) or 0)})
                 out["current"] = None
     return out
@@ -192,19 +199,26 @@ class Status:
                     "n_attacks": r["n_attacks"], "detected": r["attacks_detected"],
                     "false_alarms": r["false_alarms"],
                     "scores": [a["event_score"] for a in r["attacks"].values()],
+                    "attacks": attack_rows(r["attacks"]),
                     "outcome": outcome_of(bool(r["attack"]), r["n_attacks"], r["attacks_detected"], r["false_alarms"]),
                 }
         return self.scored[wave_id]
+
+    @staticmethod
+    def base_row(w: dict) -> dict:
+        return {"id": w["id"], "kind": w["kind"], "machine": w.get("machine"), "state": "pending", "alerts": 0,
+                "warmup_events": w.get("warmup_events"), "live_events": w.get("live_events")}
 
     def rows_live(self, parsed: dict) -> list[dict]:
         alerts = self.alerts_by_wave()
         rows = []
         for i, w in enumerate(self.meta["waves"]):
-            row = {"id": w["id"], "kind": w["kind"], "state": "pending", "alerts": 0}
+            row = self.base_row(w)
             if i < len(parsed["done"]):
                 d = parsed["done"][i]
                 sc = self.score(w["id"], alerts.get(w["id"], []))
                 row.update(state="done", alerts=d["alerts"], dropped=d["dropped"], lag_s=d["lag_s"],
+                           warm_s=d["warm_s"], live_s=d["live_s"], attacks=sc.get("attacks", []),
                            outcome=sc.get("outcome"), false_alarms=sc.get("false_alarms", 0),
                            detected=sc.get("detected"), n_attacks=sc.get("n_attacks"),
                            timeliness=(sum(sc["scores"]) / len(sc["scores"])) if sc.get("scores") else None)
@@ -218,11 +232,13 @@ class Status:
         for w in self.meta["waves"]:
             v, wi = card["waves"].get(w["id"]), (runinfo.get("waves") or {}).get(w["id"], {})
             if v is None:
-                rows.append({"id": w["id"], "kind": w["kind"], "state": "skipped", "alerts": 0})
+                rows.append({**self.base_row(w), "state": "skipped"})
                 continue
             scores = [a.get("event_score", 0.0) for a in v["attacks"].values()]
             rows.append({
-                "id": w["id"], "kind": w["kind"], "state": "done", "alerts": v["n_alerts"],
+                **self.base_row(w), "state": "done", "alerts": v["n_alerts"],
+                "warm_s": wi.get("warm_s"), "live_s": wi.get("live_wall_s"), "wall_s": wi.get("wall_s"),
+                "attacks": attack_rows(v["attacks"]),
                 "outcome": outcome_of(bool(v["attack"]), v["n_attacks"], v["attacks_detected"], v["false_alarms"]),
                 "false_alarms": v["false_alarms"], "detected": v["attacks_detected"], "n_attacks": v["n_attacks"],
                 "timeliness": (sum(scores) / len(scores)) if scores else None,
@@ -341,7 +357,8 @@ def start_run(label: str, note: str | None, passthrough: list[str], force: bool)
         "command": "python evaluator/evaluate.py " + " ".join(shlex.quote(a) for a in args),
         "triggered_at": now_iso(), "expected_s": round(sum(per_wave), 1),
         "waves": [{"id": w["wave_id"], "machine": w["machine"],
-                   "kind": "attack" if answers.get(w["wave_id"], {}).get("attack") else "benign"} for w in waves],
+                   "kind": "attack" if answers.get(w["wave_id"], {}).get("attack") else "benign",
+                   "warmup_events": w.get("warmup_events"), "live_events": w.get("live_events")} for w in waves],
     }
     write_json(os.path.join(run_dir, "meta.json"), meta)
     status = Status(run_dir, meta)
@@ -390,7 +407,7 @@ def meta_from_results(run_dir: str) -> dict:
     data_dir = os.path.join(ROOT, "data", "eval" if all(w.startswith("w0") for w in wave_ids) else "cache/val")
     answers_path = os.path.join(ROOT, "data", "cache", "eval_answers.json") if data_dir.endswith("eval") \
         else os.path.join(data_dir, "answers.json")
-    machines = {w["wave_id"]: w["machine"] for w in load_json(os.path.join(data_dir, "waves.json"))["waves"]}
+    known = {w["wave_id"]: w for w in load_json(os.path.join(data_dir, "waves.json"))["waves"]}
     report = open(os.path.join(run_dir, "report.txt"), encoding="utf-8").read()
     detector = (DETECTOR_RE.search(report) or [None, None])[1]
     finished = os.path.getmtime(os.path.join(run_dir, "scorecard.json"))
@@ -400,8 +417,10 @@ def meta_from_results(run_dir: str) -> dict:
         "set": card["set"], "mode": card["mode"], "explain": None, "answers": answers_path,
         "command": None, "triggered_at": iso_at(finished - elapsed), "finished_at": iso_at(finished),
         "expected_s": round(elapsed, 1),
-        "waves": [{"id": w, "machine": machines.get(w), "kind": "attack" if card["waves"][w]["attack"] else "benign"}
-                  for w in wave_ids],
+        "waves": [{"id": w, "machine": known.get(w, {}).get("machine"),
+                   "kind": "attack" if card["waves"][w]["attack"] else "benign",
+                   "warmup_events": known.get(w, {}).get("warmup_events"),
+                   "live_events": known.get(w, {}).get("live_events")} for w in wave_ids],
     }
 
 

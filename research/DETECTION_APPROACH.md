@@ -47,7 +47,7 @@ on_event ──► state (process tree, baseline) ──► triage: new? ──�
   stage 4 shows bursts overflowing the queue.
 - **Rules or a trained classifier alerting directly (SQ-1):** fastest of all, but
   it breaks "Detection decisions must come from the SLM" under the strict reading.
-  Parked until Q-5 is answered.
+  Parked until Q-5 is answered; it is solution 2 under "Two solutions" below.
 - **Wider triage (registry Run keys, new services and tasks, injection events):**
   would reach later attack stages, but the testbed's own automation creates
   thousands of benign tasks (2.4). Added in stage 4 only if the
@@ -79,3 +79,66 @@ is labelled context, so the alert earned nothing, and the hidden PowerShell that
 `cmd.exe` started next (the alert point) was never judged. Duplicates and repeat
 false alarms are free under the scoring rules, so silencing a tree can only lose
 detections. Now only the alerted process itself is skipped; its children are judged.
+
+## Two solutions: within the rule, and if it were lifted (23 Oct)
+
+One pipeline serves both rule sets; Q-5 (may a non-SLM model decide?) is the
+switch between them. Numbers are SQ-1's offline replay at 1.7 s per verdict
+(`research/sq1/conclusion.md`), which is pessimistic, so compare its columns with
+each other rather than with live scores.
+
+| | As built (v1.2) | Solution 1: within the rule | Solution 2: rule lifted |
+|---|---|---|---|
+| Who raises the alert | the SLM | the SLM | the expert for hidden PowerShell; the SLM for every other case |
+| Queue order | fleet rarity, then age | the expert's cases first | the expert's cases need no queue |
+| Mean timeliness, dev · holdout | 0.783 · 0.659 | 0.892 · 0.767 | – · 0.875 |
+| Recall, false alarms | – | unchanged by construction | unchanged; no benign case raised among 703 |
+
+**Solution 1, shipped.** Every alert comes from an SLM verdict; code may select,
+order and feed cases, nothing more. SQ-1's one surviving expert, hidden PowerShell
+(a PowerShell start with at least two of: encoded command, hidden window,
+`-NoProfile`, download cradle), puts its cases first in the model queue and passes
+its reasons to the explanation call (`submission/experts.py`).
+- Why: the SLM already catches every PowerShell-delivered attack, so an expert
+  cannot add a catch, only time. The attack's own case used to wait behind its
+  lead-up cases, which are just as rare and arrived first.
+- Why this rule and not a trained ranker: the decision tree, boosted trees, n-gram
+  model and Laya only tie it. The rule needs no training data, survives
+  leave-one-attack-type-out, and gives reasons an explanation can use.
+- Checked in production code (`tools/replay_cases.py`): it recognises the first
+  case of 15 of 15 dev attacks, 6 of 7 holdout attacks (not the Notepad++
+  updater) and 2 of 3 eval attacks (not the RDP hop), and no benign or context case.
+- Live check, run v1.3-dev-attacks against v1.2-dev-attacks (the same 15 dev attack
+  waves in real time, `results/v1.3-dev-attacks/compare_v1.2.md`): timeliness 0.839 →
+  0.852 and median delay 3.41 → 3.11 s. Four attacks were caught earlier (one at its
+  7th malicious event instead of its 19th) and none later; 15 of 15 caught, 1 false
+  alarm and evidence precision 1.00, all unchanged. The gain is smaller than the
+  offline replay's because the live queue was rarely long: 3 to 7 cases per wave
+  (34 on one), so the attack's own case seldom had anyone to overtake.
+
+**Solution 2, a future optimization if the graders let other models decide.** The
+same expert raises the alert itself the moment its case arrives, in microseconds;
+every other case still goes to the SLM, which also writes every explanation.
+- Gain: the expert's attacks score 1.00 and holdout mean timeliness reaches 0.875.
+  On the 15 dev attack waves of run v1.3 the expert recognises every attack's first
+  case, so raising there would put all 15 at their first malicious event, 1.00 each,
+  against 0.852 measured for solution 1 (an estimate from the replay, not a run).
+  The gap left is the Notepad++ updater, which no expert sees and the SLM misses;
+  the lever there is the prompt.
+- Why not a trained classifier or decision model raising alerts: with thresholds
+  that raise nothing on dev benign cases, the tree catches 0 of the 9 holdout
+  attacks at their first case, boosted trees and the n-gram model 7 of 9, Laya 0 of
+  9, and 14 better-trained setups do not change it. Almost every dev attack is one
+  type, so every model learns "PowerShell means attack" and none sees the updater.
+  The limit is the data, not the model.
+- What would make it worth more: labels for more attack types (train the experts
+  on dev and holdout, then on the full OpTC record), thresholds set out of fold,
+  then a learned raiser (boosted trees on general concepts, or a fine-tuned encoder
+  such as Laya), judged by leave-one-attack-type-out and the eval waves.
+- Risk: outside this testbed, admin tools such as Ansible and SCCM run
+  `powershell -NoProfile -EncodedCommand`; the fast path assumes the hidden waves
+  come from the same testbed.
+- Size of the switch: where `Engine.submit` now only orders the case, it would also
+  call `callbacks.alert` at once for a recognised case; the case would still go to
+  the SLM for the explanation. Nothing else changes.
+

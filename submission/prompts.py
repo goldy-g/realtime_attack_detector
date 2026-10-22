@@ -50,8 +50,11 @@ def verdict_messages(case_text: str) -> list[dict]:
     return [{"role": "system", "content": VERDICT_SYSTEM}, {"role": "user", "content": case_text}]
 
 
-def explain_messages(case_text: str, followed: list[str], confidence: int, facts: tuple = ()) -> list[dict]:
-    body = case_text + "\n\nThe verdict was attack, confidence {}.".format(confidence)
+def explain_messages(case_text: str, followed: list[str], confidence: int | None, facts: tuple = ()) -> list[dict]:
+    if confidence is None:                      # solution 2: an expert raised the alert, no model verdict
+        body = case_text + "\n\nA code rule raised this alert."
+    else:
+        body = case_text + "\n\nThe verdict was attack, confidence {}.".format(confidence)
     if facts:                                   # an expert's reasons (experts.py): read from the event by code
         body += "\nFacts checked by code: {}.".format("; ".join(facts))
     if followed:

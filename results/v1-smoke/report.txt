@@ -1,0 +1,94 @@
+set: fast   mode: realtime   waves: atk-0dfa, atk-2758, ben-0494, ben-13c0
+constructing submission.my_detector:MyDetector ...
+  build time: 19.7s
+  wave atk-0dfa     1 alerts  warm-up   0.0s  live 177.2s  lag max  0.01s
+  wave atk-2758     3 alerts  warm-up   0.0s  live 129.7s  lag max  0.01s
+  wave ben-0494     0 alerts  warm-up   0.0s  live 135.5s  lag max  0.01s
+  wave ben-13c0     0 alerts  warm-up   0.0s  live 167.8s  lag max  0.01s
+alerts -> results/v1-smoke/alerts.jsonl
+==============================================================================
+RESULTS -- v1-smoke   (set: fast, mode: realtime, 4 waves, 2 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                         2 TP               2 FP
+  Attack missed                        0 FN
+  Precision 50.0%    Recall 100.0%    F1 66.7%
+  Attacks detected: 2 / 2
+  Caught on time / after execution / missed: 2 / 0 / 0
+  Timeliness score: 0.863
+  False alarms: 2 (0.50 per wave; 0 warm-up, 2 live)
+  Alerts: 4 total, 0 duplicates, 0 repeat false alarms, 0 late timeouts, 0 context, 0 excused, 0 invalid
+  Evidence precision: 100.0%
+OVERALL LATENCY
+                                     p50          p95          max
+  Event -> alert                 3.655 s      22.108 s      25.126 s
+  Alert -> explanation          47.326 s      97.310 s      99.307 s
+  on_event() processing          0.011 ms      0.071 ms      0.646 ms
+  Explanations received: 4; (2 of 4 list valid event IDs)
+  Attack onset -> detection: 2.256 s p50, 2.312 s max
+  Maximum stream lag: 0.008 s; warm-up compute max: 0.0 s
+  Total evaluation time: 666.9 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 19.7 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+atk-0dfa -- host-0dfa -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 23 / 217; detection delay 2.200 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.196 s       2.196 s       2.196 s
+  Alert -> explanation           8.660 s       8.660 s       8.660 s
+  on_event() processing          0.030 ms      0.089 ms      0.299 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.008 s
+  Events delivered: 7689 warm-up + 411 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 187.3 s
+atk-2758 -- host-2758 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 2 / 0
+  Precision 33.3%    Recall 100.0%    F1 50.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 24 / 134; detection delay 2.312 s
+  Alerts: 3; true detections: 1; false alarms: 2 (0 warm-up, 2 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 5.003 s      23.114 s      25.126 s
+  Alert -> explanation          85.993 s      97.976 s      99.307 s
+  on_event() processing          0.008 ms      0.049 ms      0.302 ms
+  Explanations received: 3; (1 of 3 list valid event IDs)
+  Stream lag max: 0.008 s
+  Events delivered: 6303 warm-up + 2210 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 156.0 s
+ben-0494 -- host-0494 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.017 ms      0.090 ms      0.646 ms
+  Stream lag max: 0.005 s
+  Events delivered: 16223 warm-up + 610 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 145.7 s
+ben-13c0 -- host-13c0 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.010 ms      0.076 ms      0.247 ms
+  Stream lag max: 0.005 s
+  Events delivered: 13635 warm-up + 1206 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 177.8 s
+==============================================================================
+scorecard -> results/v1-smoke/scorecard.json

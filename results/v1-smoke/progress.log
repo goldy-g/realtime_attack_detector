@@ -1,0 +1,10 @@
+RUN v1-smoke started · 4 waves (validation fast, realtime) · expected ~10:57
+RUN v1-smoke running · 0/4 waves · 0 alerts · 0/2 attacks caught · 0 false alarms · 1:23 of ~11:16
+RUN v1-smoke running · 0/4 waves · 0 alerts · 0/2 attacks caught · 0 false alarms · 2:45 of ~11:16
+RUN v1-smoke running · 1/4 waves · 1 alerts · 1/2 attacks caught · 0 false alarms · 4:07 of ~11:16
+RUN v1-smoke running · 1/4 waves · 1 alerts · 1/2 attacks caught · 0 false alarms · 5:29 of ~11:16
+RUN v1-smoke running · 2/4 waves · 4 alerts · 2/2 attacks caught · 2 false alarms · 6:52 of ~11:16
+RUN v1-smoke running · 2/4 waves · 4 alerts · 2/2 attacks caught · 2 false alarms · 8:14 of ~11:16
+RUN v1-smoke running · 3/4 waves · 4 alerts · 2/2 attacks caught · 2 false alarms · 9:36 of ~11:16
+RUN v1-smoke running · 3/4 waves · 4 alerts · 2/2 attacks caught · 2 false alarms · 10:58 of ~11:16
+RUN v1-smoke finished · 4/4 waves · 4 alerts · 2/2 attacks caught · 2 false alarms · timeliness 0.863 · 0 dropped, 0 errors · 11:28

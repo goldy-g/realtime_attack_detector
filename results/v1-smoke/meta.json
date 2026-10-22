@@ -1,0 +1,44 @@
+{
+ "label": "v1-smoke",
+ "note": "first end-to-end run: 4 validation waves, real time",
+ "detector": "submission.my_detector:MyDetector",
+ "source": "validation",
+ "set": "fast",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "/Users/yuval/work/career/intreviews-active/checkpoint/hw-candidate/hw/data/cache/val/answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --data data/cache/val --set fast --out results/v1-smoke/alerts.jsonl --report results/v1-smoke/scorecard.json --label v1-smoke",
+ "triggered_at": "2026-10-22T21:21:53+03:00",
+ "expected_s": 656.8,
+ "waves": [
+  {
+   "id": "atk-0dfa",
+   "machine": "host-0dfa",
+   "kind": "attack",
+   "warmup_events": 7689,
+   "live_events": 411
+  },
+  {
+   "id": "atk-2758",
+   "machine": "host-2758",
+   "kind": "attack",
+   "warmup_events": 6303,
+   "live_events": 2210
+  },
+  {
+   "id": "ben-0494",
+   "machine": "host-0494",
+   "kind": "benign",
+   "warmup_events": 16223,
+   "live_events": 610
+  },
+  {
+   "id": "ben-13c0",
+   "machine": "host-13c0",
+   "kind": "benign",
+   "warmup_events": 13635,
+   "live_events": 1206
+  }
+ ],
+ "finished_at": "2026-10-22T21:33:21+03:00"
+}

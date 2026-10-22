@@ -1,0 +1,39 @@
+2026-10-22 21:22:09,970 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 2.7s, verdict 2.76s
+2026-10-22 21:22:55,788 INFO host-0dfa process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (2.19s) ALERT atk-0dfa-A0001
+2026-10-22 21:22:58,574 INFO host-0dfa flow lsass.exe→88 fleet=61 -> normal 85 (2.79s)
+2026-10-22 21:25:20,756 INFO wave host-0dfa done: {'cases': 4, 'judged': 2, 'skipped_alerted': 2, 'shed': 0, 'alerts': 1, 'explained': 1, 'fallback_explanations': 0}
+2026-10-22 21:25:25,671 INFO host-2758 process svchost.exe→dllhost.exe fleet=55 -> normal 90 (2.33s)
+2026-10-22 21:25:28,786 INFO host-2758 process svchost.exe→sihost.exe fleet=61 -> attack 90 (3.11s) ALERT atk-2758-A0001
+2026-10-22 21:25:31,997 INFO host-2758 process svchost.exe→msoia.exe fleet=61 -> normal 85 (3.21s)
+2026-10-22 21:25:40,546 INFO host-2758 process winlogon.exe→userinit.exe fleet=59 -> normal 95 (3.33s)
+2026-10-22 21:25:43,440 INFO host-2758 process userinit.exe→explorer.exe fleet=59 -> normal 95 (2.89s)
+2026-10-22 21:25:46,567 INFO host-2758 process svchost.exe→searchui.exe fleet=61 -> normal 95 (3.13s)
+2026-10-22 21:25:49,723 INFO host-2758 process svchost.exe→shellexperiencehost.exe fleet=61 -> normal 95 (3.16s)
+2026-10-22 21:25:52,846 INFO host-2758 process svchost.exe→runtimebroker.exe fleet=61 -> normal 95 (3.12s)
+2026-10-22 21:25:55,985 INFO host-2758 process svchost.exe→smartscreen.exe fleet=61 -> normal 95 (3.14s)
+2026-10-22 21:26:01,054 INFO host-2758 process svchost.exe→mobsync.exe fleet=60 -> normal 95 (3.40s)
+2026-10-22 21:26:04,772 INFO host-2758 process cmd.exe→mantra.exe fleet=61 -> normal 85 (3.72s)
+2026-10-22 21:26:06,884 INFO host-2758 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (2.11s) ALERT atk-2758-A0002
+2026-10-22 21:26:11,065 INFO host-2758 process cmd.exe→bcdedit.exe fleet=61 -> normal 90 (4.18s)
+2026-10-22 21:26:15,165 INFO host-2758 process mantra.exe→python.exe fleet=61 -> normal 85 (4.10s)
+2026-10-22 21:26:20,501 INFO host-2758 process explorer.exe→msascuil.exe fleet=61 -> normal 90 (5.34s)
+2026-10-22 21:26:25,463 INFO host-2758 process explorer.exe→vmtoolsd.exe fleet=61 -> normal 90 (4.96s)
+2026-10-22 21:26:30,653 INFO host-2758 process explorer.exe→wscript.exe fleet=61 -> attack 90 (5.19s) ALERT atk-2758-A0003
+2026-10-22 21:26:35,642 INFO host-2758 process explorer.exe→onedrive.exe fleet=61 -> normal 90 (4.99s)
+2026-10-22 21:26:40,740 INFO host-2758 process explorer.exe→runonce.exe fleet=61 -> normal 90 (5.10s)
+2026-10-22 21:26:45,080 INFO host-2758 flow dsregcmd.exe→49158 fleet=50 -> normal 90 (4.34s)
+2026-10-22 21:26:49,237 INFO host-2758 flow dsregcmd.exe→135 fleet=56 -> normal 90 (4.16s)
+2026-10-22 21:26:53,387 INFO host-2758 flow dsregcmd.exe→389 fleet=57 -> normal 90 (4.15s)
+2026-10-22 21:26:58,606 INFO host-2758 process runonce.exe→reader_sl.exe fleet=61 -> normal 90 (5.22s)
+2026-10-22 21:27:04,383 INFO host-2758 process cmd.exe→reg.exe fleet=61 -> normal 90 (5.78s)
+2026-10-22 21:27:09,790 INFO host-2758 process cmd.exe→acrord32.exe fleet=49 -> normal 85 (5.41s)
+2026-10-22 21:27:15,037 INFO host-2758 process runonce.exe→adobearm.exe fleet=61 -> normal 90 (5.25s)
+2026-10-22 21:27:19,053 INFO host-2758 process svchost.exe→dsregcmd.exe fleet=61 -> normal 90 (4.02s)
+2026-10-22 21:27:22,294 INFO host-2758 process services.exe→trustedinstaller.exe fleet=61 -> normal 95 (3.24s)
+2026-10-22 21:27:26,133 INFO host-2758 process acrord32.exe→adobearm.exe fleet=19 -> normal 90 (3.84s)
+2026-10-22 21:27:31,343 INFO host-2758 process svchost.exe→tiworker.exe fleet=61 -> normal 95 (5.21s)
+2026-10-22 21:27:35,450 INFO host-2758 process dsregcmd.exe→conhost.exe fleet=61 -> normal 90 (4.11s)
+2026-10-22 21:27:56,809 INFO wave host-2758 done: {'cases': 34, 'judged': 31, 'skipped_alerted': 3, 'shed': 0, 'alerts': 3, 'explained': 3, 'fallback_explanations': 0}
+2026-10-22 21:30:22,509 INFO wave host-0494 done: {'cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-22 21:33:13,999 INFO host-13c0 flow python.exe→135 fleet=59 -> normal 85 (3.71s)
+2026-10-22 21:33:16,798 INFO host-13c0 flow python.exe→49158 fleet=49 -> normal 85 (2.80s)

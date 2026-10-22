@@ -15,7 +15,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from submission import cases, experts  # noqa: E402
+from submission import cases, config, experts  # noqa: E402
 from submission.baseline import Candidate, Fleet, Triage  # noqa: E402
 from submission.engine import Engine, Wave, parse_verdict  # noqa: E402
 from submission.state import MachineState, norm_path, ts_seconds, user_text  # noqa: E402
@@ -225,6 +225,25 @@ class EngineRules(unittest.TestCase):
         self.assertEqual(cb.alerts, [ps["id"]])
         explain_text = [t for slot, t in server.texts if slot == 1][0]
         self.assertIn("Facts checked by code: PowerShell started by wmiprvse.exe; -EncodedCommand; hidden window; -NoProfile", explain_text)
+
+    def test_solution_2_expert_raises_at_once_and_the_model_only_explains(self):
+        self.addCleanup(setattr, config, "EXPERT_RAISES", config.EXPERT_RAISES)
+        config.EXPERT_RAISES = True
+        ps = pstart("wmiprvse.exe", "powershell.exe", "P2", parent_actor="W1",
+                    cmd="powershell -noP -sta -w 1 -enc " + base64.b64encode("Get-Date".encode("utf-16le")).decode())
+        follow = flow("C:\\x\\powershell.exe", "P2", "53.1.2.3", 443)
+        other = pstart("explorer.exe", "evil.exe", "P3", parent_actor="X1")
+        cb, wave, server = self.run_wave([ps, follow, other])                 # the model says attack only for evil.exe
+        self.assertEqual(cb.alerts, [ps["id"], other["id"]])
+        self.assertEqual(wave.stats["expert_alerts"], 1)
+        self.assertEqual(wave.stats["skipped_alerted"], 1)                     # its connection skips the model
+        verdict_texts = [t for slot, t in server.texts if slot == 0]
+        self.assertEqual(len(verdict_texts), 1)                                # only the unrecognised case was judged
+        self.assertIn("New process: evil.exe", verdict_texts[0])
+        explain_text = [t for slot, t in server.texts if slot == 1 and "powershell" in t.lower()][0]
+        self.assertIn("A code rule raised this alert.", explain_text)
+        self.assertIn("Facts checked by code: PowerShell started by wmiprvse.exe", explain_text)
+        self.assertEqual(len(cb.explanations), 2)
 
 
 class ExpertRules(unittest.TestCase):

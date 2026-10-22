@@ -4,7 +4,8 @@ They never decide. Here an expert's hit only moves its case to the front of the
 model's queue and hands its reasons to the explanation call; every alert still
 comes from the SLM's verdict (solution 1, within "detection decisions must come
 from the SLM"). If the graders allowed other models to decide (Q-5), the same hit
-could raise the alert at once (solution 2, research/DETECTION_APPROACH.md).
+could raise the alert at once (solution 2, research/DETECTION_APPROACH.md): set
+DETECTOR_EXPERT_RAISES=1 (config.EXPERT_RAISES; off in the submission).
 
 SQ-1 tested nine experts offline on the labelled cases. One survived
 leave-one-attack-type-out: hidden PowerShell, written from three delivery types

@@ -2,7 +2,8 @@
 
 Checks the production code against what research measured (research/FINDINGS.md 2.5,
 2.6) before any real-time run: does triage still turn every alert point into a case,
-how many cases does a normal machine produce, and how long is a case now. With
+how many cases does a normal machine produce, how long is a case now, and which
+cases the expert recognises (submission/experts.py, SQ-1: it should match no benign case). With
 --score it also asks the model for a verdict on every case (the detector's own
 prompt and grammar) and reports what the detector would flag.
 
@@ -25,7 +26,7 @@ import time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "evaluator"))
-from submission import cases, config, prompts  # noqa: E402
+from submission import cases, config, experts, prompts  # noqa: E402
 from submission.baseline import Fleet, Triage  # noqa: E402
 from submission.state import MachineState  # noqa: E402
 
@@ -62,7 +63,7 @@ def wave_cases(data_dir: str, wave: dict, answer: dict, split: str, fleet: Fleet
                     "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet,
                     "label": "malicious" if eid in mal else "context" if eid in ctx else "benign",
                     "attack_id": attack_of.get(eid), "alert_point": eid in alert_points,
-                    "text": cases.render(state, cand)})
+                    "expert": list(experts.hidden_powershell(cand)), "text": cases.render(state, cand)})
     minutes = max((last or 0) - (first_minute or 0), 1) / 60
     attacks = {a["attack_id"]: any(c["event_id"] == a["first_alertable_event_id"] for c in out)
                for a in answer.get("attacks") or []}
@@ -107,6 +108,17 @@ def main() -> None:
         chars[len(chars) // 2] * 2 // 7, chars[int(0.95 * len(chars))] * 2 // 7, chars[-1] * 2 // 7))
     missed = [(w["wave"], a) for w in waves for a, ok in w["alert_point_kept"].items() if not ok]
     print("Alert points that are not cases:", missed or "none")
+    print("Expert (hidden PowerShell) hits")
+    for split in ("dev", "holdout", "eval"):
+        cs = [c for c in all_cases if c["split"] == split]
+        hits = {lab: sum(1 for c in cs if c["expert"] and c["label"] == lab) for lab in ("malicious", "context", "benign")}
+        firsts = {}
+        for c in cs:                                   # cases are in stream order within a wave
+            if c["label"] == "malicious":
+                firsts.setdefault((c["wave"], c["attack_id"]), c)
+        print("  {:8} malicious {} · context {} · benign {}   attacks whose first case it recognises {}/{}".format(
+            split, hits["malicious"], hits["context"], hits["benign"],
+            sum(1 for c in firsts.values() if c["expert"]), len(firsts)))
     if args.score:
         score(all_cases, args.split)
 

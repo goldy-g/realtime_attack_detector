@@ -102,9 +102,9 @@ caught, timeliness 0.867, median delay 3.1 s, 1 false alarm, evidence precision 
   starting hidden PowerShell. The updater attack, a program run from a user's Temp folder
   by the Notepad++ updater, is missed by the model.
 - **The Remote Desktop hop.** In eval wave w01 the attack's step is the Remote Desktop
-  client (`mstsc.exe`), started from the desktop by an administrator account, opening
-  port 3389 to an internal address. Both models judge it normal administration
-  (confidence 85): from that one event it looks like an admin at work.
+  client (`mstsc.exe`), started from the desktop under the account `sysadmin`, opening
+  port 3389 to an internal address. Both models judge it normal (confidence 85): from
+  that one event it looks like an administrator at work.
 - **A known false alarm.** The testbed's own logon script (`explorer.exe` → `wscript.exe`)
   is called an attack on one dev wave.
 - **Speed decides accuracy on slow CPUs.** Measured on an Apple M5 Pro and a 4-core

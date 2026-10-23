@@ -1,0 +1,65 @@
+{
+ "label": "v1.4-full-mac",
+ "note": "Solution 1 (submitted) at v1.4: short verdict reply, median-length start-up probe; real-time --set full, the 7 public eval waves, on the Mac",
+ "detector": "submission.my_detector:MyDetector",
+ "source": "eval",
+ "set": "full",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "data/cache/eval_answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --set full --answers data/cache/eval_answers.json --out results/v1.4-full-mac/alerts.jsonl --report results/v1.4-full-mac/scorecard.json --label v1.4-full-mac",
+ "triggered_at": "2026-10-23T04:44:54+03:00",
+ "expected_s": 1367.7,
+ "waves": [
+  {
+   "id": "w01",
+   "machine": "host-83fa",
+   "kind": "attack",
+   "warmup_events": 8733,
+   "live_events": 17055
+  },
+  {
+   "id": "w02",
+   "machine": "host-8180",
+   "kind": "attack",
+   "warmup_events": 7219,
+   "live_events": 705
+  },
+  {
+   "id": "w03",
+   "machine": "host-d2af",
+   "kind": "attack",
+   "warmup_events": 5597,
+   "live_events": 303
+  },
+  {
+   "id": "w04",
+   "machine": "host-6cf7",
+   "kind": "benign",
+   "warmup_events": 7611,
+   "live_events": 232
+  },
+  {
+   "id": "w05",
+   "machine": "host-34cf",
+   "kind": "benign",
+   "warmup_events": 11658,
+   "live_events": 120
+  },
+  {
+   "id": "w06",
+   "machine": "host-366b",
+   "kind": "benign",
+   "warmup_events": 6972,
+   "live_events": 217
+  },
+  {
+   "id": "w07",
+   "machine": "host-ffdf",
+   "kind": "benign",
+   "warmup_events": 11785,
+   "live_events": 281
+  }
+ ],
+ "finished_at": "2026-10-23T05:07:49+03:00"
+}

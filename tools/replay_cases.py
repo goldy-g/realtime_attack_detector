@@ -2,14 +2,16 @@
 
 Checks the production code against what research measured (research/FINDINGS.md 2.5,
 2.6) before any real-time run: does triage still turn every alert point into a case,
-how many cases does a normal machine produce, and how long is a case now. With
+how many cases does a normal machine produce, how long is a case now, and which
+cases the expert recognises (submission/experts.py, SQ-1: it should match no benign case). With
 --score it also asks the model for a verdict on every case (the detector's own
 prompt and grammar) and reports what the detector would flag.
 
     python tools/replay_cases.py                       # validation (dev + holdout) and eval waves
     python tools/replay_cases.py --score --split dev   # plus model verdicts on the dev cases
+    python tools/replay_cases.py --score --model fallback --tag e2b   # the same with Gemma 4 E2B
 
-Writes data/cache/detector/cases.jsonl (and verdicts.jsonl with --score).
+Writes data/cache/detector/cases.jsonl (and verdicts-<split>[-<tag>].jsonl with --score).
 """
 
 from __future__ import annotations
@@ -25,7 +27,7 @@ import time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "evaluator"))
-from submission import cases, config, prompts  # noqa: E402
+from submission import cases, config, experts, prompts  # noqa: E402
 from submission.baseline import Fleet, Triage  # noqa: E402
 from submission.state import MachineState  # noqa: E402
 
@@ -62,7 +64,7 @@ def wave_cases(data_dir: str, wave: dict, answer: dict, split: str, fleet: Fleet
                     "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet,
                     "label": "malicious" if eid in mal else "context" if eid in ctx else "benign",
                     "attack_id": attack_of.get(eid), "alert_point": eid in alert_points,
-                    "text": cases.render(state, cand)})
+                    "expert": list(experts.hidden_powershell(cand)), "text": cases.render(state, cand)})
     minutes = max((last or 0) - (first_minute or 0), 1) / 60
     attacks = {a["attack_id"]: any(c["event_id"] == a["first_alertable_event_id"] for c in out)
                for a in answer.get("attacks") or []}
@@ -74,6 +76,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--score", action="store_true", help="ask the model for a verdict on every case")
     ap.add_argument("--split", default="dev", help="which split to score: dev, holdout or eval")
+    ap.add_argument("--model", default="main", choices=("main", "fallback"), help="score with the main model or the fallback")
+    ap.add_argument("--tag", default="", help="suffix for the verdicts file, to keep runs apart")
     args = ap.parse_args()
     fleet = Fleet(config.FLEET_FILE)
     all_cases, waves = [], []
@@ -107,15 +111,26 @@ def main() -> None:
         chars[len(chars) // 2] * 2 // 7, chars[int(0.95 * len(chars))] * 2 // 7, chars[-1] * 2 // 7))
     missed = [(w["wave"], a) for w in waves for a, ok in w["alert_point_kept"].items() if not ok]
     print("Alert points that are not cases:", missed or "none")
+    print("Expert (hidden PowerShell) hits")
+    for split in ("dev", "holdout", "eval"):
+        cs = [c for c in all_cases if c["split"] == split]
+        hits = {lab: sum(1 for c in cs if c["expert"] and c["label"] == lab) for lab in ("malicious", "context", "benign")}
+        firsts = {}
+        for c in cs:                                   # cases are in stream order within a wave
+            if c["label"] == "malicious":
+                firsts.setdefault((c["wave"], c["attack_id"]), c)
+        print("  {:8} malicious {} · context {} · benign {}   attacks whose first case it recognises {}/{}".format(
+            split, hits["malicious"], hits["context"], hits["benign"],
+            sum(1 for c in firsts.values() if c["expert"]), len(firsts)))
     if args.score:
-        score(all_cases, args.split)
+        score(all_cases, args.split, args.model, args.tag)
 
 
-def score(all_cases: list[dict], split: str) -> None:
+def score(all_cases: list[dict], split: str, model: str = "main", tag: str = "") -> None:
     from submission.engine import parse_verdict
     from submission.llm import VERDICT_SLOT, LlamaServer
     sel = [c for c in all_cases if c["split"] == split]
-    server = LlamaServer(config.find_server(), config.find_model(config.MODEL_FILE))
+    server = LlamaServer(config.find_server(), config.find_model(config.MODEL_FILE if model == "main" else config.FALLBACK_MODEL_FILE))
     server.start()
     t0, rows = time.perf_counter(), []
     try:
@@ -123,10 +138,11 @@ def score(all_cases: list[dict], split: str) -> None:
             out = server.chat(prompts.verdict_messages(c["text"]), 16, VERDICT_SLOT, prompts.VERDICT_GRAMMAR)
             verdict, conf = parse_verdict(out["text"])
             rows.append({**{k: c[k] for k in ("wave", "event_id", "label", "attack_id", "alert_point", "fleet", "kind")},
-                         "verdict": verdict, "confidence": conf, "s": round(out["wall_s"], 3), "prompt_n": out["prompt_n"]})
+                         "verdict": verdict, "confidence": conf, "s": round(out["wall_s"], 3), "prompt_n": out["prompt_n"],
+                         "predicted_n": out["predicted_n"]})
     finally:
         server.stop()
-    with open(os.path.join(OUT, "verdicts-{}.jsonl".format(split)), "w", encoding="utf-8") as fh:
+    with open(os.path.join(OUT, "verdicts-{}{}.jsonl".format(split, "-" + tag if tag else "")), "w", encoding="utf-8") as fh:
         for r in rows:
             fh.write(json.dumps(r) + "\n")
     flag = lambda r: r["verdict"] == "attack" and r["confidence"] >= config.ALERT_MIN_CONFIDENCE  # noqa: E731
@@ -139,12 +155,15 @@ def score(all_cases: list[dict], split: str) -> None:
     benign = [r for r in rows if r["label"] == "benign"]
     secs = sorted(r["s"] for r in rows)
     toks = sorted(r["prompt_n"] or 0 for r in rows)
-    print("Model verdicts on {} {} cases in {:.0f}s".format(len(rows), split, time.perf_counter() - t0))
+    print("Model verdicts ({}) on {} {} cases in {:.0f}s".format(server.name, len(rows), split, time.perf_counter() - t0))
     print("  attacks flagged at their first case {}/{}, at any case {}/{}".format(first, len(attacks), anyc, len(attacks)))
     print("  benign cases flagged {}/{}  waves with a benign flag: {}".format(
         sum(1 for r in benign if flag(r)), len(benign), len({r["wave"] for r in benign if flag(r)})))
     print("  seconds per verdict median {:.2f} p95 {:.2f}; new prompt tokens median {} p95 {}".format(
         secs[len(secs) // 2], secs[int(0.95 * len(secs))], toks[len(toks) // 2], toks[int(0.95 * len(toks))]))
+    wrote = sorted(r["predicted_n"] or 0 for r in rows)
+    print("  tokens written per verdict median {} max {}; invalid replies {}".format(
+        wrote[len(wrote) // 2], wrote[-1], sum(1 for r in rows if r["verdict"] == "invalid")))
 
 
 if __name__ == "__main__":

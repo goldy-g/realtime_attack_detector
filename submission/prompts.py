@@ -2,8 +2,8 @@
 
 The verdict prompt is research's prompt v1 (research/prompt_v1.py): general
 analyst guidance only, no machine, user, file or address from the labels. The
-grammar puts the verdict first and stops after the confidence, about 10 tokens,
-because every token written delays the alert.
+reply is the verdict word, a space and the confidence, 3 to 5 tokens (JSON took 14
+to 15): every token written delays the alert, by 0.06 to 0.16 s each on a weak CPU.
 """
 
 from __future__ import annotations
@@ -27,12 +27,11 @@ Signs that usually mean normal activity:
 - Scheduled automation, monitoring and IT scripts run from fixed administrative folders.
 - Parent names can be wrong because Windows reuses process IDs; an odd parent alone is weak evidence.
 
-Reply with JSON only: {"verdict": "attack" or "normal", "confidence": 0-100}."""
+Reply with the verdict, attack or normal, then a space and your confidence from 0 to 100. Nothing else."""
 
-_WS = 'ws ::= [ \\t\\n\\r]{0,8}\n'
-VERDICT_GRAMMAR = ('root ::= "{" ws "\\"verdict\\"" ws ":" ws verdict ws "," ws "\\"confidence\\"" ws ":" ws conf ws "}" ws\n'
-                   'verdict ::= "\\"attack\\"" | "\\"normal\\""\n'
-                   'conf ::= [0-9] | [1-9] [0-9] | "100"\n' + _WS)
+VERDICT_GRAMMAR = ('root ::= verdict " " conf\n'
+                   'verdict ::= "attack" | "normal"\n'
+                   'conf ::= [0-9] | [1-9] [0-9] | "100"\n')
 
 EXPLAIN_SYSTEM = """You are a security analyst writing the incident note for an alert that has just been raised on a Windows workstation. Another analyst will read it to decide what to do.
 

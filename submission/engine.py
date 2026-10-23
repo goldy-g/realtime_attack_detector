@@ -237,11 +237,14 @@ class Engine:
 
 
 def parse_verdict(text: str) -> tuple[str, int]:
+    """'attack 85' -> ("attack", 85), the reply the verdict grammar forces."""
     try:
-        obj = json.loads(text)
-        return str(obj.get("verdict", "normal")), int(obj.get("confidence", 0))
-    except Exception:  # noqa: BLE001 -- an unreadable reply is no evidence of an attack
-        return "invalid", 0
+        verdict, confidence = text.split()
+        if verdict in ("attack", "normal"):
+            return verdict, int(confidence)
+    except ValueError:
+        pass
+    return "invalid", 0      # an unreadable reply is no evidence of an attack
 
 
 def fallback_explanation(cand: Candidate, confidence: int | None) -> str:

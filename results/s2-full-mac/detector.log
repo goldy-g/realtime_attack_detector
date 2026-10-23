@@ -1,0 +1,54 @@
+2026-10-23 10:45:49,644 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 3.3s, verdict 2.82s
+2026-10-23 10:46:24,938 INFO host-83fa flow system→137 fleet=16 -> normal 85 by slm (1.17s)
+2026-10-23 10:47:18,415 INFO host-83fa process svchost.exe→sessionmsg.exe fleet=2 -> normal 85 by slm (1.72s)
+2026-10-23 10:47:55,116 INFO host-83fa process svchost.exe→tstheme.exe fleet=1 -> normal 85 by slm (2.41s)
+2026-10-23 10:47:57,870 INFO host-83fa process svchost.exe→rdpclip.exe fleet=1 -> normal 70 by slm (2.75s)
+2026-10-23 10:48:01,893 INFO host-83fa process svchost.exe→gpscript.exe fleet=34 -> normal 85 by slm (3.20s)
+2026-10-23 10:48:18,067 INFO host-83fa process explorer.exe→unregmp2.exe fleet=1 -> normal 95 by slm (2.28s)
+2026-10-23 10:48:20,863 INFO host-83fa process explorer.exe→chrmstp.exe fleet=1 -> normal 85 by slm (2.80s)
+2026-10-23 10:48:23,837 INFO host-83fa process svchost.exe→delegate_execute.exe fleet=1 -> normal 70 by slm (2.97s)
+2026-10-23 10:48:27,285 INFO host-83fa process delegate_execute.exe→chrome.exe fleet=1 -> normal 70 by slm (3.45s)
+2026-10-23 10:48:30,214 INFO host-83fa process explorer.exe→ie4uinit.exe fleet=1 -> normal 95 by slm (2.93s)
+2026-10-23 10:48:33,197 INFO host-83fa flow chrome.exe→135 fleet=0 -> normal 70 by slm (2.98s)
+2026-10-23 10:48:36,370 INFO host-83fa flow chrome.exe→49155 fleet=0 -> normal 85 by slm (3.17s)
+2026-10-23 10:48:39,361 INFO host-83fa process ie4uinit.exe→ie4uinit.exe fleet=1 -> normal 95 by slm (2.99s)
+2026-10-23 10:48:42,205 INFO host-83fa process ie4uinit.exe→rundll32.exe fleet=1 -> normal 85 by slm (2.84s)
+2026-10-23 10:48:45,458 INFO host-83fa process chrome.exe→chrome.exe fleet=1 -> normal 85 by slm (3.25s)
+2026-10-23 10:49:13,063 INFO host-83fa process chrome.exe→chrmstp.exe fleet=1 -> normal 85 by slm (4.46s)
+2026-10-23 10:49:25,409 INFO host-83fa process svchost.exe→rundll32.exe fleet=48 -> normal 95 by slm (1.88s)
+2026-10-23 10:49:34,175 INFO host-83fa process svchost.exe→hxtsr.exe fleet=37 -> normal 85 by slm (3.73s)
+2026-10-23 10:50:38,398 INFO host-83fa process svchost.exe→settingsynchost.exe fleet=1 -> normal 85 by slm (3.22s)
+2026-10-23 10:50:40,360 INFO host-83fa process explorer.exe→fsquirt.exe fleet=1 -> normal 85 by slm (1.54s)
+2026-10-23 10:50:54,591 INFO host-83fa process explorer.exe→onedrivesetup.exe fleet=1 -> normal 85 by slm (3.17s)
+2026-10-23 10:51:35,387 INFO host-83fa process explorer.exe→excel.exe fleet=0 -> normal 85 by slm (3.55s)
+2026-10-23 10:51:39,847 INFO host-83fa flow excel.exe→389 fleet=0 -> normal 60 by slm (3.41s)
+2026-10-23 10:51:43,219 INFO host-83fa flow excel.exe→3268 fleet=0 -> normal 60 by slm (3.37s)
+2026-10-23 10:51:46,450 INFO host-83fa flow excel.exe→443 fleet=0 -> normal 70 by slm (3.23s)
+2026-10-23 10:52:04,361 INFO host-83fa flow chrome.exe→53 fleet=1 -> normal 85 by slm (1.68s)
+2026-10-23 10:52:18,535 INFO host-83fa process svchost.exe→consent.exe fleet=2 -> normal 85 by slm (2.29s)
+2026-10-23 10:52:23,410 INFO host-83fa process settingsynchost.exe→verclsid.exe fleet=1 -> normal 85 by slm (4.88s)
+2026-10-23 10:52:40,696 INFO host-83fa process runtimebroker.exe→verclsid.exe fleet=1 -> normal 85 by slm (4.70s)
+2026-10-23 10:53:20,976 INFO host-83fa process explorer.exe→winword.exe fleet=0 -> normal 85 by slm (1.97s)
+2026-10-23 10:53:30,297 INFO host-83fa process cmd.exe→acrord32.exe fleet=50 -> normal 85 by slm (4.11s)
+2026-10-23 10:53:56,907 INFO host-83fa process explorer.exe→mstsc.exe fleet=0 -> normal 85 by slm (2.87s)
+2026-10-23 10:54:07,554 INFO host-83fa process acrord32.exe→adobearm.exe fleet=20 -> normal 95 by slm (2.72s)
+2026-10-23 10:54:16,713 INFO host-83fa flow mstsc.exe→3389 fleet=2 -> normal 85 by slm (2.63s)
+2026-10-23 10:54:20,387 INFO host-83fa process svchost.exe→credentialuibroker.exe fleet=0 -> normal 85 by slm (3.67s)
+2026-10-23 10:54:28,716 INFO host-83fa process svchost.exe→audiodg.exe fleet=1 -> normal 85 by slm (1.35s)
+2026-10-23 10:54:57,373 INFO wave host-83fa done: {'cases': 36, 'expert_cases': 0, 'judged': 36, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-23 10:55:12,223 INFO host-8180 process outlook.exe→winword.exe fleet=0 -> normal 85 by slm (1.80s)
+2026-10-23 10:55:16,469 INFO host-8180 process winword.exe→winword.exe fleet=0 -> normal 85 by slm (2.45s)
+2026-10-23 10:55:27,968 INFO host-8180 process winword.exe→cmd.exe fleet=0 expert -> attack None by expert (0.00s) ALERT w02-A0001
+2026-10-23 10:55:35,476 INFO host-8180 process powershell.exe→powershell.exe fleet=4 expert -> attack None by expert (0.00s) ALERT w02-A0002
+2026-10-23 10:55:38,795 INFO host-8180 flow powershell.exe→8000 fleet=0 -> attack 95 by slm (3.34s) ALERT w02-A0003
+2026-10-23 10:57:06,146 INFO wave host-8180 done: {'cases': 6, 'expert_cases': 2, 'judged': 3, 'skipped_alerted': 1, 'shed': 0, 'alerts': 3, 'expert_alerts': 2, 'explained': 3, 'fallback_explanations': 0}
+2026-10-23 10:57:37,040 INFO host-d2af process wmiprvse.exe→powershell.exe fleet=0 expert -> attack None by expert (0.00s) ALERT w03-A0001
+2026-10-23 10:57:45,547 INFO host-d2af process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (2.45s) ALERT w03-A0002
+2026-10-23 10:58:22,506 INFO host-d2af flow python.exe→49155 fleet=53 -> normal 60 by slm (3.36s)
+2026-10-23 10:58:25,847 INFO host-d2af flow python.exe→389 fleet=51 -> normal 60 by slm (3.34s)
+2026-10-23 10:59:14,145 INFO wave host-d2af done: {'cases': 5, 'expert_cases': 1, 'judged': 3, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 1, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 11:01:40,927 INFO wave host-6cf7 done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-23 11:03:49,154 INFO wave host-34cf done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-23 11:06:15,014 INFO wave host-366b done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-23 11:06:19,881 INFO host-ffdf flow python.exe→49158 fleet=50 -> normal 60 by slm (4.02s)
+2026-10-23 11:06:23,236 INFO host-ffdf flow python.exe→135 fleet=60 -> normal 60 by slm (3.35s)

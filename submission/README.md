@@ -140,7 +140,9 @@ The first specialist is in the code behind a switch that is off in the submissio
 (`DETECTOR_EXPERT_RAISES=1`). On the same 15 dev attack waves in real time it caught
 every attack at its first malicious event: timeliness 1.000 against 0.867 for the
 submitted detector, median delay 0.00 s against 3.1 s. Recall (15 of 15), false alarms
-(1, the same one) and evidence precision (1.00) were unchanged.
+(1, the same one) and evidence precision (1.00) were unchanged. On the 7 public eval waves
+it scored timeliness 0.667 against 0.563: the same 2 of 3 attacks, each at its first
+malicious event, and no false alarm.
 
 Each specialist has to learn from recordings of its own attack family, from public
 datasets such as OTRF Security-Datasets and Splunk attack_data, whose Sysmon fields

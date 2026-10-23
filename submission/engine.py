@@ -83,6 +83,8 @@ class Engine:
         """Queue a case. Called with the lock held by the detector."""
         wave.stats["cases"] += 1
         cand.expert = experts.hidden_powershell(cand)
+        if not cand.expert and config.EXPERT_RAISES:    # the RDP-chain specialist exists for solution 2 only
+            cand.expert = experts.rdp_chain(cand, wave.state)
         if cand.expert:
             wave.stats["expert_cases"] += 1
         if cand.expert and config.EXPERT_RAISES:        # solution 2: the expert decides, nothing waits

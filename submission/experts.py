@@ -21,7 +21,7 @@ import re
 
 from .baseline import Candidate
 from .cases import decode_ps
-from .state import base
+from .state import RDP_PORT, MachineState, base
 
 ENC_FLAG = re.compile(r"\s-e(c|n|nc|nco|ncod|ncode|ncoded|ncodedcommand)?\s", re.I)
 HIDDEN = re.compile(r"\s-w(indowstyle|in|i)?\s+(hidden|1)\b", re.I)
@@ -47,3 +47,25 @@ def hidden_powershell(cand: Candidate) -> tuple[str, ...]:
     if len(markers) < 2:
         return ()
     return ("PowerShell started by {}".format(base(p.get("parent_image_path")) or "an unknown parent"),) + tuple(markers)
+
+
+def rdp_chain(cand: Candidate, state: MachineState) -> tuple[str, ...]:
+    """Reasons, when a process opens Remote Desktop to another machine from a desktop session that itself
+    arrived by Remote Desktop (state.session_of), directly or through a local tunnel; else ().
+
+    Solution 2 only (engine.submit): the SLM judges this hop normal even with the session's origin and an
+    explicit chain line in its case, and with a prompt hint naming the pattern (offline, eval w01). In the
+    62 training days the 14 benign outbound Remote Desktop connections all came from local logons; the only
+    sessions that arrived by Remote Desktop were the attacker's (host-339f through a plink tunnel, host-f3ac).
+    Untested on benign jump hosts, which this testbed does not have."""
+    if cand.kind != "flow":
+        return ()
+    p = cand.event.get("properties") or {}
+    if p.get("direction") != "outbound" or p.get("dest_port") != RDP_PORT:
+        return ()
+    origin = state.session_of(cand.event.get("actorID"))
+    if not origin:
+        return ()
+    came = "through a local tunnel" if origin.get("tunnel") else "from " + origin["ip"]
+    return ("Remote Desktop out to {}".format(p.get("dest_ip")),
+            "its desktop session arrived by Remote Desktop {} at {}".format(came, origin["ts"][11:19]))

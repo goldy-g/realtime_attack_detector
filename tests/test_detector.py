@@ -156,6 +156,10 @@ class CaseRendering(unittest.TestCase):
     def session_text(self, **kw):
         return cases.render(*self.session_case(**kw))
 
+    def chain(self, **kw):
+        state, cand = self.session_case(**kw)
+        return experts.rdp_chain(cand, state)
+
     def test_case_names_a_remote_desktop_session_however_old(self):
         text = self.session_text(rdp=True)
         self.assertIn("Its desktop session began 10:00:30 with a Remote Desktop logon by admin (domain D) from 10.0.0.7", text)
@@ -181,6 +185,13 @@ class CaseRendering(unittest.TestCase):
 
     def test_system_loopback_logon_is_not_a_session(self):
         self.assertNotIn("desktop session", self.session_text(system=True))
+
+    def test_rdp_chain_expert(self):
+        self.assertEqual(self.chain(rdp=True), ("Remote Desktop out to 10.0.0.8",
+                               "its desktop session arrived by Remote Desktop from 10.0.0.7 at 10:00:30"))
+        self.assertIn("through a local tunnel", self.chain(tunnel=True)[1])
+        for kw in ({"rdp": True, "port": 443}, {"rdp": False}, {"system": True}):
+            self.assertEqual(self.chain(**kw), (), kw)
 
 
 class EngineRules(unittest.TestCase):
@@ -301,6 +312,22 @@ class EngineRules(unittest.TestCase):
         self.assertIn("A code rule raised this alert.", explain_text)
         self.assertIn("Facts checked by code: PowerShell started by wmiprvse.exe", explain_text)
         self.assertEqual(len(cb.explanations), 2)
+
+    def test_rdp_chain_expert_only_in_solution_2(self):
+        hop = [ev("FLOW", "START", "SVC", None, "2000-01-01T10:00:00.000-04:00", image_path="svchost.exe",
+                  direction="inbound", src_ip="10.0.0.7", src_port="5000", dest_ip="10.0.0.2", dest_port="3389"),
+               ev("USER_SESSION", "REMOTE", "S", None, "2000-01-01T10:00:30.000-04:00", user="D\\admin", src_ip="10.0.0.7"),
+               pstart("smss.exe", "winlogon.exe", "W", ts="2000-01-01T10:00:30.020-04:00", parent_actor="SM"),
+               pstart("winlogon.exe", "explorer.exe", "E", ts="2000-01-01T10:01:31.000-04:00", parent_actor="W"),
+               pstart("explorer.exe", "mstsc.exe", "M", ts="2000-01-01T10:06:00.000-04:00", parent_actor="E"),
+               flow("C:\\x\\mstsc.exe", "M", "10.0.0.8", 3389, ts="2000-01-01T10:06:20.000-04:00")]
+        cb, wave, _ = self.run_wave(hop)                                       # solution 1: the model says normal
+        self.assertEqual((cb.alerts, wave.stats["expert_cases"]), ([], 0))
+        self.addCleanup(setattr, config, "EXPERT_RAISES", config.EXPERT_RAISES)
+        config.EXPERT_RAISES = True
+        cb, wave, _ = self.run_wave(hop)
+        self.assertEqual(cb.alerts, [hop[-1]["id"]])
+        self.assertEqual(wave.stats["expert_alerts"], 1)
 
 
 class ExpertRules(unittest.TestCase):

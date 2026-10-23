@@ -1,0 +1,28 @@
+# Per-verdict timings from llama-server logs (E2B, the model chosen at start-up), joined with decisions.jsonl
+# win-full-rt log: %TEMP%/detector-llama-server-26052.log (E2B part only; not kept in the repo)
+
+=== win-full-rt  (48 verdict calls in log, 44 decisions, 4 probe calls, 5 explanation calls)
+  probe    n=4   new tok med 297 [297.0-741.0] | read med 4.33 s [3.60-8.37] | wrote 15.0 tok | write med 1.54 s [1.28-1.79] | read+write med 5.87 s
+  process  n=32  new tok med 370 [123.0-696.0] | read med 4.00 s [1.39-7.69] | wrote 15.0 tok | write med 1.12 s [1.04-1.39] | read+write med 5.08 s
+  flow     n=12  new tok med 461 [109.0-523.0] | read med 4.42 s [1.14-5.05] | wrote 15.0 tok | write med 1.10 s [1.04-1.29] | read+write med 5.52 s
+  all      n=44  new tok med 397 [109.0-696.0] | read med 4.20 s [1.14-7.69] | wrote 15.0 tok | write med 1.10 s [1.04-1.39] | read+write med 5.29 s
+  reading 104 t/s, writing 13.6 t/s (medians over live verdicts)
+  decisions.jsonl model_s: median 5.32 / p95 7.91 / max 9.02 s; queue wait max 56.9 s (median 0.8)
+  verdicts: {'attack': 4, 'normal': 40}
+  w01: 36 cases, queue wait max 56.9 s, cases waiting > 10 s: 10
+    process explorer.exe→mstsc.exe -> normal 90 (3.77 s, queued 0.0 s, 287 new tok)
+    flow mstsc.exe→3389 -> normal 85 (4.17 s, queued 0.0 s, 323 new tok)
+  explanations: n=4 wrote med 214 tok in 17.8 s; read med 4.5 s
+
+=== win-full-v14  (51 verdict calls in log, 47 decisions, 4 probe calls, 8 explanation calls)
+  probe    n=4   new tok med 371 [371.0-816.0] | read med 4.05 s [3.98-8.42] | wrote 5.0 tok | write med 0.36 s [0.35-0.37] | read+write med 4.40 s
+  process  n=34  new tok med 370 [123.0-696.0] | read med 3.95 s [1.50-7.62] | wrote 5.0/6.0 tok | write med 0.38 s [0.30-0.52] | read+write med 4.26 s
+  flow     n=13  new tok med 450 [109.0-523.0] | read med 4.48 s [1.10-5.22] | wrote 5.0/6.0 tok | write med 0.33 s [0.31-0.41] | read+write med 4.85 s
+  all      n=47  new tok med 400 [109.0-696.0] | read med 4.28 s [1.10-7.62] | wrote 5.0/6.0 tok | write med 0.38 s [0.30-0.52] | read+write med 4.60 s
+  reading 102 t/s, writing 15.4 t/s (medians over live verdicts)
+  decisions.jsonl model_s: median 4.61 / p95 6.76 / max 8.12 s; queue wait max 42.6 s (median 0.8)
+  verdicts: {'attack': 7, 'normal': 40}
+  w01: 36 cases, queue wait max 42.6 s, cases waiting > 10 s: 9
+    process explorer.exe→mstsc.exe -> normal 100 (3.20 s, queued 0.0 s, 287 new tok)
+    flow mstsc.exe→3389 -> normal 100 (3.60 s, queued 0.0 s, 323 new tok)
+  explanations: n=7 wrote med 173 tok in 16.3 s; read med 5.4 s

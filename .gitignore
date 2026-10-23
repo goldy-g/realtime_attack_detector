@@ -8,6 +8,9 @@ data/eval/
 # llama.cpp runtime unzipped next to the detector (download link in submission/README.md)
 submission/bin/
 
+# The submission zip and its answer key, built by tools/package.py
+dist/
+
 # Model weights
 models/
 *.gguf

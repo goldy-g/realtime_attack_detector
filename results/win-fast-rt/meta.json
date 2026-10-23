@@ -1,0 +1,30 @@
+{
+ "label": "win-fast-rt",
+ "note": null,
+ "detector": "submission.my_detector:MyDetector",
+ "source": "eval",
+ "set": "fast",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "data\\cache\\eval_answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --answers 'data\\cache\\eval_answers.json' --out 'results\\win-fast-rt\\alerts.jsonl' --report 'results\\win-fast-rt\\scorecard.json' --label win-fast-rt",
+ "triggered_at": "2026-10-23T01:17:54+03:00",
+ "expected_s": 264.3,
+ "waves": [
+  {
+   "id": "w02",
+   "machine": "host-8180",
+   "kind": "attack",
+   "warmup_events": 7219,
+   "live_events": 705
+  },
+  {
+   "id": "w07",
+   "machine": "host-ffdf",
+   "kind": "benign",
+   "warmup_events": 11785,
+   "live_events": 281
+  }
+ ],
+ "finished_at": "2026-10-23T01:23:35+03:00"
+}

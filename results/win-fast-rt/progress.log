@@ -1,0 +1,9 @@
+RUN win-fast-rt started · 2 waves (eval fast, realtime) · expected ~4:24
+RUN win-fast-rt building · 0/2 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 0:47 of ~4:24
+RUN win-fast-rt running · 0/2 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 1:34 of ~5:43
+RUN win-fast-rt running · 0/2 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 2:20 of ~5:43
+RUN win-fast-rt running · 0/2 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 3:06 of ~5:43
+RUN win-fast-rt running · 1/2 waves · 1 alerts · 1/1 attacks caught · 0 false alarms · 3:53 of ~5:43
+RUN win-fast-rt running · 1/2 waves · 1 alerts · 1/1 attacks caught · 0 false alarms · 4:39 of ~5:43
+RUN win-fast-rt running · 1/2 waves · 1 alerts · 1/1 attacks caught · 0 false alarms · 5:26 of ~5:43
+RUN win-fast-rt finished · 2/2 waves · 1 alerts · 1/1 attacks caught · 0 false alarms · timeliness 0.799 · 0 dropped, 0 errors · 5:41

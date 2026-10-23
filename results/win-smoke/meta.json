@@ -1,0 +1,23 @@
+{
+ "label": "win-smoke",
+ "note": null,
+ "detector": "submission.my_detector:MyDetector",
+ "source": "eval",
+ "set": "subset",
+ "mode": "instant",
+ "explain": false,
+ "answers": "data\\cache\\eval_answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --waves w02 --mode instant --no-explain --answers 'data\\cache\\eval_answers.json' --out 'results\\win-smoke\\alerts.jsonl' --report 'results\\win-smoke\\scorecard.json' --label win-smoke",
+ "triggered_at": "2026-10-23T00:08:09+03:00",
+ "expected_s": 10.3,
+ "waves": [
+  {
+   "id": "w02",
+   "machine": "host-8180",
+   "kind": "attack",
+   "warmup_events": 7219,
+   "live_events": 705
+  }
+ ],
+ "finished_at": "2026-10-23T00:09:46+03:00"
+}

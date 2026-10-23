@@ -1,0 +1,27 @@
+{
+ "mode": "instant",
+ "waves": {
+  "w02": {
+   "errors": [],
+   "warm_events": 7219,
+   "live_events": 705,
+   "warm_delivered": 7219,
+   "live_delivered": 705,
+   "alerts_lost": 0,
+   "max_lag_s": 0.0,
+   "live_wall_s": 0.006920199957676232,
+   "post_stream_wait_s": 10.018,
+   "warm_s": 0.06098810106050223,
+   "hung": false,
+   "wall_s": 10.284818300046027,
+   "event_ms_p50": 0.005999929271638393,
+   "event_ms_p95": 0.013559986837208262,
+   "event_ms_max": 0.5419000517576933,
+   "n_errors": 0
+  }
+ },
+ "total_wall_s": 10.288124699960463,
+ "event_ms_p50": 0.005999929271638393,
+ "event_ms_p95": 0.013559986837208262,
+ "event_ms_max": 0.5419000517576933
+}

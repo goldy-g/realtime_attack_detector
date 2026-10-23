@@ -1,0 +1,27 @@
+{
+ "mode": "realtime",
+ "waves": {
+  "w02": {
+   "errors": [],
+   "warm_events": 7219,
+   "live_events": 705,
+   "warm_delivered": 7219,
+   "live_delivered": 705,
+   "alerts_lost": 0,
+   "max_lag_s": 0.02402975526638329,
+   "live_wall_s": 118.65697510004975,
+   "post_stream_wait_s": 10.061,
+   "warm_s": 0.035113396239466965,
+   "hung": false,
+   "wall_s": 128.8604914000025,
+   "event_ms_p50": 0.05859998054802418,
+   "event_ms_p95": 0.14158003032207422,
+   "event_ms_max": 0.3328999737277627,
+   "n_errors": 0
+  }
+ },
+ "total_wall_s": 128.86408369999845,
+ "event_ms_p50": 0.05859998054802418,
+ "event_ms_p95": 0.14158003032207422,
+ "event_ms_max": 0.3328999737277627
+}

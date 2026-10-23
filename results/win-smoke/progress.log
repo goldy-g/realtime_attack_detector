@@ -1,0 +1,4 @@
+RUN win-smoke started · 1 waves (eval subset, instant) · expected ~0:10
+RUN win-smoke building · 0/1 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 0:47 of ~0:10
+RUN win-smoke running · 0/1 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · 1:33 of ~1:36
+RUN win-smoke finished · 1/1 waves · 0 alerts · 0/1 attacks caught · 0 false alarms · timeliness 0.000 · 0 dropped, 0 errors · 1:37

@@ -27,7 +27,8 @@ from .state import MachineState
 
 log = logging.getLogger("detector")
 
-# A neutral case of typical length for timing the model at start-up. Invented, not taken from the data.
+# A neutral case for timing the model at start-up, as long as a median real case (about 375 new
+# tokens on the dev waves; a shorter probe made the model look faster than it is). Invented, not from the data.
 PROBE_CASE = """Machine probe · 2000-01-01 09:00:00
 New process: taskhostw.exe as alice (domain CORP)
 Command line: taskhostw.exe Install $(Arg0)
@@ -36,6 +37,8 @@ Grandparent: services.exe (running before the stream began)
 Baseline: svchost.exe → taskhostw.exe is new for this machine (not in its last hour); seen on 58 of 61 other machines.
 Recent activity of these processes:
 - 08:58:02 svchost.exe started consent.exe: C:\\Windows\\system32\\consent.exe 1012 410 000001F3A2B1C2D0
+- 08:58:31 svchost.exe started MusNotification.exe: C:\\Windows\\system32\\MusNotification.exe ScheduleWork
+- 08:59:12 svchost.exe started wsqmcons.exe: C:\\Windows\\System32\\wsqmcons.exe
 - 08:59:40 svchost.exe connected to 10.0.0.5:135
 Remote logons on this machine (last 2 min):
 - 08:59:51 network logon by alice (domain CORP) from 10.0.0.12"""

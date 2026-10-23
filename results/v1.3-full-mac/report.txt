@@ -1,0 +1,135 @@
+set: full   mode: realtime   waves: w01, w02, w03, w04, w05, w06, w07
+constructing submission.my_detector:MyDetector ...
+  build time: 19.9s
+  wave w01          1 alerts  warm-up   0.0s  live 533.6s  lag max  0.02s
+  wave w02          3 alerts  warm-up   0.0s  live 118.7s  lag max  0.01s
+  wave w03          2 alerts  warm-up   0.0s  live 117.9s  lag max  0.01s
+  wave w04          0 alerts  warm-up   0.0s  live 136.6s  lag max  0.01s
+  wave w05          0 alerts  warm-up   0.0s  live 118.1s  lag max  0.01s
+  wave w06          0 alerts  warm-up   0.0s  live 135.8s  lag max  0.01s
+  wave w07          0 alerts  warm-up   0.0s  live 122.2s  lag max  0.01s
+alerts -> results/v1.3-full-mac/alerts.jsonl
+==============================================================================
+RESULTS -- v1.3-full-mac   (set: full, mode: realtime, 7 waves, 3 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                         2 TP               0 FP
+  Attack missed                        1 FN
+  Precision 100.0%    Recall 66.7%    F1 80.0%
+  Attacks detected: 2 / 3
+  Caught on time / after execution / missed: 2 / 0 / 1
+  Timeliness score: 0.554
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 6 total, 3 duplicates, 0 repeat false alarms, 0 late timeouts, 1 context, 0 excused, 0 invalid
+  Evidence precision: 100.0%
+OVERALL LATENCY
+                                     p50          p95          max
+  Event -> alert                 4.017 s      12.151 s      13.079 s
+  Alert -> explanation           9.522 s      21.092 s      22.890 s
+  on_event() processing          0.008 ms      0.065 ms      5.397 ms
+  Explanations received: 6; (6 of 6 list valid event IDs)
+  Attack onset -> detection: 2.685 s p50, 3.420 s max
+  Maximum stream lag: 0.015 s; warm-up compute max: 0.0 s
+  Total evaluation time: 1353.9 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 19.9 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+w01 -- host-83fa -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 1
+  Recall 0.0%    F1 0.0%
+  RDP hop: admin Remote Desktop session from another workstation, document browsing, RDP onward to the next machine: Missed
+  Alerts: 1; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 1 / 0 / 0 / 0
+                                     p50          p95          max
+  Event -> alert                 3.620 s       3.620 s       3.620 s
+  Alert -> explanation           7.298 s       7.298 s       7.298 s
+  on_event() processing          0.007 ms      0.062 ms      1.607 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.015 s
+  Events delivered: 8733 warm-up + 17055 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 543.8 s
+w02 -- host-8180 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Phishing Word document: macro runs a hidden PowerShell download cradle, Empire agent beacons to its C2 server: Caught on time, malicious event 42 / 229; detection delay 3.420 s
+  Alerts: 3; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 2 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 9.366 s      12.708 s      13.079 s
+  Alert -> explanation          15.699 s      22.171 s      22.890 s
+  on_event() processing          0.021 ms      0.080 ms      5.397 ms
+  Explanations received: 3; (3 of 3 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 7219 warm-up + 705 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.8 s
+w03 -- host-d2af -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 27 / 165; detection delay 1.950 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.182 s       4.291 s       4.414 s
+  Alert -> explanation           9.115 s      10.330 s      10.465 s
+  on_event() processing          0.026 ms      0.084 ms      2.429 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 5597 warm-up + 303 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.0 s
+w04 -- host-6cf7 -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.015 ms      0.086 ms      0.191 ms
+  Stream lag max: 0.005 s
+  Events delivered: 7611 warm-up + 232 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 146.7 s
+w05 -- host-34cf -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.036 ms      0.087 ms      0.259 ms
+  Stream lag max: 0.005 s
+  Events delivered: 11658 warm-up + 120 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.2 s
+w06 -- host-366b -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.015 ms      0.084 ms      0.216 ms
+  Stream lag max: 0.005 s
+  Events delivered: 6972 warm-up + 217 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 145.9 s
+w07 -- host-ffdf -- no attack
+------------------------------------------------------------------------------
+  TP / FP / FN: 0 / 0 / 0
+  Alerts: 0; true detections: 0; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+                                     p50          p95          max
+  on_event() processing          0.020 ms      0.085 ms      0.201 ms
+  Stream lag max: 0.005 s
+  Events delivered: 11785 warm-up + 281 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 132.4 s
+==============================================================================
+scorecard -> results/v1.3-full-mac/scorecard.json

@@ -129,6 +129,59 @@ class CaseRendering(unittest.TestCase):
         self.assertNotIn("later.exe", text)
         self.assertNotIn("eve", text)
 
+    def session_case(self, rdp: bool = True, port: int = 3389, tunnel: bool = False, system: bool = False):
+        """An outbound connection from mstsc.exe in a session that opened minutes earlier: after an inbound RDP
+        (rdp), through a local tunnel (a person's remote logon from 127.0.0.1), or after the system's own
+        loopback logon (system). Returns the state and the case's Candidate."""
+        state, tri = MachineState("h"), Triage("h", Fleet(None))
+        tri.live = True
+        events, src, user = [], "10.0.0.7", "D\\admin"
+        if tunnel or system:
+            src, user = ("127.0.0.1", "D\\sysadmin") if tunnel else ("::1", "NT AUTHORITY\\Local system")
+        elif rdp:
+            events.append(ev("FLOW", "START", "SVC", None, "2000-01-01T10:00:00.000-04:00", image_path="svchost.exe",
+                             direction="inbound", src_ip="10.0.0.7", src_port="5000", dest_ip="10.0.0.2", dest_port="3389"))
+        events += [
+            ev("USER_SESSION", "REMOTE", "S", None, "2000-01-01T10:00:30.000-04:00", user=user, src_ip=src),
+            pstart("smss.exe", "winlogon.exe", "W", ts="2000-01-01T10:00:30.020-04:00", parent_actor="SM"),
+            pstart("winlogon.exe", "userinit.exe", "U", ts="2000-01-01T10:01:30.000-04:00", parent_actor="W"),
+            pstart("userinit.exe", "explorer.exe", "E", ts="2000-01-01T10:01:31.000-04:00", parent_actor="U"),
+            pstart("explorer.exe", "mstsc.exe", "M", ts="2000-01-01T10:06:00.000-04:00", parent_actor="E"),
+        ]
+        for e in events:
+            tri.observe(e, state.add(e))
+        out = flow("C:\\x\\mstsc.exe", "M", "10.0.0.8", port, ts="2000-01-01T10:06:20.000-04:00")
+        return state, tri.observe(out, state.add(out))
+
+    def session_text(self, **kw):
+        return cases.render(*self.session_case(**kw))
+
+    def test_case_names_a_remote_desktop_session_however_old(self):
+        text = self.session_text(rdp=True)
+        self.assertIn("Its desktop session began 10:00:30 with a Remote Desktop logon by admin (domain D) from 10.0.0.7", text)
+        self.assertIn("Remote Desktop chain: this session arrived by Remote Desktop from 10.0.0.7 and this connection "
+                      "opens Remote Desktop to 10.0.0.8.", text)
+        self.assertNotIn("Remote logons on this machine", text)    # the logon itself is long out of the 2-minute window
+
+    def test_chain_line_only_for_remote_desktop_out(self):
+        text = self.session_text(rdp=True, port=443)
+        self.assertIn("Its desktop session began", text)
+        self.assertNotIn("Remote Desktop chain", text)
+
+    def test_network_logon_without_remote_desktop_is_not_a_session(self):
+        text = self.session_text(rdp=False)
+        self.assertNotIn("desktop session", text)
+        self.assertNotIn("Remote Desktop chain", text)
+
+    def test_tunnel_logon_by_a_person_is_a_remote_desktop_session(self):
+        text = self.session_text(tunnel=True)
+        self.assertIn("Its desktop session began 10:00:30 with a Remote Desktop logon by sysadmin (domain D) from this "
+                      "machine itself (127.0.0.1), which only a local tunnel to port 3389 produces.", text)
+        self.assertIn("Remote Desktop chain: this session arrived by Remote Desktop through a local tunnel", text)
+
+    def test_system_loopback_logon_is_not_a_session(self):
+        self.assertNotIn("desktop session", self.session_text(system=True))
+
 
 class EngineRules(unittest.TestCase):
     def run_wave(self, events, marker="evil.exe"):

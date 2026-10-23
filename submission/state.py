@@ -24,6 +24,10 @@ _FRAC = re.compile(r"\.(\d+)")
 # Files whose later execution is worth noting in a case.
 _RUNNABLE = (".exe", ".dll", ".bat", ".cmd", ".ps1", ".vbs", ".js", ".hta", ".scr", ".msi")
 FILE_MEMORY = 5000
+RDP_PORT = "3389"
+SESSION_LINK_S = 10.0               # a desktop session's winlogon.exe starts within this long of the logon that opened it
+RDP_LINK_S = 600.0                  # ... and that logon follows the inbound Remote Desktop connection by at most this
+LOOPBACK = {"127.0.0.1", "::1"}      # a Remote Desktop logon from here came through a local tunnel (plink -R ...:3389)
 
 
 def ts_seconds(ts: str) -> float:
@@ -67,6 +71,7 @@ class Proc:
     children: list[str] = field(default_factory=list)
     events: deque = field(default_factory=lambda: deque(maxlen=PER_PROCESS_EVENTS_MAX))   # (eid, t, kind)
     notable: deque = field(default_factory=lambda: deque(maxlen=24))                      # (t, line)
+    session: dict | None = None         # winlogon.exe only: the Remote Desktop logon that opened its desktop session
 
 
 class MachineState:
@@ -77,6 +82,9 @@ class MachineState:
         self.procs: dict[str, Proc] = {}
         self.logons: deque = deque()                     # (t, line) remote logons, last RECENT_S
         self.written: OrderedDict = OrderedDict()        # normalised path -> (t, writer image)
+        self.rdp_in: OrderedDict = OrderedDict()         # source IP -> (t, ts) of its latest inbound Remote Desktop connection
+        self.last_remote: tuple | None = None            # (t, ts, user, src_ip) of the latest remote logon
+        self.last_tunnel: tuple | None = None            # (t, ts, user, src_ip) of the latest remote logon by a person from loopback
         self.now = 0.0                                   # stream time of the latest event
 
     # ------------------------------------------------------------------ intake
@@ -95,6 +103,8 @@ class MachineState:
             child.user = p.get("user") or ev.get("principal") or ""
             child.start_ts, child.start_eid = ev["timestamp"], ev["id"]
             child.parent, child.parent_image = actor, base(p.get("parent_image_path"))
+            if child.image == "winlogon.exe":
+                child.session = self._session_origin(t)
             child.events.append((ev["id"], t, kind))
             if actor:
                 parent = self._proc(actor, p.get("parent_image_path"))
@@ -114,11 +124,35 @@ class MachineState:
                 self.written.move_to_end(path)
                 if len(self.written) > FILE_MEMORY:
                     self.written.popitem(last=False)
+        if kind == "FLOW START" and p.get("direction") == "inbound" and p.get("dest_port") == RDP_PORT \
+                and p.get("src_ip") not in LOCAL_IPS:
+            self.rdp_in[p["src_ip"]] = (t, ev["timestamp"])
+            self.rdp_in.move_to_end(p["src_ip"])
+            if len(self.rdp_in) > 64:
+                self.rdp_in.popitem(last=False)
         if kind == "USER_SESSION REMOTE" and p.get("src_ip") not in LOCAL_IPS:
             self.logons.append((t, line(ev)))
+            self.last_remote = (t, ev["timestamp"], p.get("user") or "", p["src_ip"])
+        if kind == "USER_SESSION REMOTE" and p.get("src_ip") in LOOPBACK \
+                and not (p.get("user") or "NT AUTHORITY").upper().startswith("NT AUTHORITY"):    # not the system's own logons
+            self.last_tunnel = (t, ev["timestamp"], p.get("user") or "", p["src_ip"])
         while self.logons and self.logons[0][0] < t - 3 * RECENT_S:     # kept longer: a queued case looks back from its own time
             self.logons.popleft()
         return t
+
+    def _session_origin(self, t: float) -> dict | None:
+        """A new desktop session opened by a Remote Desktop logon moments before winlogon.exe: from an address
+        that had just connected to this machine's port 3389, or, by a person rather than the system, from this
+        machine itself, which only a local tunnel to port 3389 produces. Anything else stays unsaid."""
+        if self.last_remote and 0 <= t - self.last_remote[0] <= SESSION_LINK_S:
+            lt, lts, user, ip = self.last_remote
+            rdp = self.rdp_in.get(ip)
+            if rdp and 0 <= lt - rdp[0] <= RDP_LINK_S:
+                return {"ts": lts, "user": user, "ip": ip, "rdp_ts": rdp[1]}
+        if self.last_tunnel and 0 <= t - self.last_tunnel[0] <= SESSION_LINK_S:
+            lt, lts, user, ip = self.last_tunnel
+            return {"ts": lts, "user": user, "ip": ip, "rdp_ts": None, "tunnel": True}
+        return None
 
     def _proc(self, oid: str, image_path: str | None) -> Proc:
         proc = self.procs.get(oid)
@@ -152,6 +186,15 @@ class MachineState:
             if proc:
                 todo.extend(proc.children)
         return out
+
+    def session_of(self, oid: str | None) -> dict | None:
+        """The Remote Desktop logon that opened this process's desktop session (ts, user, ip, rdp_ts),
+        if the session began that way while we watched; else None."""
+        for a in self.ancestry(oid, 16):
+            proc = self.procs.get(a)
+            if proc and proc.image == "winlogon.exe":
+                return proc.session
+        return None
 
     def recent_logons(self, ref: float) -> list[str]:
         """Remote logons in the RECENT_S before stream time `ref`."""

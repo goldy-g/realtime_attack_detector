@@ -3,7 +3,9 @@
 Reading the case is about 95% of a decision's time (research 2.6), so the case
 carries only what an analyst needs for this one event: the event, three levels
 of ancestry, the decoded PowerShell command (never the raw base64), the baseline
-facts, this process tree's recent activity and the machine's remote logons.
+facts, how the process's desktop session began when that was a Remote Desktop logon
+(however long ago) and, for Remote Desktop out of such a session, the chain it makes,
+this process tree's recent activity and the machine's remote logons.
 """
 
 from __future__ import annotations
@@ -13,7 +15,7 @@ import re
 
 from .baseline import Candidate
 from .config import LOGON_LINES_MAX, RECENT_S, TREE_LINES_MAX
-from .state import MachineState, base, clip, hhmmss, show_path, user_text
+from .state import RDP_PORT, MachineState, base, clip, hhmmss, show_path, user_text
 from .state import line as event_line
 
 ENC = re.compile(r"\s-(e|ec|en|enc|enco|encod|encode|encoded|encodedc\w*)\s+([A-Za-z0-9+/=]{16,})", re.I)
@@ -54,6 +56,14 @@ def tree_lines(state: MachineState, oids: list[str], skip: str, ref: float) -> l
     return [ln for _, ln in lines[-TREE_LINES_MAX:]]
 
 
+def session_line(s: dict) -> str:
+    if s.get("tunnel"):
+        return "Its desktop session began {} with a Remote Desktop logon by {} from this machine itself ({}), " \
+               "which only a local tunnel to port 3389 produces.".format(hhmmss(s["ts"]), user_text(s["user"]), s["ip"])
+    return "Its desktop session began {} with a Remote Desktop logon by {} from {} (its connection came in at {}).".format(
+        hhmmss(s["ts"]), user_text(s["user"]), s["ip"], hhmmss(s["rdp_ts"]))
+
+
 def render(state: MachineState, cand: Candidate) -> str:
     """The case as of its own event: nothing that happened later, however long it waited in the queue."""
     ev = cand.event
@@ -72,6 +82,9 @@ def render(state: MachineState, cand: Candidate) -> str:
         out.append("Parent: " + proc_line(state, ev.get("actorID"), base(p.get("parent_image_path"))))
         if parent and parent.parent:
             out.append("Grandparent: " + proc_line(state, parent.parent, parent.parent_image))
+        session = state.session_of(ev.get("actorID"))
+        if session:
+            out.append(session_line(session))
         written = state.written_before(p.get("image_path"), ref)
         if written:
             out.append("Its program file was written {:.0f} s earlier by {}.".format(max(0.0, cand.t - written[0]), written[1]))
@@ -87,6 +100,13 @@ def render(state: MachineState, cand: Candidate) -> str:
         proc = state.procs.get(ev.get("actorID") or "")
         if proc and proc.parent:
             out.append("Its parent: " + proc_line(state, proc.parent, proc.parent_image))
+        session = state.session_of(ev.get("actorID"))
+        if session:
+            out.append(session_line(session))
+            if p.get("dest_port") == RDP_PORT and p.get("direction") == "outbound":
+                came = "through a local tunnel" if session.get("tunnel") else "from " + session["ip"]
+                out.append("Remote Desktop chain: this session arrived by Remote Desktop {} and this connection "
+                           "opens Remote Desktop to {}.".format(came, dest))
         if proc:
             written = state.written_before(proc.image_path, ref)
             if written and proc.start_ts:

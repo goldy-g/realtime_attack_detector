@@ -70,6 +70,9 @@ with 8 threads and Gemma 4 E4B (run v1.4-full-mac):
 
 On the 15 dev attack waves, also in real time (run v1.4-dev-attacks): 15 of 15 attacks
 caught, timeliness 0.867, median delay 3.1 s, 1 false alarm, evidence precision 1.00.
+On the 17 holdout waves, from machines never used for tuning (run v1.4-holdout): 7 of 7
+attacks caught, no false alarm on the 10 benign waves, timeliness 0.814, median delay
+2.4 s, evidence precision 1.00.
 
 ## What did not work
 
@@ -100,7 +103,8 @@ caught, timeliness 0.867, median delay 3.1 s, 1 false alarm, evidence precision 
   firing later, never reaches the model.
 - **Attack types barely in the labels.** The labelled attacks are almost all remote WMI
   starting hidden PowerShell. The updater attack, a program run from a user's Temp folder
-  by the Notepad++ updater, is missed by the model.
+  by the Notepad++ updater, was caught live at its alert point. Offline, the model called
+  the same step normal, so treat it as borderline.
 - **The Remote Desktop hop.** In eval wave w01 the attack's step is the Remote Desktop
   client (`mstsc.exe`), started from the desktop under the account `sysadmin`, opening
   port 3389 to an internal address. Both models judge it normal (confidence 85): from

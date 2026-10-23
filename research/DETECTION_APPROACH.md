@@ -45,9 +45,10 @@ on_event ──► state (process tree, baseline) ──► triage: new? ──�
 - **Batching several cases into one prompt:** fewer calls, but every case waits for
   the batch and the prompt grows. Kept as a fallback under heavy backlog only, if
   stage 4 shows bursts overflowing the queue.
-- **Rules or a trained classifier alerting directly (SQ-1):** fastest of all, but
+- **Rules or trained classifiers alerting directly (SQ-1):** fastest of all, but
   it breaks "Detection decisions must come from the SLM" under the strict reading.
-  Parked until Q-5 is answered; it is solution 2 under "Two solutions" below.
+  It is solution 2, a panel of specialist experts, under "Two competing solutions"
+  below: built behind a switch that is off in the submission, measured, not shipped.
 - **Wider triage (registry Run keys, new services and tasks, injection events):**
   would reach later attack stages, but the testbed's own automation creates
   thousands of benign tasks (2.4). Added in stage 4 only if the
@@ -80,21 +81,26 @@ is labelled context, so the alert earned nothing, and the hidden PowerShell that
 false alarms are free under the scoring rules, so silencing a tree can only lose
 detections. Now only the alerted process itself is skipped; its children are judged.
 
-## Two solutions: within the rule, and if it were lifted (23 Oct)
+## Two competing solutions (23 Oct)
 
-One pipeline serves both rule sets; Q-5 (may a non-SLM model decide?) is the
-switch between them. Numbers are SQ-1's offline replay at 1.7 s per verdict
-(`research/sq1/conclusion.md`), which is pessimistic, so compare its columns with
-each other rather than with live scores.
+Two answers to the same task, kept apart and measured on the same attacks.
+Solution 1 meets the assignment's rule ("detection decisions must come from the
+SLM"), and its numbers are the result we submit. Solution 2 is what we would build
+if the graders let other models decide (Q-5): a future optimization, built behind a
+switch that is off in the submission (`DETECTOR_EXPERT_RAISES=1` turns it on).
 
-| | As built (v1.2) | Solution 1: within the rule | Solution 2: rule lifted |
-|---|---|---|---|
-| Who raises the alert | the SLM | the SLM | the expert for hidden PowerShell; the SLM for every other case |
-| Queue order | fleet rarity, then age | the expert's cases first | the expert's cases need no queue |
-| Mean timeliness, dev · holdout | 0.783 · 0.659 | 0.892 · 0.767 | – · 0.875 |
-| Recall, false alarms | – | unchanged by construction | unchanged; no benign case raised among 703 |
+| | Solution 1: the SLM decides (submitted) | Solution 2: specialist panel, first specialist only |
+|---|---|---|
+| Who raises the alert | the SLM, for every case | a specialist, the moment it recognises a case; the SLM for every other case |
+| Who writes the explanation | the SLM | the SLM |
+| Dev attack waves, live (15) | timeliness 0.852, delay median 3.11 s (run v1.3-dev-attacks) | timeliness 1.000, delay median 0.00 s (run s2-dev-attacks) |
+| Caught · false alarms, same run | 15 of 15 · 1 | 15 of 15 · 1, the same SLM false alarm |
+| Holdout attacks, offline replay | timeliness 0.767 | 0.875 |
 
-**Solution 1, shipped.** Every alert comes from an SLM verdict; code may select,
+The offline replay assumes 1.7 s per verdict and is pessimistic, so compare its two
+columns with each other, not with the live rows.
+
+**Solution 1, the result.** Every alert comes from an SLM verdict; code may select,
 order and feed cases, nothing more. SQ-1's one surviving expert, hidden PowerShell
 (a PowerShell start with at least two of: encoded command, hidden window,
 `-NoProfile`, download cradle), puts its cases first in the model queue and passes
@@ -116,29 +122,59 @@ its reasons to the explanation call (`submission/experts.py`).
   offline replay's because the live queue was rarely long: 3 to 7 cases per wave
   (34 on one), so the attack's own case seldom had anyone to overtake.
 
-**Solution 2, a future optimization if the graders let other models decide.** The
-same expert raises the alert itself the moment its case arrives, in microseconds;
-every other case still goes to the SLM, which also writes every explanation.
-- Gain: the expert's attacks score 1.00 and holdout mean timeliness reaches 0.875.
-  On the 15 dev attack waves of run v1.3 the expert recognises every attack's first
-  case, so raising there would put all 15 at their first malicious event, 1.00 each,
-  against 0.852 measured for solution 1 (an estimate from the replay, not a run).
-  The gap left is the Notepad++ updater, which no expert sees and the SLM misses;
-  the lever there is the prompt.
-- Why not a trained classifier or decision model raising alerts: with thresholds
-  that raise nothing on dev benign cases, the tree catches 0 of the 9 holdout
-  attacks at their first case, boosted trees and the n-gram model 7 of 9, Laya 0 of
-  9, and 14 better-trained setups do not change it. Almost every dev attack is one
-  type, so every model learns "PowerShell means attack" and none sees the updater.
-  The limit is the data, not the model.
-- What would make it worth more: labels for more attack types (train the experts
-  on dev and holdout, then on the full OpTC record), thresholds set out of fold,
-  then a learned raiser (boosted trees on general concepts, or a fine-tuned encoder
-  such as Laya), judged by leave-one-attack-type-out and the eval waves.
-- Risk: outside this testbed, admin tools such as Ansible and SCCM run
-  `powershell -NoProfile -EncodedCommand`; the fast path assumes the hidden waves
-  come from the same testbed.
-- Size of the switch: where `Engine.submit` now only orders the case, it would also
-  call `callbacks.alert` at once for a recognised case; the case would still go to
-  the SLM for the explanation. Nothing else changes.
+**Solution 2, a panel of specialists (future optimization).** Each specialist is
+built for one family of attack behaviour, its strong side. It judges only cases
+inside that family, decides in microseconds, and stays silent everywhere else. Any
+specialist that recognises a case raises the alert at once. Whatever no specialist
+claims goes to the SLM, which also writes every explanation.
+- Why a panel beats any single model, the SLM included:
+  - speed: an attack a specialist knows is caught at its first malicious event; the
+    SLM needs 1.9 to 3.6 s per verdict;
+  - precision: a specialist that stays silent outside its family can be held to
+    almost no false alarms; the first one raised no benign case in the 703-case set;
+  - coverage: an attack passes several steps (delivery, execution, its first
+    connection, the hop to the next machine), and each step is a chance for some
+    specialist to catch it;
+  - the SLM keeps its own strong side: the unfamiliar case and the explanation.
+- The panel. Triage hands over only process starts and connections, so these are the
+  specialists that count:
 
+  | Specialist | Strong side | Learns from | On our data |
+  |---|---|---|---|
+  | Script delivery | PowerShell started hidden, encoded or downloading code | the `hidden_powershell` rule now; a model trained on public recordings next | built: recognises the first case of 15/15 dev, 6/7 holdout and 2/3 eval attacks, no benign case |
+  | Execution chain | an updater, installer, Office program or WMI starting a program it never starts, from a user folder | public recordings; benign behaviour from OpTC's training days | to build; target: the Notepad++ updater, missed by every model so far |
+  | Network | a program seconds old calling a bare public IP, or calling out at a steady rhythm | timing statistics, no attack labels needed | to build; target: the payload connection, caught today only at SLM speed |
+  | Lateral movement | Remote Desktop and remote-service hops | public recordings | to build; target: the eval Remote Desktop hop |
+  | Generalist: the SLM | anything no specialist claims; every explanation | n/a | built: solution 1's model and prompt |
+
+- Measured: run s2-dev-attacks, the same 15 dev attack waves in real time
+  (`results/s2-dev-attacks/compare_v1.3.md`). Every attack was caught at its first
+  malicious event: timeliness 0.852 → 1.000 and delay median 3.11 → 0.00 s, better
+  on all 15, worse on none. The specialist alerts 0.3 ms after the event arrives (at
+  most 4 ms). Recall, the one false alarm (the SLM's, on the testbed's logon script)
+  and evidence precision 1.00 are unchanged, and the SLM explained all 33 alerts
+  (median 6.6 s after the alert). The gain is time only: the specialist caught no
+  attack the SLM missed. Offline, holdout mean timeliness rises from 0.767 to 0.875;
+  the gap left is the Notepad++ updater.
+- Why each specialist must learn from its own family's data, not from OpTC's labels:
+  SQ-1 trained a decision tree, boosted trees, a text model and 14 better setups on
+  the dev labels. Dev holds three attack types, and one, WMI starting hidden
+  PowerShell, is 42 of its 48 attack cases, so every model learned "PowerShell means
+  attack" and none caught the updater (`research/sq1/training_conclusion.md`). So
+  each specialist is trained on recorded attacks of its own family from public
+  datasets (OTRF Security-Datasets, Splunk attack_data: Sysmon process-start and
+  network-connection logs, whose fields map onto OpTC's PROCESS CREATE and FLOW START
+  events), with benign behaviour from OpTC's training days. OpTC's attacks stay a
+  pure test set: nothing in the panel is fitted to the attacks it is scored on.
+- Bar for adding a specialist: it raises no benign case on the dev and holdout
+  benign waves, it catches its own family on held-out OpTC attacks, and the whole
+  panel is checked with each attack type left out.
+- Limits: a family no specialist knows still waits for the SLM, so the SLM stays in
+  the panel; any specialist can raise alone, so their false alarms add up; and each
+  specialist is only as good as the recordings of its family.
+- Risk: outside this testbed, admin tools such as Ansible and SCCM run `powershell
+  -NoProfile -EncodedCommand`, which the rule would raise. A trained script
+  specialist that reads the decoded command, not just its flags, is the answer.
+- The switch: `DETECTOR_EXPERT_RAISES=1` (`config.EXPERT_RAISES`, commit 0463030). In
+  `Engine.submit`, a recognised case raises its alert from the event thread, and only
+  its explanation goes to the SLM; nothing else changes.

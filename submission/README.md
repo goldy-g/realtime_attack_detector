@@ -156,3 +156,12 @@ PowerShell, and every model we trained on them learned "PowerShell means attack"
 OpTC's attacks then stay a pure test set. The limits: an attack family no specialist
 knows still waits for the SLM, and the specialists' false alarms add up, so each one
 must raise nothing on benign days.
+
+**Held back on purpose: the rest of OpTC.** The corrected OpTC release this data comes
+from is public (doi:10.57745/UXCWOC): 939 GB covering 16–25 September 2019, with the red
+team on the last three days. It would add the same attacks on more machines and a week of
+benign activity. We did not use it. The final evaluation includes machines not provided
+here, which very likely come from that release, and the anonymized names give no way to
+tell which machines those are, so tuning on it could mean tuning on the hidden test. With
+the graders' permission we would build the fleet baseline from the benign week (16–22
+September) and use the attack days only as an extra test set.

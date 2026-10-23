@@ -1,7 +1,7 @@
 # OpTC real-time attack detector
 
-<!-- Draft, 23 Oct. Results is filled from the final real-time --set full run (stage 5).
-Numbers that the speed work on the Windows laptop may change are kept out of the text. -->
+<!-- Draft, 23 Oct. Results come from run v1.4-full-mac; rerun and update them if the
+detector changes again before submission. -->
 
 Code tracks each machine and picks out the few events that are new for it. A local small
 language model (Gemma 4 E4B, 4-bit, on llama.cpp's CPU server) decides whether each one is
@@ -23,9 +23,9 @@ from the SLM; code only selects, orders and feeds the cases.
   to the front, because an attack's own case otherwise waits behind its lead-up cases.
 - **The SLM decides.** Each case shows the event, three levels of ancestry, the decoded
   `-EncodedCommand`, the baseline facts and its process tree's last two minutes, as of the
-  event itself. A verdict-only call, held to `{"verdict", "confidence"}` by a grammar,
-  judges it; "attack" at confidence 50 or more raises the alert at once on the case's own
-  event. One model call runs at a time with all threads, and the system prompt stays cached.
+  event itself. A verdict-only call judges it; a grammar holds the reply to a word and a
+  confidence, such as `attack 85`, so the model writes about 5 tokens. "attack" at
+  confidence 50 or more raises the alert at once on the case's own event. One model call runs at a time with all threads, and the system prompt stays cached.
 - **One alert per process.** A process already alerted on is not judged again; its
   children still are, because an early alert on a context event earns nothing.
 - **Explanation second.** When no verdict is waiting, a second call writes four labelled
@@ -56,7 +56,20 @@ from the SLM; code only selects, orders and feeds the cases.
 
 ## Results
 
-_To fill from the final real-time `--set full` run (stage 5)._
+Real-time `--set full`, the 7 public eval waves (3 attack, 4 benign), on an Apple M5 Pro
+with 8 threads and Gemma 4 E4B (run v1.4-full-mac):
+
+| | |
+|---|---|
+| Attacks caught | 2 of 3: both PowerShell attacks; the Remote Desktop hop is missed |
+| Timeliness | 0.563 (0.847 and 0.842 on the two caught attacks, 0 on the miss) |
+| Delay, median · max | 2.4 s · 3.0 s |
+| False alarms | 0 in 7 waves |
+| Evidence precision | 1.00 |
+| Explanations | 5 of 5 alerts, median 10 s after the alert |
+
+On the 15 dev attack waves, also in real time (run v1.4-dev-attacks): 15 of 15 attacks
+caught, timeliness 0.867, median delay 3.1 s, 1 false alarm, evidence precision 1.00.
 
 ## What did not work
 
@@ -88,6 +101,10 @@ _To fill from the final real-time `--set full` run (stage 5)._
 - **Attack types barely in the labels.** The labelled attacks are almost all remote WMI
   starting hidden PowerShell. The updater attack, a program run from a user's Temp folder
   by the Notepad++ updater, is missed by the model.
+- **The Remote Desktop hop.** In eval wave w01 the attack's step is the Remote Desktop
+  client (`mstsc.exe`), started from the desktop by an administrator account, opening
+  port 3389 to an internal address. Both models judge it normal administration
+  (confidence 85): from that one event it looks like an admin at work.
 - **A known false alarm.** The testbed's own logon script (`explorer.exe` → `wscript.exe`)
   is called an attack on one dev wave.
 - **Speed decides accuracy on slow CPUs.** Measured on an Apple M5 Pro and a 4-core
@@ -121,8 +138,8 @@ SLM judges whatever no specialist claims and writes every explanation.
 
 The first specialist is in the code behind a switch that is off in the submission
 (`DETECTOR_EXPERT_RAISES=1`). On the same 15 dev attack waves in real time it caught
-every attack at its first malicious event: timeliness 1.000 against 0.852 for the
-submitted detector, median delay 0.00 s against 3.11 s. Recall (15 of 15), false alarms
+every attack at its first malicious event: timeliness 1.000 against 0.867 for the
+submitted detector, median delay 0.00 s against 3.1 s. Recall (15 of 15), false alarms
 (1, the same one) and evidence precision (1.00) were unchanged.
 
 Each specialist has to learn from recordings of its own attack family, from public

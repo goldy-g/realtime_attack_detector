@@ -93,9 +93,10 @@ switch that is off in the submission (`DETECTOR_EXPERT_RAISES=1` turns it on).
 |---|---|---|
 | Who raises the alert | the SLM, for every case | a specialist, the moment it recognises a case; the SLM for every other case |
 | Who writes the explanation | the SLM | the SLM |
-| Dev attack waves, live (15) | timeliness 0.852, delay median 3.11 s (run v1.3-dev-attacks) | timeliness 1.000, delay median 0.00 s (run s2-dev-attacks) |
+| Dev attack waves, live (15) | timeliness 0.867, delay median 3.05 s (run v1.4-dev-attacks; 0.852 at v1.3) | timeliness 1.000, delay median 0.00 s (run s2-dev-attacks) |
 | Caught · false alarms, same run | 15 of 15 · 1 | 15 of 15 · 1, the same SLM false alarm |
 | Holdout attacks, offline replay | timeliness 0.767 | 0.875 |
+| Public eval waves, live (`--set full`: 3 attacks, 4 benign) | 2 of 3 caught, timeliness 0.563, no false alarm (run v1.4-full-mac) | about 0.667, an estimate: the specialist recognises both PowerShell attacks; both solutions miss the Remote Desktop hop |
 
 The offline replay assumes 1.7 s per verdict and is pessimistic, so compare its two
 columns with each other, not with the live rows.

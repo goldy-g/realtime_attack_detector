@@ -313,22 +313,36 @@ class EngineRules(unittest.TestCase):
         self.assertIn("Facts checked by code: PowerShell started by wmiprvse.exe", explain_text)
         self.assertEqual(len(cb.explanations), 2)
 
-    def test_rdp_chain_expert_only_in_solution_2(self):
-        hop = [ev("FLOW", "START", "SVC", None, "2000-01-01T10:00:00.000-04:00", image_path="svchost.exe",
+    RDP_HOP = [ev("FLOW", "START", "SVC", None, "2000-01-01T10:00:00.000-04:00", image_path="svchost.exe",
                   direction="inbound", src_ip="10.0.0.7", src_port="5000", dest_ip="10.0.0.2", dest_port="3389"),
                ev("USER_SESSION", "REMOTE", "S", None, "2000-01-01T10:00:30.000-04:00", user="D\\admin", src_ip="10.0.0.7"),
                pstart("smss.exe", "winlogon.exe", "W", ts="2000-01-01T10:00:30.020-04:00", parent_actor="SM"),
                pstart("winlogon.exe", "explorer.exe", "E", ts="2000-01-01T10:01:31.000-04:00", parent_actor="W"),
                pstart("explorer.exe", "mstsc.exe", "M", ts="2000-01-01T10:06:00.000-04:00", parent_actor="E"),
                flow("C:\\x\\mstsc.exe", "M", "10.0.0.8", 3389, ts="2000-01-01T10:06:20.000-04:00")]
-        cb, wave, _ = self.run_wave(hop)                                       # solution 1: the model says normal
-        self.assertEqual((cb.alerts, wave.stats["expert_cases"]), ([], 0))
+
+    def test_rdp_chain_case_goes_first_in_solution_1(self):
+        engine, cb = Engine(FakeServer()), Callbacks()
+        wave = Wave(machine="h", callbacks=cb, state=MachineState("h"))
+        tri = Triage("h", Fleet(None))
+        tri.live = True
+        with engine.lock:                                      # queue every case before the worker sees the wave
+            for e in self.RDP_HOP:
+                cand = tri.observe(e, wave.state.add(e))
+                if cand:
+                    engine.submit(wave, cand)
+            self.assertEqual(wave.queue[0][-1].event["id"], self.RDP_HOP[-1]["id"])   # last in, judged first
+            self.assertEqual(wave.stats["expert_cases"], 1)
+        cb, wave, server = self.run_wave(self.RDP_HOP)        # the model says normal: no alert in solution 1
+        self.assertEqual(cb.alerts, [])
+        self.assertTrue(any("mstsc.exe" in t and "3389" in t for slot, t in server.texts if slot == 0))
+
+    def test_rdp_chain_expert_raises_in_solution_2(self):
         self.addCleanup(setattr, config, "EXPERT_RAISES", config.EXPERT_RAISES)
         config.EXPERT_RAISES = True
-        cb, wave, _ = self.run_wave(hop)
-        self.assertEqual(cb.alerts, [hop[-1]["id"]])
+        cb, wave, _ = self.run_wave(self.RDP_HOP)
+        self.assertEqual(cb.alerts, [self.RDP_HOP[-1]["id"]])
         self.assertEqual(wave.stats["expert_alerts"], 1)
-
 
 class ExpertRules(unittest.TestCase):
     def cand(self, parent, child, cmd, kind="process"):

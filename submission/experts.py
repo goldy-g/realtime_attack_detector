@@ -53,10 +53,12 @@ def rdp_chain(cand: Candidate, state: MachineState) -> tuple[str, ...]:
     """Reasons, when a process opens Remote Desktop to another machine from a desktop session that itself
     arrived by Remote Desktop (state.session_of), directly or through a local tunnel; else ().
 
-    Solution 2 only (engine.submit): the SLM judges this hop normal even with the session's origin and an
-    explicit chain line in its case, and with a prompt hint naming the pattern (offline, eval w01). In the
-    62 training days the 14 benign outbound Remote Desktop connections all came from local logons; the only
-    sessions that arrived by Remote Desktop were the attacker's (host-339f through a plink tunnel, host-f3ac).
+    In solution 1 a hit only puts the case first in the model's queue and hands these reasons to the
+    explanation; the SLM still judges the hop normal even with the session's origin and an explicit chain line
+    in its case, and with a prompt hint naming the pattern (offline, eval w01), so only solution 2, where the
+    hit raises the alert, catches it. In the 62 training days the 14 benign outbound Remote Desktop connections
+    all came from local logons; the only sessions that arrived by Remote Desktop were the attacker's (host-339f
+    through a plink tunnel, host-f3ac).
     Untested on benign jump hosts, which this testbed does not have."""
     if cand.kind != "flow":
         return ()

@@ -6,7 +6,7 @@ has the whole CPU. `on_event()` never waits for it: the event thread only update
 state and pushes cases into a priority queue.
 
 Rules (3.6):
-- the queue puts cases an expert recognises first (experts.py, SQ-1), then orders by
+- the queue puts cases an expert recognises first (experts.py: hidden PowerShell, RDP chain), then orders by
   fleet rarity (rarer first), then by age. The attack's own case otherwise waits
   behind its lead-up cases, which are just as rare and arrived first. The expert
   only orders the queue and feeds the explanation; the SLM still makes every call;
@@ -82,9 +82,7 @@ class Engine:
     def submit(self, wave: Wave, cand: Candidate) -> None:
         """Queue a case. Called with the lock held by the detector."""
         wave.stats["cases"] += 1
-        cand.expert = experts.hidden_powershell(cand)
-        if not cand.expert and config.EXPERT_RAISES:    # the RDP-chain specialist exists for solution 2 only
-            cand.expert = experts.rdp_chain(cand, wave.state)
+        cand.expert = experts.hidden_powershell(cand) or experts.rdp_chain(cand, wave.state)
         if cand.expert:
             wave.stats["expert_cases"] += 1
         if cand.expert and config.EXPERT_RAISES:        # solution 2: the expert decides, nothing waits

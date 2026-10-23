@@ -1,0 +1,1285 @@
+{
+ "label": "v2.1-holdout",
+ "set": "holdout",
+ "mode": "realtime",
+ "graded": true,
+ "build_s": 22.392563958186656,
+ "timing": {
+  "event_ms_p50": 0.017875339835882187,
+  "event_ms_p95": 0.08483363781124353,
+  "event_ms_max": 6.079624872654676,
+  "max_live_lag_s": 0.010205889120697975,
+  "warm_s_max": 0.028324374929070473,
+  "events_dropped": 0,
+  "alerts_lost": 0,
+  "n_errors": 0,
+  "errors_sample": [],
+  "skipped_waves": [],
+  "hung": false,
+  "total_wall_s": 2678.7052941666916
+ },
+ "latency": {
+  "decision_s_p50": 4.04425,
+  "decision_s_p95": 9.462883999999999,
+  "explain_s_p50": 6.15105,
+  "explain_s_p95": 6.688604,
+  "explained": 13,
+  "explanations_with_valid_event_ids": 13,
+  "decision_count": 13,
+  "decision_s_max": 9.70706,
+  "explain_count": 13,
+  "explain_s_max": 6.85115
+ },
+ "run": {
+  "mode": "realtime",
+  "waves": {
+   "atk-1038": {
+    "errors": [],
+    "warm_events": 5379,
+    "live_events": 226,
+    "warm_delivered": 5379,
+    "live_delivered": 226,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005211449693888426,
+    "live_wall_s": 126.50282162521034,
+    "post_stream_wait_s": 10.066,
+    "warm_s": 0.012922289781272411,
+    "hung": false,
+    "wall_s": 136.6139630000107,
+    "event_ms_p50": 0.029249582439661026,
+    "event_ms_p95": 0.08232297841459513,
+    "event_ms_max": 6.079624872654676,
+    "n_errors": 0
+   },
+   "atk-3c03": {
+    "errors": [],
+    "warm_events": 4820,
+    "live_events": 453,
+    "warm_delivered": 4820,
+    "live_delivered": 453,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005507498048245907,
+    "live_wall_s": 168.49083820870146,
+    "post_stream_wait_s": 10.073,
+    "warm_s": 0.007759138010442257,
+    "hung": false,
+    "wall_s": 178.59997537499294,
+    "event_ms_p50": 0.02045789733529091,
+    "event_ms_p95": 0.07820017635822295,
+    "event_ms_max": 0.7089590653777122,
+    "n_errors": 0
+   },
+   "atk-6d5d": {
+    "errors": [],
+    "warm_events": 9525,
+    "live_events": 881,
+    "warm_delivered": 9525,
+    "live_delivered": 881,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005169515963643789,
+    "live_wall_s": 166.58407708304003,
+    "post_stream_wait_s": 10.069,
+    "warm_s": 0.017876263707876205,
+    "hung": false,
+    "wall_s": 176.74253837484866,
+    "event_ms_p50": 0.015832949429750443,
+    "event_ms_p95": 0.07491698488593102,
+    "event_ms_max": 4.495208151638508,
+    "n_errors": 0
+   },
+   "atk-7f7a": {
+    "errors": [],
+    "warm_events": 5312,
+    "live_events": 540,
+    "warm_delivered": 5312,
+    "live_delivered": 540,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005613858811557293,
+    "live_wall_s": 148.98819604236633,
+    "post_stream_wait_s": 10.041,
+    "warm_s": 0.011223604436963797,
+    "hung": false,
+    "wall_s": 159.07877379097044,
+    "event_ms_p50": 0.01185387372970581,
+    "event_ms_p95": 0.07462876383215189,
+    "event_ms_max": 0.685832928866148,
+    "n_errors": 0
+   },
+   "atk-e7e0": {
+    "errors": [],
+    "warm_events": 4733,
+    "live_events": 416,
+    "warm_delivered": 4733,
+    "live_delivered": 416,
+    "alerts_lost": 0,
+    "max_lag_s": 0.006427535321563482,
+    "live_wall_s": 155.17472883267328,
+    "post_stream_wait_s": 10.06,
+    "warm_s": 0.01082209637388587,
+    "hung": false,
+    "wall_s": 165.28959299996495,
+    "event_ms_p50": 0.02247910015285015,
+    "event_ms_p95": 0.09165564551949501,
+    "event_ms_max": 0.40012504905462265,
+    "n_errors": 0
+   },
+   "atk-f3ac-1": {
+    "errors": [],
+    "warm_events": 6438,
+    "live_events": 526,
+    "warm_delivered": 6438,
+    "live_delivered": 526,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005169638432562351,
+    "live_wall_s": 144.5382963330485,
+    "post_stream_wait_s": 10.065,
+    "warm_s": 0.014022731222212315,
+    "hung": false,
+    "wall_s": 154.66396054206416,
+    "event_ms_p50": 0.01850002445280552,
+    "event_ms_p95": 0.07905124220997095,
+    "event_ms_max": 0.21745916455984116,
+    "n_errors": 0
+   },
+   "atk-f59c": {
+    "errors": [],
+    "warm_events": 6169,
+    "live_events": 295,
+    "warm_delivered": 6169,
+    "live_delivered": 295,
+    "alerts_lost": 0,
+    "max_lag_s": 0.006489141378551722,
+    "live_wall_s": 164.41997595783323,
+    "post_stream_wait_s": 10.087,
+    "warm_s": 0.01223971601575613,
+    "hung": false,
+    "wall_s": 174.55937895784155,
+    "event_ms_p50": 0.026374589651823044,
+    "event_ms_p95": 0.09399987757205966,
+    "event_ms_max": 2.609000075608492,
+    "n_errors": 0
+   },
+   "ben-0597": {
+    "errors": [],
+    "warm_events": 3970,
+    "live_events": 114,
+    "warm_delivered": 3970,
+    "live_delivered": 114,
+    "alerts_lost": 0,
+    "max_lag_s": 0.00512653449550271,
+    "live_wall_s": 132.98979766573757,
+    "post_stream_wait_s": 10.082,
+    "warm_s": 0.00806609122082591,
+    "hung": false,
+    "wall_s": 143.11117541696876,
+    "event_ms_p50": 0.026125460863113403,
+    "event_ms_p95": 0.09102867916226381,
+    "event_ms_max": 0.346415676176548,
+    "n_errors": 0
+   },
+   "ben-3fed": {
+    "errors": [],
+    "warm_events": 10093,
+    "live_events": 120,
+    "warm_delivered": 10093,
+    "live_delivered": 120,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005090143997222185,
+    "live_wall_s": 121.09315183432773,
+    "post_stream_wait_s": 10.076,
+    "warm_s": 0.019955049268901348,
+    "hung": false,
+    "wall_s": 131.2483663330786,
+    "event_ms_p50": 0.043375417590141296,
+    "event_ms_p95": 0.11077066883444785,
+    "event_ms_max": 0.2383342944085598,
+    "n_errors": 0
+   },
+   "ben-4460": {
+    "errors": [],
+    "warm_events": 4093,
+    "live_events": 339,
+    "warm_delivered": 4093,
+    "live_delivered": 339,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005163263063877821,
+    "live_wall_s": 157.21027329191566,
+    "post_stream_wait_s": 10.053,
+    "warm_s": 0.008769026957452297,
+    "hung": false,
+    "wall_s": 167.31492083286867,
+    "event_ms_p50": 0.007834285497665405,
+    "event_ms_p95": 0.07607894949614981,
+    "event_ms_max": 0.1127920113503933,
+    "n_errors": 0
+   },
+   "ben-594f": {
+    "errors": [],
+    "warm_events": 10027,
+    "live_events": 155,
+    "warm_delivered": 10027,
+    "live_delivered": 155,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005070143844932318,
+    "live_wall_s": 144.63551112497225,
+    "post_stream_wait_s": 10.058,
+    "warm_s": 0.01727949408814311,
+    "hung": false,
+    "wall_s": 154.76152458414435,
+    "event_ms_p50": 0.022458378225564957,
+    "event_ms_p95": 0.08694659918546656,
+    "event_ms_max": 0.21591689437627792,
+    "n_errors": 0
+   },
+   "ben-60ee": {
+    "errors": [],
+    "warm_events": 12177,
+    "live_events": 144,
+    "warm_delivered": 12177,
+    "live_delivered": 144,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005076481960713863,
+    "live_wall_s": 157.93624595925212,
+    "post_stream_wait_s": 10.061,
+    "warm_s": 0.02292640646919608,
+    "hung": false,
+    "wall_s": 168.08011987479404,
+    "event_ms_p50": 0.02731243148446083,
+    "event_ms_p95": 0.08296689484268426,
+    "event_ms_max": 0.15966687351465225,
+    "n_errors": 0
+   },
+   "ben-9099": {
+    "errors": [],
+    "warm_events": 10874,
+    "live_events": 531,
+    "warm_delivered": 10874,
+    "live_delivered": 531,
+    "alerts_lost": 0,
+    "max_lag_s": 0.005265656393021345,
+    "live_wall_s": 158.9289809158072,
+    "post_stream_wait_s": 10.072,
+    "warm_s": 0.028324374929070473,
+    "hung": false,
+    "wall_s": 169.08305737469345,
+    "event_ms_p50": 0.015749596059322357,
+    "event_ms_p95": 0.07954100146889687,
+    "event_ms_max": 0.21866708993911743,
+    "n_errors": 0
+   },
+   "ben-9135": {
+    "errors": [],
+    "warm_events": 7231,
+    "live_events": 142,
+    "warm_delivered": 7231,
+    "live_delivered": 142,
+    "alerts_lost": 0,
+    "max_lag_s": 0.010073356796056032,
+    "live_wall_s": 152.46780008310452,
+    "post_stream_wait_s": 10.099,
+    "warm_s": 0.0148321483284235,
+    "hung": false,
+    "wall_s": 162.62181512499228,
+    "event_ms_p50": 0.020249513909220695,
+    "event_ms_p95": 0.07845819927752012,
+    "event_ms_max": 0.16691721975803375,
+    "n_errors": 0
+   },
+   "ben-cce5": {
+    "errors": [],
+    "warm_events": 7020,
+    "live_events": 130,
+    "warm_delivered": 7020,
+    "live_delivered": 130,
+    "alerts_lost": 0,
+    "max_lag_s": 0.01009722426533699,
+    "live_wall_s": 117.14310200000182,
+    "post_stream_wait_s": 10.026,
+    "warm_s": 0.011879982426762581,
+    "hung": false,
+    "wall_s": 127.21333504188806,
+    "event_ms_p50": 0.021978747099637985,
+    "event_ms_p95": 0.10102312080562115,
+    "event_ms_max": 0.7689581252634525,
+    "n_errors": 0
+   },
+   "ben-d467": {
+    "errors": [],
+    "warm_events": 10341,
+    "live_events": 124,
+    "warm_delivered": 10341,
+    "live_delivered": 124,
+    "alerts_lost": 0,
+    "max_lag_s": 0.010092595592141151,
+    "live_wall_s": 124.82900720834732,
+    "post_stream_wait_s": 10.074,
+    "warm_s": 0.018707251641899347,
+    "hung": false,
+    "wall_s": 134.97235774993896,
+    "event_ms_p50": 0.027145957574248314,
+    "event_ms_p95": 0.10787334758788344,
+    "event_ms_max": 0.16229180619120598,
+    "n_errors": 0
+   },
+   "ben-ea7c": {
+    "errors": [],
+    "warm_events": 7317,
+    "live_events": 648,
+    "warm_delivered": 7317,
+    "live_delivered": 648,
+    "alerts_lost": 0,
+    "max_lag_s": 0.010205889120697975,
+    "live_wall_s": 164.6169645418413,
+    "post_stream_wait_s": 10.079,
+    "warm_s": 0.013315993826836348,
+    "hung": false,
+    "wall_s": 174.74745941581205,
+    "event_ms_p50": 0.009791459888219833,
+    "event_ms_p95": 0.08333104196935887,
+    "event_ms_max": 0.24154223501682281,
+    "n_errors": 0
+   }
+  },
+  "total_wall_s": 2678.7052941666916,
+  "event_ms_p50": 0.017875339835882187,
+  "event_ms_p95": 0.08483363781124353,
+  "event_ms_max": 6.079624872654676
+ },
+ "summary": {
+  "n_waves": 17,
+  "n_attack_waves": 7,
+  "attack_waves_detected": 7,
+  "recall": 1.0,
+  "delay_s_p50": 0.004999995231628418,
+  "delay_s_max": 4.044000029563904,
+  "n_attacks": 7,
+  "attacks_detected": 7,
+  "caught_at_first_event": 6,
+  "caught_on_time": 7,
+  "caught_after_execution": 0,
+  "missed_attacks": 0,
+  "timeliness_score": 0.9285714285714286,
+  "n_alerts": 13,
+  "false_alarms": 0,
+  "false_alarms_per_wave": 0.0,
+  "false_alarms_warmup": 0,
+  "false_alarms_live": 0,
+  "repeat_false_alarms": 0,
+  "duplicates": 6,
+  "excused": 0,
+  "context": 0,
+  "invalid": 0,
+  "late_timeout": 0,
+  "evidence_precision": 1.0,
+  "detection_metrics": {
+   "tp": 7,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0
+  }
+ },
+ "waves": {
+  "atk-1038": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.009999990463256836,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-c8a3d3": {
+     "attack_id": "atk-c8a3d3",
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-1038-A0001",
+     "alert_ts": "2000-08-11T15:41:17.083-04:00",
+     "delay_s": 0.009999990463256836,
+     "caught_at_event": 1,
+     "n_malicious_events": 70,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 2,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 1,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    1.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-1038-A0001",
+     "event_id": "b2c47595-a0e4-046c-7e07-39d249f86de0",
+     "phase": "live",
+     "chain_id": "3e7a7ab9-3f09-6291-61b6-1f8173fbc44a",
+     "attack_id": "atk-c8a3d3",
+     "outcome": "detection",
+     "delay_s": 0.009999990463256836,
+     "explanation_event_ids_valid": [
+      "b2c47595-a0e4-046c-7e07-39d249f86de0"
+     ]
+    },
+    {
+     "alert_id": "atk-1038-A0002",
+     "event_id": "c14f2e31-61f5-a410-f686-41d908469754",
+     "phase": "live",
+     "chain_id": "3e7a7ab9-3f09-6291-61b6-1f8173fbc44a",
+     "attack_id": "atk-c8a3d3",
+     "outcome": "duplicate",
+     "delay_s": null,
+     "explanation_event_ids_valid": [
+      "c14f2e31-61f5-a410-f686-41d908469754",
+      "f23cab32-eeef-7841-7819-2e90dfb9fd0f"
+     ]
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 4.652775,
+    "decision_s_p95": 8.8353675,
+    "explain_s_p50": 5.884539999999999,
+    "explain_s_p95": 6.271171,
+    "explained": 2,
+    "explanations_with_valid_event_ids": 2,
+    "decision_count": 2,
+    "decision_s_max": 9.3001,
+    "explain_count": 2,
+    "explain_s_max": 6.31413
+   }
+  },
+  "atk-3c03": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.004999995231628418,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-48400a": {
+     "attack_id": "atk-48400a",
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-3c03-A0001",
+     "alert_ts": "2000-12-22T14:44:59.176-04:00",
+     "delay_s": 0.004999995231628418,
+     "caught_at_event": 1,
+     "n_malicious_events": 235,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 2,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 1,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    1.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-3c03-A0001",
+     "event_id": "7044f37b-b06b-1516-fc59-67642d040ffd",
+     "phase": "live",
+     "chain_id": "1836d206-e222-6175-4416-f19078896fbe",
+     "attack_id": "atk-48400a",
+     "outcome": "detection",
+     "delay_s": 0.004999995231628418,
+     "explanation_event_ids_valid": [
+      "7044f37b-b06b-1516-fc59-67642d040ffd"
+     ]
+    },
+    {
+     "alert_id": "atk-3c03-A0002",
+     "event_id": "e84e9419-45e4-d7ce-b887-c676111e199d",
+     "phase": "live",
+     "chain_id": "1836d206-e222-6175-4416-f19078896fbe",
+     "attack_id": "atk-48400a",
+     "outcome": "duplicate",
+     "delay_s": null,
+     "explanation_event_ids_valid": [
+      "e84e9419-45e4-d7ce-b887-c676111e199d",
+      "8eba045f-1c76-d2b5-a854-857667909b14"
+     ]
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 4.460075,
+    "decision_s_p95": 8.473836499999999,
+    "explain_s_p50": 6.41857,
+    "explain_s_p95": 6.564073,
+    "explained": 2,
+    "explanations_with_valid_event_ids": 2,
+    "decision_count": 2,
+    "decision_s_max": 8.91981,
+    "explain_count": 2,
+    "explain_s_max": 6.58024
+   }
+  },
+  "atk-6d5d": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.0009999275207519531,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-628e1c": {
+     "attack_id": "atk-628e1c",
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-6d5d-A0001",
+     "alert_ts": "2000-08-08T14:44:57.106-04:00",
+     "delay_s": 0.0009999275207519531,
+     "caught_at_event": 1,
+     "n_malicious_events": 201,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 2,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 1,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    1.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-6d5d-A0001",
+     "event_id": "3fa2a537-962e-e694-ef87-7ef26fcebcc0",
+     "phase": "live",
+     "chain_id": "38024531-cb20-bcf1-b5c6-ed49a634957c",
+     "attack_id": "atk-628e1c",
+     "outcome": "detection",
+     "delay_s": 0.0009999275207519531,
+     "explanation_event_ids_valid": [
+      "3fa2a537-962e-e694-ef87-7ef26fcebcc0"
+     ]
+    },
+    {
+     "alert_id": "atk-6d5d-A0002",
+     "event_id": "a579cd0d-2cf6-6269-3b98-9c1655383b84",
+     "phase": "live",
+     "chain_id": "38024531-cb20-bcf1-b5c6-ed49a634957c",
+     "attack_id": "atk-628e1c",
+     "outcome": "duplicate",
+     "delay_s": null,
+     "explanation_event_ids_valid": [
+      "a579cd0d-2cf6-6269-3b98-9c1655383b84",
+      "e485148e-5aae-5060-3ce3-c26367fdd239"
+     ]
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 4.296285,
+    "decision_s_p95": 8.1624015,
+    "explain_s_p50": 5.58315,
+    "explain_s_p95": 6.144083999999999,
+    "explained": 2,
+    "explanations_with_valid_event_ids": 2,
+    "decision_count": 2,
+    "decision_s_max": 8.59197,
+    "explain_count": 2,
+    "explain_s_max": 6.20641
+   }
+  },
+  "atk-7f7a": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.004999995231628418,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-ef26d5": {
+     "attack_id": "atk-ef26d5",
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-7f7a-A0001",
+     "alert_ts": "2000-01-14T14:44:53.790-04:00",
+     "delay_s": 0.004999995231628418,
+     "caught_at_event": 1,
+     "n_malicious_events": 188,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 2,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 1,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    1.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-7f7a-A0001",
+     "event_id": "b002b95d-d418-c93e-83e1-f7fd4c04ba41",
+     "phase": "live",
+     "chain_id": "75058d23-8284-e701-5928-a572d729e1b3",
+     "attack_id": "atk-ef26d5",
+     "outcome": "detection",
+     "delay_s": 0.004999995231628418,
+     "explanation_event_ids_valid": [
+      "b002b95d-d418-c93e-83e1-f7fd4c04ba41"
+     ]
+    },
+    {
+     "alert_id": "atk-7f7a-A0002",
+     "event_id": "a8f00f69-0199-4aca-3ae9-d7a441cc6c76",
+     "phase": "live",
+     "chain_id": "75058d23-8284-e701-5928-a572d729e1b3",
+     "attack_id": "atk-ef26d5",
+     "outcome": "duplicate",
+     "delay_s": null,
+     "explanation_event_ids_valid": [
+      "a8f00f69-0199-4aca-3ae9-d7a441cc6c76",
+      "86b42a68-e233-fbf8-885e-5d75df196ac2"
+     ]
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 4.259,
+    "decision_s_p95": 8.091848,
+    "explain_s_p50": 5.49672,
+    "explain_s_p95": 6.085616999999999,
+    "explained": 2,
+    "explanations_with_valid_event_ids": 2,
+    "decision_count": 2,
+    "decision_s_max": 8.51772,
+    "explain_count": 2,
+    "explain_s_max": 6.15105
+   }
+  },
+  "atk-e7e0": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.004999995231628418,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-40928c": {
+     "attack_id": "atk-40928c",
+     "name": "Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-e7e0-A0001",
+     "alert_ts": "2000-02-20T14:44:56.839-04:00",
+     "delay_s": 0.004999995231628418,
+     "caught_at_event": 1,
+     "n_malicious_events": 230,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 2,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 1,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    1.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-e7e0-A0001",
+     "event_id": "e613ab17-de49-4c4b-b495-deeb5ef83d31",
+     "phase": "live",
+     "chain_id": "37689321-01cf-14cd-9522-c67754410dc2",
+     "attack_id": "atk-40928c",
+     "outcome": "detection",
+     "delay_s": 0.004999995231628418,
+     "explanation_event_ids_valid": [
+      "e613ab17-de49-4c4b-b495-deeb5ef83d31"
+     ]
+    },
+    {
+     "alert_id": "atk-e7e0-A0002",
+     "event_id": "ccfd60ce-fe9a-278c-c5e8-50f659291d7b",
+     "phase": "live",
+     "chain_id": "37689321-01cf-14cd-9522-c67754410dc2",
+     "attack_id": "atk-40928c",
+     "outcome": "duplicate",
+     "delay_s": null,
+     "explanation_event_ids_valid": [
+      "ccfd60ce-fe9a-278c-c5e8-50f659291d7b",
+      "47e9d5f3-d3c8-777a-d3b0-b8fb8d178c50"
+     ]
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 3.97008,
+    "decision_s_p95": 7.542980999999999,
+    "explain_s_p50": 5.205685,
+    "explain_s_p95": 5.604290499999999,
+    "explained": 2,
+    "explanations_with_valid_event_ids": 2,
+    "decision_count": 2,
+    "decision_s_max": 7.93997,
+    "explain_count": 2,
+    "explain_s_max": 5.64858
+   }
+  },
+  "atk-f3ac-1": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 4.044000029563904,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-210b72": {
+     "attack_id": "atk-210b72",
+     "name": "Trojanised Notepad++ updater: SYSTEM payload, lsass injection, local admin account, RDP login, and a script beacon loop",
+     "status": "caught_on_time",
+     "alert_id": "atk-f3ac-1-A0001",
+     "alert_ts": "2000-01-09T10:28:15.894-04:00",
+     "delay_s": 4.044000029563904,
+     "caught_at_event": 7,
+     "n_malicious_events": 12,
+     "event_score": 0.5
+    }
+   },
+   "n_alerts": 1,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    1.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-f3ac-1-A0001",
+     "event_id": "931d2292-1c6e-dd60-b496-153d3ffceb7c",
+     "phase": "live",
+     "chain_id": "bb973ec1-5057-2979-50d2-ff2746e5c3b4",
+     "attack_id": "atk-210b72",
+     "outcome": "detection",
+     "delay_s": 4.044000029563904,
+     "explanation_event_ids_valid": [
+      "931d2292-1c6e-dd60-b496-153d3ffceb7c",
+      "11bbb9c4-e055-1c03-97e8-13fdc994adb9",
+      "f49232ff-d990-6ecd-3b12-c817b525ad63",
+      "ccf25d59-0d72-13cc-4d23-c5ecf1a3084a"
+     ]
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 4.04425,
+    "decision_s_p95": 4.04425,
+    "explain_s_p50": 6.15244,
+    "explain_s_p95": 6.15244,
+    "explained": 1,
+    "explanations_with_valid_event_ids": 1,
+    "decision_count": 1,
+    "decision_s_max": 4.04425,
+    "explain_count": 1,
+    "explain_s_max": 6.15244
+   }
+  },
+  "atk-f59c": {
+   "attack": true,
+   "detected": true,
+   "delay_s": 0.003999948501586914,
+   "n_attacks": 1,
+   "attacks_detected": 1,
+   "attacks": {
+    "atk-892458": {
+     "attack_id": "atk-892458",
+     "name": "Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server",
+     "status": "caught_on_time",
+     "alert_id": "atk-f59c-A0001",
+     "alert_ts": "2000-12-08T15:41:17.296-04:00",
+     "delay_s": 0.003999948501586914,
+     "caught_at_event": 1,
+     "n_malicious_events": 81,
+     "event_score": 1.0
+    }
+   },
+   "n_alerts": 2,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 1,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [
+    1.0
+   ],
+   "alerts": [
+    {
+     "alert_id": "atk-f59c-A0001",
+     "event_id": "140708e6-9a82-55bc-9da1-be699feba095",
+     "phase": "live",
+     "chain_id": "1ae3b04f-e99e-ca37-01a2-568d17039ea2",
+     "attack_id": "atk-892458",
+     "outcome": "detection",
+     "delay_s": 0.003999948501586914,
+     "explanation_event_ids_valid": [
+      "140708e6-9a82-55bc-9da1-be699feba095"
+     ]
+    },
+    {
+     "alert_id": "atk-f59c-A0002",
+     "event_id": "ebd0c1d5-bc6e-029e-d7d6-2ad1e1abfc83",
+     "phase": "live",
+     "chain_id": "1ae3b04f-e99e-ca37-01a2-568d17039ea2",
+     "attack_id": "atk-892458",
+     "outcome": "duplicate",
+     "delay_s": null,
+     "explanation_event_ids_valid": [
+      "ebd0c1d5-bc6e-029e-d7d6-2ad1e1abfc83",
+      "e71e3d9a-31ff-1cbf-8e89-6098187b4161"
+     ]
+    }
+   ],
+   "detection_metrics": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "latency": {
+    "decision_s_p50": 4.853635000000001,
+    "decision_s_p95": 9.2217175,
+    "explain_s_p50": 5.991695,
+    "explain_s_p95": 6.765204499999999,
+    "explained": 2,
+    "explanations_with_valid_event_ids": 2,
+    "decision_count": 2,
+    "decision_s_max": 9.70706,
+    "explain_count": 2,
+    "explain_s_max": 6.85115
+   }
+  },
+  "ben-0597": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-3fed": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-4460": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-594f": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-60ee": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-9099": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-9135": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-cce5": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-d467": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  },
+  "ben-ea7c": {
+   "attack": false,
+   "detected": false,
+   "delay_s": null,
+   "n_attacks": 0,
+   "attacks_detected": 0,
+   "attacks": {},
+   "n_alerts": 0,
+   "false_alarms": 0,
+   "false_alarms_warmup": 0,
+   "false_alarms_live": 0,
+   "repeat_false_alarms": 0,
+   "duplicates": 0,
+   "late_timeout": 0,
+   "excused": 0,
+   "context": 0,
+   "invalid": 0,
+   "evidence_precision": [],
+   "alerts": [],
+   "detection_metrics": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+   },
+   "latency": {
+    "decision_s_p50": 0.0,
+    "decision_s_p95": 0.0,
+    "explain_s_p50": 0.0,
+    "explain_s_p95": 0.0,
+    "explained": 0,
+    "explanations_with_valid_event_ids": 0,
+    "decision_count": 0,
+    "explain_count": 0
+   }
+  }
+ }
+}

@@ -1,0 +1,10 @@
+RUN v2.1-holdout started · 17 waves (validation holdout, realtime) · expected ~45:08
+RUN v2.1-holdout running · 1/17 waves · 2 alerts · 1/7 attacks caught · 0 false alarms · 5:01 of ~45:31
+RUN v2.1-holdout running · 3/17 waves · 6 alerts · 3/7 attacks caught · 0 false alarms · 10:02 of ~45:31
+RUN v2.1-holdout running · 5/17 waves · 10 alerts · 5/7 attacks caught · 0 false alarms · 15:02 of ~45:31
+RUN v2.1-holdout running · 7/17 waves · 13 alerts · 7/7 attacks caught · 0 false alarms · 20:03 of ~45:31
+RUN v2.1-holdout running · 9/17 waves · 13 alerts · 7/7 attacks caught · 0 false alarms · 25:04 of ~45:31
+RUN v2.1-holdout running · 11/17 waves · 13 alerts · 7/7 attacks caught · 0 false alarms · 30:05 of ~45:31
+RUN v2.1-holdout running · 13/17 waves · 13 alerts · 7/7 attacks caught · 0 false alarms · 35:06 of ~45:31
+RUN v2.1-holdout running · 15/17 waves · 13 alerts · 7/7 attacks caught · 0 false alarms · 40:08 of ~45:31
+RUN v2.1-holdout finished · 17/17 waves · 13 alerts · 7/7 attacks caught · 0 false alarms · timeliness 0.929 · 0 dropped, 0 errors · 45:02

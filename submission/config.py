@@ -42,6 +42,10 @@ QUEUE_MAX = _env("QUEUE_MAX", 40)                # beyond this, the most common 
 
 # --- decisions (3.6) ----------------------------------------------------------------------------
 ALERT_MIN_CONFIDENCE = _env("ALERT_MIN_CONFIDENCE", 50)
+# Solution 2 (research/DETECTION_APPROACH.md, "Two solutions"), off in the submission, where every
+# alert comes from an SLM verdict. On (DETECTOR_EXPERT_RAISES=1), a case an expert recognises
+# (experts.py) raises its alert at once, with no model verdict; the SLM still writes the explanation.
+EXPERT_RAISES = _env("EXPERT_RAISES", 0) == 1
 
 # --- explanations (3.7) -------------------------------------------------------------------------
 EXPLAIN = _env("EXPLAIN", 1) == 1

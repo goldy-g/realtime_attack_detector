@@ -74,6 +74,7 @@ class Candidate:
     fleet: int             # other machines that show the pair
     fleet_of: int          # out of how many
     t: float
+    expert: tuple = ()     # an expert's reasons when it recognises the case (experts.py); orders the queue only
 
 
 class Triage:

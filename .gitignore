@@ -1,6 +1,13 @@
 # Caches your detector builds from data/train -- rebuildable, never commit
 data/cache/
 
+# The provided waves -- shipped with the assignment, far too large for git
+data/train/
+data/eval/
+
+# llama.cpp runtime unzipped next to the detector (download link in submission/README.md)
+submission/bin/
+
 # Model weights
 models/
 *.gguf

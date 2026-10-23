@@ -6,11 +6,22 @@ has the whole CPU. `on_event()` never waits for it: the event thread only update
 state and pushes cases into a priority queue.
 
 Rules (3.6):
-- the queue is ordered by fleet rarity (rarer first), then by age;
-- at most one alert per process tree: once a process is alerted on, later cases
-  in its subtree skip the model;
+- the queue puts cases an expert recognises first (experts.py, SQ-1), then orders by
+  fleet rarity (rarer first), then by age. The attack's own case otherwise waits
+  behind its lead-up cases, which are just as rare and arrived first. The expert
+  only orders the queue and feeds the explanation; the SLM still makes every call;
+- at most one alert per process: once a process is alerted on, its later cases
+  (its other connections) skip the model. Its children are still judged: an
+  alert that lands one step before the alert point is only "context" and earns
+  nothing, and a repeat alert costs nothing (duplicates and repeat false alarms
+  are free), so silencing the tree could only lose a detection (run v1.1-dev,
+  atk-efdb: cmd.exe running a downloaded .bat alerted 1 s early, and the hidden
+  PowerShell it started was never judged);
 - verdict calls always go before explanation calls;
-- when the wave closes (`callbacks.cancelled`), its pending work is dropped.
+- when the wave closes (`callbacks.cancelled`), its pending work is dropped;
+- solution 2 (`config.EXPERT_RAISES`, off in the submission): a case the expert
+  recognises raises its alert at once, from the event thread, and only its
+  explanation goes to the model. Every other case is judged as above.
 """
 
 from __future__ import annotations
@@ -23,7 +34,7 @@ import threading
 import time
 from dataclasses import dataclass, field
 
-from . import cases, config, prompts
+from . import cases, config, experts, prompts
 from .baseline import Candidate
 from .llm import EXPLAIN_SLOT, VERDICT_SLOT, LlamaServer
 from .state import MachineState, base, line
@@ -41,11 +52,12 @@ class Wave:
     machine: str
     callbacks: object
     state: MachineState
-    alerted: set = field(default_factory=set)          # objectIDs of alerted processes
-    queue: list = field(default_factory=list)          # heap of (fleet, t, seq, Candidate)
+    alerted: set = field(default_factory=set)          # objectIDs of processes already alerted on
+    queue: list = field(default_factory=list)          # heap of (0 if expert else 1, fleet, t, seq, Candidate)
     explain_jobs: list = field(default_factory=list)   # FIFO of dict
-    stats: dict = field(default_factory=lambda: {"cases": 0, "judged": 0, "skipped_alerted": 0, "shed": 0,
-                                                 "alerts": 0, "explained": 0, "fallback_explanations": 0})
+    stats: dict = field(default_factory=lambda: {"cases": 0, "expert_cases": 0, "judged": 0, "skipped_alerted": 0,
+                                                 "shed": 0, "alerts": 0, "expert_alerts": 0, "explained": 0,
+                                                 "fallback_explanations": 0})
 
 
 class Engine:
@@ -70,14 +82,42 @@ class Engine:
     def submit(self, wave: Wave, cand: Candidate) -> None:
         """Queue a case. Called with the lock held by the detector."""
         wave.stats["cases"] += 1
-        heapq.heappush(wave.queue, (cand.fleet, cand.t, next(self.seq), cand))
-        if len(wave.queue) > config.QUEUE_MAX:          # shed the most common pending cases
-            wave.queue.sort()
-            dropped = len(wave.queue) - config.QUEUE_MAX
-            del wave.queue[config.QUEUE_MAX:]
-            heapq.heapify(wave.queue)
-            wave.stats["shed"] += dropped
+        cand.expert = experts.hidden_powershell(cand)
+        if cand.expert:
+            wave.stats["expert_cases"] += 1
+        if cand.expert and config.EXPERT_RAISES:        # solution 2: the expert decides, nothing waits
+            self._expert_alert(wave, cand)
+        else:
+            heapq.heappush(wave.queue, (0 if cand.expert else 1, cand.fleet, cand.t, next(self.seq), cand))
+            if len(wave.queue) > config.QUEUE_MAX:      # shed the most common pending cases
+                wave.queue.sort()
+                dropped = len(wave.queue) - config.QUEUE_MAX
+                del wave.queue[config.QUEUE_MAX:]
+                heapq.heapify(wave.queue)
+                wave.stats["shed"] += dropped
         self.wake.notify()
+
+    def _expert_alert(self, wave: Wave, cand: Candidate) -> None:
+        """Solution 2: raise the alert for a recognised case now, then queue its explanation.
+        Called with the lock held, from the event thread; no model call happens here."""
+        ev = cand.event
+        case_proc = ev["objectID"] if cand.kind == "process" else ev.get("actorID")
+        if case_proc in wave.alerted:
+            wave.stats["skipped_alerted"] += 1
+            return
+        if wave.callbacks.cancelled.is_set():
+            return
+        wave.alerted.add(case_proc)
+        alert_id = wave.callbacks.alert(ev["id"])
+        text = cases.render(wave.state, cand)
+        if alert_id is not None:
+            wave.stats["alerts"] += 1
+            wave.stats["expert_alerts"] += 1
+            if config.EXPLAIN:
+                wave.explain_jobs.append({"alert_id": alert_id, "case": text, "confidence": None, "proc": case_proc,
+                                          "evidence": self._evidence(wave.state, ev["id"], case_proc), "cand": cand,
+                                          "alerted_at": time.perf_counter()})
+        self._record(wave, cand, text, "attack", None, {}, 0.0, alert_id, wave.state.now, by="expert")
 
     # ------------------------------------------------------------------ worker thread
     def _run(self) -> None:
@@ -90,7 +130,7 @@ class Engine:
                     wave.queue.clear()
                     wave.explain_jobs.clear()
                     continue
-                job = ("verdict", heapq.heappop(wave.queue)[3]) if wave.queue else ("explain", wave.explain_jobs.pop(0))
+                job = ("verdict", heapq.heappop(wave.queue)[-1]) if wave.queue else ("explain", wave.explain_jobs.pop(0))
             try:
                 if job[0] == "verdict":
                     self._verdict(wave, job[1])
@@ -105,6 +145,8 @@ class Engine:
         return w is not None and (bool(w.queue) or bool(w.explain_jobs))
 
     def _recover(self) -> None:
+        if self.server.stopping:        # shutting down: a call cut off by stop() is not a crash
+            return
         if not self.server.alive():
             log.warning("llama-server died; restarting")
             try:
@@ -117,7 +159,7 @@ class Engine:
         ev = cand.event
         case_proc = ev["objectID"] if cand.kind == "process" else ev.get("actorID")
         with self.lock:
-            if wave.alerted.intersection(wave.state.ancestry(case_proc)):
+            if case_proc in wave.alerted:
                 wave.stats["skipped_alerted"] += 1
                 return
             text = cases.render(wave.state, cand)
@@ -131,7 +173,7 @@ class Engine:
         alert_id = None
         if attack and not wave.callbacks.cancelled.is_set():
             with self.lock:
-                fresh = not wave.alerted.intersection(wave.state.ancestry(case_proc))
+                fresh = case_proc not in wave.alerted
                 if fresh:
                     wave.alerted.add(case_proc)
                     evidence = self._evidence(wave.state, ev["id"], case_proc)
@@ -167,7 +209,7 @@ class Engine:
             followed = [ln for _, ln in sorted(followed)][-10:]
         text = None
         try:
-            out = self.server.chat(prompts.explain_messages(job["case"], followed, job["confidence"]),
+            out = self.server.chat(prompts.explain_messages(job["case"], followed, job["confidence"], job["cand"].expert),
                                    max_tokens=config.EXPLAIN_MAX_TOKENS, slot=EXPLAIN_SLOT,
                                    grammar=prompts.EXPLAIN_GRAMMAR)
             text = out["text"].strip() or None
@@ -179,14 +221,15 @@ class Engine:
         if wave.callbacks.explain(job["alert_id"], text, job["evidence"]):
             wave.stats["explained"] += 1
 
-    def _record(self, wave: Wave, cand: Candidate, text: str, verdict: str, confidence: int, out: dict,
-                seconds: float, alert_id: str | None, picked_at_stream: float) -> None:
-        log.info("%s %s %s fleet=%d -> %s %d (%.2fs)%s", wave.machine, cand.kind, "→".join(cand.pair), cand.fleet,
-                 verdict, confidence, seconds, " ALERT " + alert_id if alert_id else "")
+    def _record(self, wave: Wave, cand: Candidate, text: str, verdict: str, confidence: int | None, out: dict,
+                seconds: float, alert_id: str | None, picked_at_stream: float, by: str = "slm") -> None:
+        log.info("%s %s %s fleet=%d%s -> %s %s by %s (%.2fs)%s", wave.machine, cand.kind, "→".join(cand.pair),
+                 cand.fleet, " expert" if cand.expert else "", verdict, confidence, by, seconds,
+                 " ALERT " + alert_id if alert_id else "")
         if self.decisions:
             rec = {"machine": wave.machine, "event_id": cand.event["id"], "ts": cand.event["timestamp"],
-                   "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet, "verdict": verdict,
-                   "confidence": confidence, "alert_id": alert_id, "model_s": round(seconds, 3),
+                   "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet, "expert": list(cand.expert), "by": by,
+                   "verdict": verdict, "confidence": confidence, "alert_id": alert_id, "model_s": round(seconds, 3),
                    "queued_stream_s": round(picked_at_stream - cand.t, 3), "prompt_n": out.get("prompt_n"),
                    "cache_n": out.get("cache_n"), "case": text}
             self.decisions.write(json.dumps(rec, ensure_ascii=False) + "\n")
@@ -194,21 +237,28 @@ class Engine:
 
 
 def parse_verdict(text: str) -> tuple[str, int]:
+    """'attack 85' -> ("attack", 85), the reply the verdict grammar forces."""
     try:
-        obj = json.loads(text)
-        return str(obj.get("verdict", "normal")), int(obj.get("confidence", 0))
-    except Exception:  # noqa: BLE001 -- an unreadable reply is no evidence of an attack
-        return "invalid", 0
+        verdict, confidence = text.split()
+        if verdict in ("attack", "normal"):
+            return verdict, int(confidence)
+    except ValueError:
+        pass
+    return "invalid", 0      # an unreadable reply is no evidence of an attack
 
 
-def fallback_explanation(cand: Candidate, confidence: int) -> str:
-    """Used only when the explanation call fails: the facts of the case, no model prose."""
+def fallback_explanation(cand: Candidate, confidence: int | None) -> str:
+    """Used only when the explanation call fails: the facts of the case, no model prose.
+    `confidence` is None when an expert raised the alert (solution 2)."""
     ev = cand.event
     p = ev.get("properties") or {}
     what = ("new process {} started by {}".format(base(p.get("image_path")), base(p.get("parent_image_path")))
             if cand.kind == "process" else
             "outbound connection from {} to {}:{}".format(base(p.get("image_path")), p.get("dest_ip"), p.get("dest_port")))
-    return ("Attack: the model judged this {} to be an attack (confidence {}).\n"
-            "Why this event: the {} pair is new for this machine and was seen on {} of {} other machines.\n"
-            "Chain: {}\nEvidence: {}").format(what, confidence, " -> ".join(cand.pair), cand.fleet, cand.fleet_of,
+    who = ("the model judged this {} to be an attack (confidence {})".format(what, confidence) if confidence is not None
+           else "a code rule recognised this {} as an attack".format(what))
+    checked = " Code also recognised: {}.".format("; ".join(cand.expert)) if cand.expert else ""
+    return ("Attack: {}.\n"
+            "Why this event: the {} pair is new for this machine and was seen on {} of {} other machines.{}\n"
+            "Chain: {}\nEvidence: {}").format(who, " -> ".join(cand.pair), cand.fleet, cand.fleet_of, checked,
                                              " -> ".join(x for x in cand.pair if x), line(ev))

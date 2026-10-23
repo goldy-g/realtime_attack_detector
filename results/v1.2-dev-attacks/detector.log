@@ -1,0 +1,99 @@
+2026-10-22 23:38:02,996 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 2.9s, verdict 2.71s
+2026-10-22 23:38:48,371 INFO host-0dfa process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (1.93s) ALERT atk-0dfa-A0001
+2026-10-22 23:38:51,370 INFO host-0dfa process powershell.exe→conhost.exe fleet=28 -> attack 95 (3.00s) ALERT atk-0dfa-A0002
+2026-10-22 23:38:53,020 INFO host-0dfa flow lsass.exe→88 fleet=61 -> normal 90 (1.65s)
+2026-10-22 23:41:13,603 INFO wave host-0dfa done: {'cases': 4, 'judged': 3, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-22 23:41:18,359 INFO host-2758 process svchost.exe→dllhost.exe fleet=55 -> normal 90 (2.16s)
+2026-10-22 23:41:21,154 INFO host-2758 process svchost.exe→sihost.exe fleet=61 -> normal 90 (2.79s)
+2026-10-22 23:41:24,266 INFO host-2758 process svchost.exe→msoia.exe fleet=61 -> normal 85 (3.11s)
+2026-10-22 23:41:29,290 INFO host-2758 process winlogon.exe→userinit.exe fleet=59 -> normal 95 (3.28s)
+2026-10-22 23:41:32,227 INFO host-2758 process userinit.exe→explorer.exe fleet=59 -> normal 95 (2.94s)
+2026-10-22 23:41:34,903 INFO host-2758 process svchost.exe→searchui.exe fleet=61 -> normal 95 (2.09s)
+2026-10-22 23:41:37,793 INFO host-2758 process svchost.exe→shellexperiencehost.exe fleet=61 -> normal 95 (2.89s)
+2026-10-22 23:41:40,703 INFO host-2758 process svchost.exe→runtimebroker.exe fleet=61 -> normal 95 (2.91s)
+2026-10-22 23:41:45,529 INFO host-2758 process svchost.exe→smartscreen.exe fleet=61 -> normal 95 (3.13s)
+2026-10-22 23:41:53,838 INFO host-2758 process svchost.exe→mobsync.exe fleet=60 -> normal 95 (3.34s)
+2026-10-22 23:41:57,528 INFO host-2758 process cmd.exe→mantra.exe fleet=61 -> normal 85 (3.69s)
+2026-10-22 23:41:59,617 INFO host-2758 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (2.09s) ALERT atk-2758-A0001
+2026-10-22 23:42:02,413 INFO host-2758 process powershell.exe→conhost.exe fleet=28 -> attack 95 (2.80s) ALERT atk-2758-A0002
+2026-10-22 23:42:05,923 INFO host-2758 process cmd.exe→bcdedit.exe fleet=61 -> normal 95 (3.51s)
+2026-10-22 23:42:09,230 INFO host-2758 process mantra.exe→python.exe fleet=61 -> normal 85 (3.31s)
+2026-10-22 23:42:11,131 INFO host-2758 process explorer.exe→msascuil.exe fleet=61 -> normal 95 (1.90s)
+2026-10-22 23:42:13,778 INFO host-2758 process explorer.exe→vmtoolsd.exe fleet=61 -> normal 95 (2.65s)
+2026-10-22 23:42:17,586 INFO host-2758 process explorer.exe→wscript.exe fleet=61 -> attack 85 (3.81s) ALERT atk-2758-A0003
+2026-10-22 23:42:21,915 INFO host-2758 process explorer.exe→onedrive.exe fleet=61 -> normal 90 (4.33s)
+2026-10-22 23:42:27,150 INFO host-2758 process explorer.exe→runonce.exe fleet=61 -> normal 85 (5.23s)
+2026-10-22 23:42:32,630 INFO host-2758 process wscript.exe→cmd.exe fleet=61 -> attack 90 (5.48s) ALERT atk-2758-A0004
+2026-10-22 23:42:36,909 INFO host-2758 flow dsregcmd.exe→49158 fleet=50 -> normal 90 (4.28s)
+2026-10-22 23:42:41,015 INFO host-2758 flow dsregcmd.exe→135 fleet=56 -> normal 90 (4.11s)
+2026-10-22 23:42:45,294 INFO host-2758 flow dsregcmd.exe→389 fleet=57 -> normal 90 (4.28s)
+2026-10-22 23:42:50,645 INFO host-2758 process runonce.exe→reader_sl.exe fleet=61 -> normal 90 (5.35s)
+2026-10-22 23:42:54,460 INFO host-2758 process cmd.exe→reg.exe fleet=61 -> normal 85 (3.81s)
+2026-10-22 23:42:59,996 INFO host-2758 process cmd.exe→acrord32.exe fleet=49 -> normal 85 (5.54s)
+2026-10-22 23:43:05,378 INFO host-2758 process runonce.exe→adobearm.exe fleet=61 -> normal 90 (5.38s)
+2026-10-22 23:43:09,480 INFO host-2758 process svchost.exe→dsregcmd.exe fleet=61 -> normal 95 (4.10s)
+2026-10-22 23:43:12,894 INFO host-2758 process services.exe→trustedinstaller.exe fleet=61 -> normal 95 (3.41s)
+2026-10-22 23:43:16,848 INFO host-2758 process acrord32.exe→adobearm.exe fleet=19 -> normal 90 (3.95s)
+2026-10-22 23:43:22,164 INFO host-2758 process svchost.exe→tiworker.exe fleet=61 -> normal 95 (5.32s)
+2026-10-22 23:43:26,383 INFO host-2758 process dsregcmd.exe→conhost.exe fleet=61 -> normal 90 (4.22s)
+2026-10-22 23:43:59,748 INFO wave host-2758 done: {'cases': 34, 'judged': 33, 'skipped_alerted': 1, 'shed': 0, 'alerts': 4, 'explained': 4, 'fallback_explanations': 0}
+2026-10-22 23:44:16,655 INFO host-339f process outlook.exe→winword.exe fleet=0 -> normal 85 (2.07s)
+2026-10-22 23:44:20,922 INFO host-339f process winword.exe→winword.exe fleet=0 -> normal 85 (2.76s)
+2026-10-22 23:45:06,612 INFO host-339f process winword.exe→cmd.exe fleet=0 -> attack 95 (3.11s) ALERT atk-339f-1-A0001
+2026-10-22 23:45:18,098 INFO host-339f flow powershell.exe→8000 fleet=0 -> attack 95 (3.51s) ALERT atk-339f-1-A0002
+2026-10-22 23:45:22,008 INFO host-339f flow powershell.exe→80 fleet=0 -> attack 95 (3.91s) ALERT atk-339f-1-A0003
+2026-10-22 23:46:24,116 INFO host-339f process svchost.exe→msoia.exe fleet=61 -> normal 90 (3.06s)
+2026-10-22 23:47:00,626 INFO wave host-339f done: {'cases': 7, 'judged': 6, 'skipped_alerted': 1, 'shed': 0, 'alerts': 3, 'explained': 3, 'fallback_explanations': 0}
+2026-10-22 23:47:49,093 INFO host-5582 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (3.63s) ALERT atk-5582-A0001
+2026-10-22 23:47:52,366 INFO host-5582 process powershell.exe→conhost.exe fleet=28 -> attack 90 (3.27s) ALERT atk-5582-A0002
+2026-10-22 23:49:31,845 INFO wave host-5582 done: {'cases': 3, 'judged': 2, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-22 23:50:20,413 INFO host-8329 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (3.70s) ALERT atk-8329-A0001
+2026-10-22 23:50:23,648 INFO host-8329 process powershell.exe→conhost.exe fleet=27 -> attack 90 (3.23s) ALERT atk-8329-A0002
+2026-10-22 23:50:40,642 INFO host-8329 process svchost.exe→taskhostw.exe fleet=61 -> normal 90 (3.07s)
+2026-10-22 23:50:51,097 INFO host-8329 process cmd.exe→acrord32.exe fleet=49 -> normal 85 (5.14s)
+2026-10-22 23:52:20,685 INFO wave host-8329 done: {'cases': 5, 'judged': 4, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-22 23:52:47,154 INFO host-875d flow system→137 fleet=15 -> normal 85 (2.19s)
+2026-10-22 23:52:50,225 INFO host-875d process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (3.07s) ALERT atk-875d-A0001
+2026-10-22 23:52:53,435 INFO host-875d process powershell.exe→conhost.exe fleet=28 -> attack 90 (3.21s) ALERT atk-875d-A0002
+2026-10-22 23:54:46,873 INFO wave host-875d done: {'cases': 4, 'judged': 3, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-22 23:55:08,917 INFO host-8875 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (3.22s) ALERT atk-8875-A0001
+2026-10-22 23:55:12,138 INFO host-8875 process powershell.exe→conhost.exe fleet=28 -> attack 90 (3.22s) ALERT atk-8875-A0002
+2026-10-22 23:56:11,296 INFO host-8875 process svchost.exe→wermgr.exe fleet=61 -> normal 90 (3.61s)
+2026-10-22 23:57:12,388 INFO wave host-8875 done: {'cases': 4, 'judged': 3, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-22 23:57:32,939 INFO host-9935 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (3.40s) ALERT atk-9935-A0001
+2026-10-22 23:57:36,189 INFO host-9935 process powershell.exe→conhost.exe fleet=28 -> attack 90 (3.25s) ALERT atk-9935-A0002
+2026-10-22 23:58:03,455 INFO host-9935 flow python.exe→49158 fleet=49 -> normal 85 (5.02s)
+2026-10-22 23:58:08,438 INFO host-9935 flow python.exe→389 fleet=50 -> normal 85 (4.98s)
+2026-10-23 00:00:00,479 INFO wave host-9935 done: {'cases': 5, 'judged': 4, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 00:00:30,926 INFO host-9ba4 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (2.54s) ALERT atk-9ba4-A0001
+2026-10-23 00:00:33,535 INFO host-9ba4 process powershell.exe→conhost.exe fleet=28 -> attack 95 (2.61s) ALERT atk-9ba4-A0002
+2026-10-23 00:00:35,275 INFO host-9ba4 flow lsass.exe→88 fleet=61 -> normal 90 (1.74s)
+2026-10-23 00:01:32,793 INFO host-9ba4 process svchost.exe→winword.exe fleet=52 -> normal 85 (3.15s)
+2026-10-23 00:01:39,647 INFO host-9ba4 process services.exe→sppsvc.exe fleet=61 -> normal 95 (2.89s)
+2026-10-23 00:02:27,741 INFO wave host-9ba4 done: {'cases': 6, 'judged': 5, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 00:03:11,379 INFO host-a5ce process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (3.66s) ALERT atk-a5ce-A0001
+2026-10-23 00:03:14,510 INFO host-a5ce process powershell.exe→conhost.exe fleet=27 -> attack 85 (3.13s) ALERT atk-a5ce-A0002
+2026-10-23 00:05:00,961 INFO wave host-a5ce done: {'cases': 3, 'judged': 2, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 00:05:06,033 INFO host-c8f1 process conhost.exe→conhost.exe fleet=61 -> normal 95 (2.25s)
+2026-10-23 00:05:24,279 INFO host-c8f1 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (3.48s) ALERT atk-c8f1-A0001
+2026-10-23 00:05:27,545 INFO host-c8f1 process powershell.exe→conhost.exe fleet=28 -> attack 90 (3.27s) ALERT atk-c8f1-A0002
+2026-10-23 00:07:37,104 INFO wave host-c8f1 done: {'cases': 4, 'judged': 3, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 00:08:12,411 INFO host-eaa4 flow system→137 fleet=15 -> normal 85 (2.14s)
+2026-10-23 00:08:31,230 INFO host-eaa4 flow python.exe→49158 fleet=49 -> normal 85 (3.56s)
+2026-10-23 00:12:01,592 INFO host-eaa4 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (2.67s) ALERT atk-eaa4-A0001
+2026-10-23 00:12:04,214 INFO host-eaa4 process powershell.exe→conhost.exe fleet=28 -> attack 90 (2.62s) ALERT atk-eaa4-A0002
+2026-10-23 00:12:38,706 INFO wave host-eaa4 done: {'cases': 5, 'judged': 4, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 00:12:40,695 INFO host-efdb process findstr.exe→conhost.exe fleet=0 -> normal 85 (1.37s)
+2026-10-23 00:13:07,935 INFO host-efdb flow firefox.exe→8000 fleet=0 -> normal 85 (3.38s)
+2026-10-23 00:13:30,458 INFO host-efdb process svchost.exe→rundll32.exe fleet=47 -> normal 90 (3.24s)
+2026-10-23 00:13:34,916 INFO host-efdb process svchost.exe→chxsmartscreen.exe fleet=0 -> normal 90 (3.32s)
+2026-10-23 00:13:36,814 INFO host-efdb process explorer.exe→cmd.exe fleet=1 -> attack 85 (1.90s) ALERT atk-efdb-A0001
+2026-10-23 00:13:40,378 INFO host-efdb process cmd.exe→powershell.exe fleet=61 -> attack 95 (3.56s) ALERT atk-efdb-A0002
+2026-10-23 00:15:16,424 INFO wave host-efdb done: {'cases': 7, 'judged': 6, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 00:15:49,656 INFO host-f890 process svchost.exe→wermgr.exe fleet=61 -> normal 95 (2.70s)
+2026-10-23 00:15:54,596 INFO host-f890 flow lsass.exe→88 fleet=61 -> normal 90 (1.54s)
+2026-10-23 00:15:57,384 INFO host-f890 process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (2.79s) ALERT atk-f890-A0001
+2026-10-23 00:16:00,362 INFO host-f890 process powershell.exe→conhost.exe fleet=28 -> attack 90 (2.98s) ALERT atk-f890-A0002
+2026-10-23 00:17:54,958 INFO wave host-f890 done: {'cases': 5, 'judged': 4, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'explained': 2, 'fallback_explanations': 0}
+2026-10-23 00:18:13,728 INFO host-fdda process wmiprvse.exe→powershell.exe fleet=0 -> attack 95 (2.79s) ALERT atk-fdda-A0001
+2026-10-23 00:18:16,727 INFO host-fdda process powershell.exe→conhost.exe fleet=27 -> attack 95 (3.00s) ALERT atk-fdda-A0002

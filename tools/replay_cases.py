@@ -64,7 +64,7 @@ def wave_cases(data_dir: str, wave: dict, answer: dict, split: str, fleet: Fleet
                     "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet,
                     "label": "malicious" if eid in mal else "context" if eid in ctx else "benign",
                     "attack_id": attack_of.get(eid), "alert_point": eid in alert_points,
-                    "expert": list(experts.hidden_powershell(cand)), "text": cases.render(state, cand)})
+                    "expert": list(experts.hidden_powershell(cand) or experts.rdp_chain(cand, state)), "text": cases.render(state, cand)})
     minutes = max((last or 0) - (first_minute or 0), 1) / 60
     attacks = {a["attack_id"]: any(c["event_id"] == a["first_alertable_event_id"] for c in out)
                for a in answer.get("attacks") or []}
@@ -111,7 +111,7 @@ def main() -> None:
         chars[len(chars) // 2] * 2 // 7, chars[int(0.95 * len(chars))] * 2 // 7, chars[-1] * 2 // 7))
     missed = [(w["wave"], a) for w in waves for a, ok in w["alert_point_kept"].items() if not ok]
     print("Alert points that are not cases:", missed or "none")
-    print("Expert (hidden PowerShell) hits")
+    print("Expert hits (hidden PowerShell, RDP chain; as engine.submit)")
     for split in ("dev", "holdout", "eval"):
         cs = [c for c in all_cases if c["split"] == split]
         hits = {lab: sum(1 for c in cs if c["expert"] and c["label"] == lab) for lab in ("malicious", "context", "benign")}

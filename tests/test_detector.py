@@ -69,7 +69,7 @@ class FakeServer:
         if slot == 1:
             return {"text": "Attack: x\nWhy this event: y\nChain: a -> b\nEvidence: z", "wall_s": 0.0}
         verdict = "attack" if self.marker in text else "normal"
-        return {"text": '{"verdict": "%s", "confidence": 90}' % verdict, "wall_s": 0.0}
+        return {"text": "%s 90" % verdict, "wall_s": 0.0}
 
     def alive(self):
         return True
@@ -85,8 +85,10 @@ class Parsing(unittest.TestCase):
         self.assertIsNone(cases.decode_ps("powershell -File x.ps1"))
 
     def test_verdict_parsing(self):
-        self.assertEqual(parse_verdict('{"verdict": "attack", "confidence": 77}'), ("attack", 77))
-        self.assertEqual(parse_verdict("garbage"), ("invalid", 0))
+        self.assertEqual(parse_verdict("attack 77"), ("attack", 77))
+        self.assertEqual(parse_verdict("normal 100"), ("normal", 100))
+        for bad in ("garbage", "attack", "attack high", "maybe 50", ""):
+            self.assertEqual(parse_verdict(bad), ("invalid", 0))
 
     def test_paths_and_users(self):
         self.assertEqual(norm_path("\\Device\\HarddiskVolume1\\Temp\\A.exe"), norm_path("C:\\temp\\a.exe"))

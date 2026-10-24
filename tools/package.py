@@ -28,15 +28,26 @@ def tracked(folder: str) -> list[str]:
     return [p for p in out.splitlines() if p]
 
 
+ZIP_DATE = (1980, 1, 1, 0, 0, 0)      # every entry gets this date, not the file's modification time
+
+
+def add(zf: zipfile.ZipFile, src: str, arcname: str) -> None:
+    info = zipfile.ZipInfo(arcname, date_time=ZIP_DATE)
+    info.compress_type = zipfile.ZIP_DEFLATED
+    info.external_attr = 0o644 << 16
+    with open(src, "rb") as fh:
+        zf.writestr(info, fh.read())
+
+
 def build(scorecard: str | None) -> str:
     os.makedirs(DIST, exist_ok=True)
     path = os.path.join(DIST, "submission.zip")
     files = tracked("submission")
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zf:
         for rel in files:
-            zf.write(os.path.join(ROOT, rel), rel)
+            add(zf, os.path.join(ROOT, rel), rel)
         if scorecard:
-            zf.write(scorecard, "submission/scorecard.json")
+            add(zf, scorecard, "submission/scorecard.json")
     answers = os.path.join(ROOT, "data", "cache", "eval_answers.json")
     if os.path.isfile(answers):
         shutil.copy(answers, os.path.join(DIST, "eval_answers.json"))

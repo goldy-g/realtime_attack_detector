@@ -100,8 +100,9 @@ delay 2.4 s (run win-v1.8.1). v1.8 had kept E4B there after a 3.88 s probe and s
 
 On the 17 holdout waves, from machines never used for tuning, v1.8 caught 7 of 7 attacks
 with no false alarm, timeliness 0.850, median delay 1.6 s (run v1.8-holdout; v1.4 scored
-0.814 there). On the 15 dev attack waves v1.4 caught 15 of 15, timeliness 0.867, with one
-false alarm (run v1.4-dev-attacks).
+0.814 there). On the 15 dev attack waves v1.8.1 caught 15 of 15 with no false alarm,
+timeliness 0.914, median delay 2.2 s (run v1.8.1-dev-attacks; v1.4 scored 0.867 there with
+one false alarm).
 
 Offline, on the 25 labelled attack starts and 510 benign cases (86 from the validation
 waves, 424 from extra windows sampled from the training days), the short verdict case kept
@@ -170,8 +171,9 @@ waves, 424 from extra windows sampled from the training days), the short verdict
   The data holds no legitimate chain, such as an administrator hopping through a jump host,
   and the prompt would call one an attack. The fallback's two-line case leaves the call
   close to code's chain check: E2B confirms what the chain line states.
-- **A known false alarm.** The testbed's own logon script (`explorer.exe` → `wscript.exe`)
-  is called an attack on one dev wave.
+- **The testbed's logon script.** Up to v1.4 the model called `explorer.exe` →
+  `wscript.exe` an attack on one dev wave. With the short verdict case it calls it normal
+  (95), but that rests on one machine's script.
 - **Speed decides accuracy on slow CPUs.** Measured on an Apple M5 Pro and a 4-core
   i7-1165G7 laptop, not on the 8-core target. Where E4B is too slow, the detector runs E2B,
   which flags more benign cases and also flags `rdpclip.exe` starting in a session that

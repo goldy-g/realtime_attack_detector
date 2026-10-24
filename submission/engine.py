@@ -22,6 +22,8 @@ Rules (3.6):
   judged under the verdict prompt. With `rdp_short` (v1.7, set while the fallback model runs) that call
   reads only the case's connection and chain lines (cases.short_rdp); the explanation still gets the
   whole case. The router only picks the prompt; the SLM still decides;
+- a verdict reads the case without the machine line, recent activity or remote logons (cases.verdict_case,
+  v1.8); the explanation reads the whole case and is told when the Remote Desktop prompt decided;
 - verdict calls always go before explanation calls;
 - when the wave closes (`callbacks.cancelled`), its pending work is dropped;
 - solution 2 (`config.EXPERT_RAISES`, off in the submission): a case the expert
@@ -176,10 +178,10 @@ class Engine:
         t0 = time.perf_counter()
         if rdp:
             wave.stats["rdp_judged"] += 1
-            out = self.server.chat(prompts.rdp_messages(cases.short_rdp(text) if self.rdp_short else text),
+            out = self.server.chat(prompts.rdp_messages(cases.short_rdp(text) if self.rdp_short else cases.verdict_case(text)),
                                    max_tokens=16, slot=RDP_SLOT, grammar=prompts.VERDICT_GRAMMAR)
         else:
-            out = self.server.chat(prompts.verdict_messages(text), max_tokens=16, slot=VERDICT_SLOT,
+            out = self.server.chat(prompts.verdict_messages(cases.verdict_case(text)), max_tokens=16, slot=VERDICT_SLOT,
                                    grammar=prompts.VERDICT_GRAMMAR)
         verdict, confidence = parse_verdict(out["text"])
         attack = verdict == "attack" and confidence >= config.ALERT_MIN_CONFIDENCE
@@ -195,7 +197,7 @@ class Engine:
             if alert_id is not None:
                 wave.stats["alerts"] += 1
                 job = {"alert_id": alert_id, "case": text, "confidence": confidence, "proc": case_proc,
-                       "evidence": evidence, "cand": cand, "alerted_at": time.perf_counter()}
+                       "evidence": evidence, "cand": cand, "alerted_at": time.perf_counter(), "rdp": rdp}
                 if config.EXPLAIN:
                     with self.lock:
                         wave.explain_jobs.append(job)
@@ -223,7 +225,8 @@ class Engine:
             followed = [ln for _, ln in sorted(followed)][-10:]
         text = None
         try:
-            out = self.server.chat(prompts.explain_messages(job["case"], followed, job["confidence"], job["cand"].expert),
+            out = self.server.chat(prompts.explain_messages(job["case"], followed, job["confidence"], job["cand"].expert,
+                                                            rdp=job.get("rdp", False)),
                                    max_tokens=config.EXPLAIN_MAX_TOKENS, slot=EXPLAIN_SLOT,
                                    grammar=prompts.EXPLAIN_GRAMMAR)
             text = out["text"].strip() or None

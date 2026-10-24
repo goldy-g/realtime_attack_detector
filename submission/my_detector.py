@@ -20,7 +20,7 @@ try:  # evaluate.py puts evaluator/ on sys.path
 except ImportError:  # imported from the repository root, e.g. by tools/ or tests
     from evaluator.detector_interface import Detector
 
-from . import config, prompts
+from . import cases, config, prompts
 from .baseline import Fleet, Triage
 from .engine import Engine, Wave
 from .llm import EXPLAIN_SLOT, RDP_SLOT, VERDICT_SLOT, LlamaServer
@@ -28,11 +28,12 @@ from .state import MachineState
 
 log = logging.getLogger("detector")
 
-# A neutral case for timing the model at start-up, as long as a median real case (about 375 new
-# tokens on the dev waves; a shorter probe made the model look faster than it is). Invented, not from the data.
+# A neutral case for timing the model at start-up. A verdict reads cases.verdict_case of it (v1.8), about 445
+# characters, as long as the median real verdict case (a shorter probe made the model look faster than it is);
+# the explanation warm-up reads all of it. Invented, not from the data.
 PROBE_CASE = """Machine probe · 2000-01-01 09:00:00
 New process: taskhostw.exe as alice (domain CORP)
-Command line: taskhostw.exe Install $(Arg0)
+Command line: C:\\Windows\\system32\\taskhostw.exe Install $(Arg0) /RuntimeWide /UserLogon /NoRestart
 Parent: svchost.exe, started 08:12:44 as SYSTEM: C:\\Windows\\system32\\svchost.exe -k netsvcs -p -s Schedule
 Grandparent: services.exe (running before the stream began)
 Baseline: svchost.exe → taskhostw.exe is new for this machine (not in its last hour); seen on 58 of 61 other machines.
@@ -98,8 +99,8 @@ class MyDetector(Detector):
         """Median of warm verdict calls on the probe case, the system prompt already cached."""
         times = []
         for i in range(4):
-            # vary the case a little so each call reads it fresh, as a real case would be
-            case = PROBE_CASE.replace("09:00:00", "09:00:0{}".format(i))
+            # the case a verdict reads, varied near its start so each call reads it fresh, as a real case would be
+            case = cases.verdict_case(PROBE_CASE).replace("as alice", "as " + ("alice", "bruno", "chen", "dana")[i], 1)
             out = server.chat(prompts.verdict_messages(case), max_tokens=16, slot=VERDICT_SLOT,
                               grammar=prompts.VERDICT_GRAMMAR)
             if i:
@@ -115,7 +116,7 @@ class MyDetector(Detector):
     @staticmethod
     def _warm_rdp(server: LlamaServer) -> None:
         """Cache the Remote Desktop specialist prompt now, so the first Remote Desktop verdict is not slower."""
-        server.chat(prompts.rdp_messages(PROBE_CASE), max_tokens=16, slot=RDP_SLOT, grammar=prompts.VERDICT_GRAMMAR)
+        server.chat(prompts.rdp_messages(cases.verdict_case(PROBE_CASE)), max_tokens=16, slot=RDP_SLOT, grammar=prompts.VERDICT_GRAMMAR)
 
     # ------------------------------------------------------------------ the evaluator's calls
     def start_wave(self, machine: str, callbacks) -> None:

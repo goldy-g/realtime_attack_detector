@@ -8,7 +8,7 @@ from __future__ import annotations
 import time
 import unittest
 
-from test_detector import Callbacks, EngineRules, FakeServer
+import test_detector as td
 
 from submission import cases, prompts
 from submission.baseline import Fleet, Triage
@@ -17,7 +17,7 @@ from submission.state import MachineState
 
 
 def run_wave(events, marker, rdp_short):
-    server, cb = FakeServer(marker), Callbacks()
+    server, cb = td.FakeServer(marker), td.Callbacks()
     engine = Engine(server, rdp_specialist=True, rdp_short=rdp_short)
     wave = Wave(machine="h", callbacks=cb, state=MachineState("h"))
     tri = Triage("h", Fleet(None))
@@ -60,8 +60,8 @@ class ShortRdpCase(unittest.TestCase):
         self.assertEqual(cases.short_rdp(local), self.CASE.split("\n")[1])
 
     def test_fallback_specialist_reads_the_short_case_and_explanation_the_whole(self):
-        cb, wave, server = run_wave(EngineRules.RDP_HOP, "Remote Desktop chain", rdp_short=True)
-        self.assertEqual(cb.alerts, [EngineRules.RDP_HOP[-1]["id"]])
+        cb, wave, server = run_wave(td.EngineRules.RDP_HOP, "Remote Desktop chain", rdp_short=True)
+        self.assertEqual(cb.alerts, [td.EngineRules.RDP_HOP[-1]["id"]])
         rdp_texts = [t for slot, t in server.texts if slot == 2]
         self.assertEqual(len(rdp_texts), 1)
         self.assertTrue(all(ln.startswith(cases.SHORT_RDP_LINES) for ln in rdp_texts[0].split("\n")), rdp_texts[0])
@@ -71,7 +71,7 @@ class ShortRdpCase(unittest.TestCase):
         self.assertTrue(explain and "Its desktop session began" in explain[0] and "Baseline:" in explain[0])
 
     def test_main_model_specialist_reads_the_whole_case(self):
-        _, _, server = run_wave(EngineRules.RDP_HOP, "Remote Desktop chain", rdp_short=False)
+        _, _, server = run_wave(td.EngineRules.RDP_HOP, "Remote Desktop chain", rdp_short=False)
         rdp_texts = [t for slot, t in server.texts if slot == 2]
         self.assertEqual(len(rdp_texts), 1)
         self.assertIn("Its desktop session began", rdp_texts[0])

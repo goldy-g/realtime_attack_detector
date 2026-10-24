@@ -65,12 +65,12 @@ EXPLAIN_SYSTEM = """You are a security analyst writing the incident note for an 
 
 You get the event that triggered the alert, the processes behind it, the machine's recent activity, and what the same processes did after the alert. Write exactly these four lines, plain text, no markdown:
 
-Attack: one sentence naming what is happening, e.g. "Remote WMI launch of an encoded PowerShell agent".
-Why this event: why this event is the point where the activity becomes an attack, not normal administration.
-Chain: the processes involved, parent first, joined by " -> ", with what each one did.
+Attack: one sentence naming the technique and the program behind it, in your own words, for example how it started and what it ran; no full command lines.
+Why this event: in your own words, the reason this event is an attack and not normal administration; when the input says which prompt decided and what it asks, build the reason on that. Do not repeat the verdict, the confidence or the input's sentences.
+Chain: the processes involved, parent first, joined by " -> ", each one the parent of the next; with what each one did.
 Evidence: the concrete facts that support it, with times: command lines, decoded commands, connections, files, logons.
 
-Use only facts present in the input. Do not guess at facts you were not given. Keep the note under 150 words."""
+Use only facts present in the input. Do not guess at facts you were not given. The input marks each address private or public; keep that word, and never call a private address external. If code checked facts or a verdict prompt are named, say which of them made this event an attack. Keep the note under 150 words."""
 
 
 def verdict_messages(case_text: str) -> list[dict]:
@@ -81,11 +81,21 @@ def rdp_messages(case_text: str) -> list[dict]:
     return [{"role": "system", "content": RDP_SYSTEM}, {"role": "user", "content": case_text}]
 
 
-def explain_messages(case_text: str, followed: list[str], confidence: int | None, facts: tuple = ()) -> list[dict]:
+RDP_DECIDED = ("It was decided under the Remote Desktop prompt, which asks whether the session making the connection "
+               "itself arrived by Remote Desktop, so the connection is a hop in a chain.")
+
+
+def explain_messages(case_text: str, followed: list[str], confidence: int | None, facts: tuple = (),
+                     rdp: bool = False) -> list[dict]:
+    """The explanation's input: the whole case (not the verdict's shorter one), the verdict, which prompt decided
+    when it was the Remote Desktop one (v1.8: the explanation names that reason instead of guessing one), the
+    expert's checked facts and what the alerted processes did after the alert."""
     if confidence is None:                      # solution 2: an expert raised the alert, no model verdict
         body = case_text + "\n\nA code rule raised this alert."
     else:
         body = case_text + "\n\nThe verdict was attack, confidence {}.".format(confidence)
+        if rdp:
+            body += " " + RDP_DECIDED
     if facts:                                   # an expert's reasons (experts.py): read from the event by code
         body += "\nFacts checked by code: {}.".format("; ".join(facts))
     if followed:

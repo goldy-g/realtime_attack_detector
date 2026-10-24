@@ -124,6 +124,49 @@ def render(state: MachineState, cand: Candidate) -> str:
     return "\n".join(out)
 
 
+_BLOCKS = ("Recent activity of these processes:", "Remote logons on this machine (last 2 min):")
+_WRITTEN = re.compile(r"^Its program file was written (\d+) s earlier by (\S+)\.$")
+
+
+def verdict_case(text: str) -> str:
+    """v1.8: the case the verdict call reads. The explanation keeps the whole case.
+
+    It drops the Machine line, the recent-activity block and the remote-logon block, and folds the one piece of
+    history that decided an attack into a checked fact: when a new program's file was written by a process that had
+    just connected to a public address, the written-before line says so (download -> write -> run). Offline on the 25
+    attack starts and 510 harmless cases (86 in the waves, 424 in extra windows from the training days): Gemma 4 E4B
+    caught 25 of 25 and flagged 2 harmless cases, against 25 and 6 with the whole case; E2B caught 25 and flagged 3,
+    against 24 and 28. It reads 147 new tokens at the median instead of 350, about 4 s a verdict for E4B on the
+    4-core laptop instead of 8.5. Routine activity lines (other children of the same parent) misled the small model;
+    the scattered download lines did not move it, the folded fact did."""
+    lines, kept, acts, block = text.split("\n"), [], [], None
+    for ln in lines:
+        if ln in _BLOCKS:
+            block = ln
+        elif ln.startswith("- ") and block:
+            if block == _BLOCKS[0]:
+                acts.append(ln)
+        else:
+            block = None
+            if not ln.startswith("Machine "):
+                kept.append(ln)
+    for i, ln in enumerate(kept):
+        m = _WRITTEN.match(ln)
+        if not m:
+            continue
+        writer, dests = m.group(2), []
+        for a in acts:
+            body = a[2:].split(" ", 1)[1] if " " in a[2:] else ""
+            if body.startswith(writer + " connected to "):
+                dest = body.split(" connected to ", 1)[1]
+                if not PRIVATE.match(dest.rsplit(":", 1)[0]):
+                    dests.append(dest)
+        if dests:
+            kept[i] = "Its program file was written {} s earlier by {}, right after {} connected to {} (public address).".format(
+                m.group(1), writer, writer, dests[-1])
+    return "\n".join(kept)
+
+
 SHORT_RDP_LINES = ("Outbound connection: ", "Remote Desktop chain: ")
 
 

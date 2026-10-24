@@ -139,10 +139,10 @@ def score(all_cases: list[dict], split: str, model: str = "main", tag: str = "")
         for c in sel:
             rdp = rdp_on and prompts.routes_to_rdp(c["kind"], c["pair"])
             if rdp:
-                out = server.chat(prompts.rdp_messages(cases.short_rdp(c["text"]) if short else c["text"]), 16,
-                                  RDP_SLOT, prompts.VERDICT_GRAMMAR)
+                out = server.chat(prompts.rdp_messages(cases.short_rdp(c["text"]) if short else cases.verdict_case(c["text"])),
+                                  16, RDP_SLOT, prompts.VERDICT_GRAMMAR)
             else:
-                out = server.chat(prompts.verdict_messages(c["text"]), 16, VERDICT_SLOT, prompts.VERDICT_GRAMMAR)
+                out = server.chat(prompts.verdict_messages(cases.verdict_case(c["text"])), 16, VERDICT_SLOT, prompts.VERDICT_GRAMMAR)
             verdict, conf = parse_verdict(out["text"])
             rows.append({**{k: c[k] for k in ("wave", "event_id", "label", "attack_id", "alert_point", "fleet", "kind")},
                          "prompt": ("rdp-short" if short else "rdp") if rdp else "verdict",

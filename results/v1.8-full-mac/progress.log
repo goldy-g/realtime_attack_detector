@@ -1,0 +1,9 @@
+RUN v1.8-full-mac started · 7 waves (eval full, realtime) · expected ~22:48
+RUN v1.8-full-mac running · 0/7 waves · 0 alerts · 0/3 attacks caught · 0 false alarms · 2:53 of ~23:05
+RUN v1.8-full-mac running · 0/7 waves · 0 alerts · 0/3 attacks caught · 0 false alarms · 5:45 of ~23:05
+RUN v1.8-full-mac running · 0/7 waves · 0 alerts · 0/3 attacks caught · 0 false alarms · 8:38 of ~23:05
+RUN v1.8-full-mac running · 2/7 waves · 4 alerts · 2/3 attacks caught · 0 false alarms · 11:30 of ~23:05
+RUN v1.8-full-mac running · 3/7 waves · 6 alerts · 3/3 attacks caught · 0 false alarms · 14:23 of ~23:05
+RUN v1.8-full-mac running · 4/7 waves · 6 alerts · 3/3 attacks caught · 0 false alarms · 17:16 of ~23:05
+RUN v1.8-full-mac running · 5/7 waves · 6 alerts · 3/3 attacks caught · 0 false alarms · 20:08 of ~23:05
+RUN v1.8-full-mac finished · 7/7 waves · 6 alerts · 3/3 attacks caught · 0 false alarms · timeliness 0.924 · 0 dropped, 0 errors · 22:53

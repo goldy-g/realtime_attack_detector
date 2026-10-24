@@ -1,0 +1,65 @@
+{
+ "label": "v1.8-full-mac",
+ "note": "v1.8 (working tree on b64c072): the verdict reads a shorter case (no machine line, no activity, no remote logons) with the download folded into the written-before line; the explanation reads the whole case and is told when the Remote Desktop prompt decided; E4B; real-time --set full, the 7 public eval waves, decision and detector logs on",
+ "detector": "submission.my_detector:MyDetector",
+ "source": "eval",
+ "set": "full",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "data/cache/eval_answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --set full --answers data/cache/eval_answers.json --out results/v1.8-full-mac/alerts.jsonl --report results/v1.8-full-mac/scorecard.json --label v1.8-full-mac",
+ "triggered_at": "2026-10-25T00:07:20+03:00",
+ "expected_s": 1367.7,
+ "waves": [
+  {
+   "id": "w01",
+   "machine": "host-83fa",
+   "kind": "attack",
+   "warmup_events": 8733,
+   "live_events": 17055
+  },
+  {
+   "id": "w02",
+   "machine": "host-8180",
+   "kind": "attack",
+   "warmup_events": 7219,
+   "live_events": 705
+  },
+  {
+   "id": "w03",
+   "machine": "host-d2af",
+   "kind": "attack",
+   "warmup_events": 5597,
+   "live_events": 303
+  },
+  {
+   "id": "w04",
+   "machine": "host-6cf7",
+   "kind": "benign",
+   "warmup_events": 7611,
+   "live_events": 232
+  },
+  {
+   "id": "w05",
+   "machine": "host-34cf",
+   "kind": "benign",
+   "warmup_events": 11658,
+   "live_events": 120
+  },
+  {
+   "id": "w06",
+   "machine": "host-366b",
+   "kind": "benign",
+   "warmup_events": 6972,
+   "live_events": 217
+  },
+  {
+   "id": "w07",
+   "machine": "host-ffdf",
+   "kind": "benign",
+   "warmup_events": 11785,
+   "live_events": 281
+  }
+ ],
+ "finished_at": "2026-10-25T00:30:13+03:00"
+}

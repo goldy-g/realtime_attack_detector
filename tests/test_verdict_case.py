@@ -10,7 +10,7 @@ import unittest
 import test_detector as td
 from test_rdp_short import run_wave
 
-from submission import cases, prompts
+from submission import cases, config, prompts
 
 CASE = """Machine host-f3ac · 2000-01-09 10:28:11
 New process: ckfgw.exe as dcoombes (domain SYSTEMIACOM)
@@ -49,6 +49,16 @@ class VerdictCase(unittest.TestCase):
     def test_a_case_without_blocks_only_loses_its_machine_line(self):
         plain = "\n".join(CASE.split("\n")[:6])
         self.assertEqual(cases.verdict_case(plain), "\n".join(CASE.split("\n")[1:6]))
+
+
+class StartupCheck(unittest.TestCase):
+    """v1.8.1: the main model is judged by its expected real verdict time, probe x 1.2, against 4 s."""
+
+    def test_measured_machines(self):
+        self.assertTrue(config.main_model_fits(1.44))    # the Mac's E4B probe: real median 1.65 s
+        self.assertFalse(config.main_model_fits(3.88))   # the 4-core laptop's: real median 4.64 s
+        self.assertTrue(config.main_model_fits(3.3))     # 3.96 s expected, just inside
+        self.assertFalse(config.main_model_fits(3.4))
 
 
 class ExplanationInput(unittest.TestCase):

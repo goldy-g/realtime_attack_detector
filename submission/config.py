@@ -37,6 +37,15 @@ CALL_TIMEOUT_S = _env("CALL_TIMEOUT_S", 120.0)
 # --- start-up calibration (3.8) -----------------------------------------------------------------
 # If the main model's verdict call is slower than this on this machine, switch to the fallback.
 MAX_VERDICT_S = _env("MAX_VERDICT_S", 4.0)
+# Real verdicts take longer than the start-up probe: median over probe 1.15 on the Mac, 1.20 on the 4-core
+# laptop (v1.8). The probe is scaled by this before it is held against MAX_VERDICT_S (v1.8.1), so a machine
+# whose probe passes just under 4 s no longer keeps a main model that answers real cases in 4.6 s.
+PROBE_TO_REAL = _env("PROBE_TO_REAL", 1.2)
+
+
+def main_model_fits(probe_s: float) -> bool:
+    """Whether the main model's expected real verdict time stays within the budget."""
+    return probe_s * PROBE_TO_REAL <= MAX_VERDICT_S
 
 # --- triage and queue (3.4) ---------------------------------------------------------------------
 FLEET_FILE = os.path.join(HERE, "fleet_baseline.json")

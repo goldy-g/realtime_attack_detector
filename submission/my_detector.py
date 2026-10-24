@@ -86,11 +86,12 @@ class MyDetector(Detector):
             server.start()
             verdict_s = self._time_verdicts(server)
             log.info("model %s: loaded in %.1fs, verdict %.2fs", server.name, server.load_s, verdict_s)
-            if verdict_s <= config.MAX_VERDICT_S or path == fallback or not fallback:
+            if config.main_model_fits(verdict_s) or path == fallback or not fallback:
                 self._warm_explanations(server)
                 return server
-            log.warning("%s too slow here (%.2fs > %.1fs); switching to %s", server.name, verdict_s,
-                        config.MAX_VERDICT_S, config.FALLBACK_MODEL_FILE)
+            log.warning("%s too slow here (%.2fs probe x %.2f = %.2fs expected > %.1fs); switching to %s", server.name,
+                        verdict_s, config.PROBE_TO_REAL, verdict_s * config.PROBE_TO_REAL, config.MAX_VERDICT_S,
+                        config.FALLBACK_MODEL_FILE)
             server.stop()
         raise RuntimeError("unreachable")
 

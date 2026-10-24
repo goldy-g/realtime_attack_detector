@@ -76,7 +76,10 @@ with 8 threads and Gemma 4 E4B (run v1.6-full-mac, the submitted version):
 | Explanations | 6 of 6 alerts, median 11 s after the alert |
 
 The same detector without the Remote Desktop prompt (v1.5) caught 2 of 3 on these waves,
-timeliness 0.563: under the main prompt the model judged the hop normal. On the 15 dev attack waves, in real
+timeliness 0.563: under the main prompt the model judged the hop normal. On a 4-core
+i7-1165G7 laptop, below the target, E4B needed about 8.4 s per verdict at start-up, so v1.6
+ran on E2B with the Remote Desktop prompt off: 2 of 3 caught, no false alarm, timeliness
+0.547, the hop missed (run win-v1.6). On the 15 dev attack waves, in real
 time (run v1.4-dev-attacks): 15 of 15 attacks caught, timeliness 0.867, median delay 3.1 s,
 1 false alarm, evidence precision 1.00. On the 17 holdout waves, from machines never used
 for tuning (run v1.4-holdout): 7 of 7 attacks caught, no false alarm on the 10 benign

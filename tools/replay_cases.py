@@ -132,18 +132,20 @@ def score(all_cases: list[dict], split: str, model: str = "main", tag: str = "")
     sel = [c for c in all_cases if c["split"] == split]
     server = LlamaServer(config.find_server(), config.find_model(config.MODEL_FILE if model == "main" else config.FALLBACK_MODEL_FILE))
     server.start()
-    rdp_on = config.RDP_SPECIALIST and model == "main"      # as the detector: the specialist only with the main model
+    rdp_on = config.RDP_SPECIALIST                          # as the detector (v1.7): the specialist with either model,
+    short = rdp_on and model != "main"                      # reading the short case under the fallback
     t0, rows = time.perf_counter(), []
     try:
         for c in sel:
             rdp = rdp_on and prompts.routes_to_rdp(c["kind"], c["pair"])
             if rdp:
-                out = server.chat(prompts.rdp_messages(c["text"]), 16, RDP_SLOT, prompts.VERDICT_GRAMMAR)
+                out = server.chat(prompts.rdp_messages(cases.short_rdp(c["text"]) if short else c["text"]), 16,
+                                  RDP_SLOT, prompts.VERDICT_GRAMMAR)
             else:
                 out = server.chat(prompts.verdict_messages(c["text"]), 16, VERDICT_SLOT, prompts.VERDICT_GRAMMAR)
             verdict, conf = parse_verdict(out["text"])
             rows.append({**{k: c[k] for k in ("wave", "event_id", "label", "attack_id", "alert_point", "fleet", "kind")},
-                         "prompt": "rdp" if rdp else "verdict",
+                         "prompt": ("rdp-short" if short else "rdp") if rdp else "verdict",
                          "verdict": verdict, "confidence": conf, "s": round(out["wall_s"], 3), "prompt_n": out["prompt_n"],
                          "predicted_n": out["predicted_n"]})
     finally:
@@ -162,10 +164,10 @@ def score(all_cases: list[dict], split: str, model: str = "main", tag: str = "")
     secs = sorted(r["s"] for r in rows)
     toks = sorted(r["prompt_n"] or 0 for r in rows)
     print("Model verdicts ({}) on {} {} cases in {:.0f}s; Remote Desktop specialist {}: {} cases routed to it, {}".format(
-        server.name, len(rows), split, time.perf_counter() - t0, "on" if rdp_on else "off",
-        sum(1 for r in rows if r["prompt"] == "rdp"),
+        server.name, len(rows), split, time.perf_counter() - t0, "off" if not rdp_on else "on, short case" if short else "on",
+        sum(1 for r in rows if r["prompt"] != "verdict"),
         ", ".join("{} {} {} {}".format(r["wave"], r["label"], r["verdict"], r["confidence"])
-                  for r in rows if r["prompt"] == "rdp") or "none"))
+                  for r in rows if r["prompt"] != "verdict") or "none"))
     print("  attacks flagged at their first case {}/{}, at any case {}/{}".format(first, len(attacks), anyc, len(attacks)))
     print("  benign cases flagged {}/{}  waves with a benign flag: {}".format(
         sum(1 for r in benign if flag(r)), len(benign), len({r["wave"] for r in benign if flag(r)})))

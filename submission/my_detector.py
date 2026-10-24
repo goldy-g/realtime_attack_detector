@@ -59,12 +59,14 @@ class MyDetector(Detector):
         _setup_logging()
         self.fleet = Fleet(config.FLEET_FILE)
         self.server = self._start_model()
-        # The Remote Desktop specialist only with the main model: under it the fallback E2B missed two of three hops.
-        rdp = config.RDP_SPECIALIST and os.path.basename(self.server.model) == config.MODEL_FILE
+        # The Remote Desktop specialist with either model. With the full case the fallback E2B missed two of three
+        # hops, so under it the specialist reads the short case (v1.7, cases.short_rdp).
+        rdp = config.RDP_SPECIALIST
+        short = rdp and os.path.basename(self.server.model) != config.MODEL_FILE
         if rdp:
             self._warm_rdp(self.server)
-        log.info("Remote Desktop specialist prompt: %s", "on" if rdp else "off")
-        self.engine = Engine(self.server, rdp_specialist=rdp)
+        log.info("Remote Desktop specialist prompt: %s", "on, short case" if short else "on" if rdp else "off")
+        self.engine = Engine(self.server, rdp_specialist=rdp, rdp_short=short)
         self.lock = self.engine.lock
         self.wave: Wave | None = None
         self.triage: Triage | None = None

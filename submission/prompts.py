@@ -11,7 +11,8 @@ Remote Desktop connection from mstsc.exe to a prompt about lateral movement, and
 there. Under the verdict prompt Gemma 4 E4B called all three attack hops normal; under this prompt it
 calls them attack and still calls the 14 scripted training connections normal. It judges by the
 session's Remote Desktop origin (remove those lines and it says normal), and it is used only behind
-the router: asked about every benign case, it flagged 33 of 86.
+the router: asked about every benign case, it flagged 33 of 86. Under the fallback Gemma 4 E2B (v1.7)
+it reads only the connection and chain lines (cases.short_rdp).
 """
 
 from __future__ import annotations

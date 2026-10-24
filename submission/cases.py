@@ -122,3 +122,16 @@ def render(state: MachineState, cand: Candidate) -> str:
         out.append("Remote logons on this machine (last 2 min):")
         out += ["- " + a for a in logons]
     return "\n".join(out)
+
+
+SHORT_RDP_LINES = ("Outbound connection: ", "Remote Desktop chain: ")
+
+
+def short_rdp(text: str) -> str:
+    """v1.7: the Remote Desktop case for the fallback model, only its connection line and its chain line.
+
+    Offline (17 Remote Desktop cases, the specialist prompt), Gemma 4 E2B caught 1 of 3 attack hops and
+    flagged 2 of 14 scripted connections with the full case, and 3 of 3 and 0 of 14 with these two lines;
+    longer cuts did worse (up to 7 of 14 flagged). The chain line exists only when code found the chain,
+    so with this case the SLM confirms that finding rather than weighing the session's details."""
+    return "\n".join(ln for ln in text.split("\n") if ln.startswith(SHORT_RDP_LINES))

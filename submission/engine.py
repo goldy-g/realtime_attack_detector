@@ -18,9 +18,10 @@ Rules (3.6):
   atk-efdb: cmd.exe running a downloaded .bat alerted 1 s early, and the hidden
   PowerShell it started was never judged);
 - an outbound Remote Desktop connection from mstsc.exe is judged under the Remote Desktop specialist
-  prompt in its own slot (prompts.routes_to_rdp, v1.6) when `rdp_specialist` is on, which the detector
-  sets only while the main model runs; every other case, and every case under the fallback model, is
-  judged under the verdict prompt. The router only picks the prompt; the SLM still decides;
+  prompt in its own slot (prompts.routes_to_rdp, v1.6) when `rdp_specialist` is on; every other case is
+  judged under the verdict prompt. With `rdp_short` (v1.7, set while the fallback model runs) that call
+  reads only the case's connection and chain lines (cases.short_rdp); the explanation still gets the
+  whole case. The router only picks the prompt; the SLM still decides;
 - verdict calls always go before explanation calls;
 - when the wave closes (`callbacks.cancelled`), its pending work is dropped;
 - solution 2 (`config.EXPERT_RAISES`, off in the submission): a case the expert
@@ -65,9 +66,10 @@ class Wave:
 
 
 class Engine:
-    def __init__(self, server: LlamaServer, rdp_specialist: bool = False) -> None:
+    def __init__(self, server: LlamaServer, rdp_specialist: bool = False, rdp_short: bool = False) -> None:
         self.server = server
-        self.rdp_specialist = rdp_specialist     # route Remote Desktop out to its specialist prompt (main model only)
+        self.rdp_specialist = rdp_specialist     # route Remote Desktop out to its specialist prompt
+        self.rdp_short = rdp_short               # ... with the short case (the fallback model, v1.7)
         self.lock = threading.Lock()             # guards the current wave's state, queue and job list
         self.wake = threading.Condition(self.lock)
         self.wave: Wave | None = None
@@ -174,8 +176,8 @@ class Engine:
         t0 = time.perf_counter()
         if rdp:
             wave.stats["rdp_judged"] += 1
-            out = self.server.chat(prompts.rdp_messages(text), max_tokens=16, slot=RDP_SLOT,
-                                   grammar=prompts.VERDICT_GRAMMAR)
+            out = self.server.chat(prompts.rdp_messages(cases.short_rdp(text) if self.rdp_short else text),
+                                   max_tokens=16, slot=RDP_SLOT, grammar=prompts.VERDICT_GRAMMAR)
         else:
             out = self.server.chat(prompts.verdict_messages(text), max_tokens=16, slot=VERDICT_SLOT,
                                    grammar=prompts.VERDICT_GRAMMAR)
@@ -198,7 +200,7 @@ class Engine:
                     with self.lock:
                         wave.explain_jobs.append(job)
         self._record(wave, cand, text, verdict, confidence, out, time.perf_counter() - t0, alert_id, picked_at_stream,
-                     prompt="rdp" if rdp else "verdict")
+                     prompt=("rdp-short" if self.rdp_short else "rdp") if rdp else "verdict")
 
     def _evidence(self, state: MachineState, alert_eid: str, proc_oid: str) -> list[str]:
         """The alert event, then the alerted process tree's events delivered so far, most telling first."""

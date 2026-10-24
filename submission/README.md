@@ -1,13 +1,11 @@
 # OpTC real-time attack detector
 
-<!-- Draft, 23 Oct. Results come from run v1.4-full-mac; rerun and update them if the
-detector changes again before submission. -->
-
 Code tracks each machine and picks out the few events that are new for it. A local small
 language model (Gemma 4 E4B, 4-bit, on llama.cpp's CPU server) decides whether each one is
-an attack, and the alert goes out the moment it says so. A second model call then writes
-the explanation, citing event IDs that code has checked. Every detection decision comes
-from the SLM; code only selects, orders and feeds the cases.
+an attack, and the alert goes out the moment it says so. Outbound Remote Desktop
+connections are judged under a second prompt, written for lateral movement. A further model
+call then writes the explanation, citing event IDs that code has checked. Every detection
+decision comes from the SLM; code only selects, orders, routes and feeds the cases.
 
 ## Approach
 
@@ -20,21 +18,29 @@ from the SLM; code only selects, orders and feeds the cases.
   On the labelled days this kept every alert point while producing about one case a minute
   on a normal machine. Cases wait in a queue, rarest across the fleet first. A PowerShell start
   with two of an encoded command, a hidden window, `-NoProfile` and a download cradle goes
-  to the front, because an attack's own case otherwise waits behind its lead-up cases.
+  to the front, because an attack's own case otherwise waits behind its lead-up cases, and
+  so does Remote Desktop opened from a desktop session that itself arrived by Remote Desktop.
 - **The SLM decides.** Each case shows the event, three levels of ancestry, the decoded
-  `-EncodedCommand`, the baseline facts and its process tree's last two minutes, as of the
-  event itself. A verdict-only call judges it; a grammar holds the reply to a word and a
+  `-EncodedCommand`, the baseline facts, how the process's desktop session began when that
+  was a Remote Desktop logon, and its process tree's last two minutes, as of the event
+  itself. A verdict-only call judges it; a grammar holds the reply to a word and a
   confidence, such as `attack 85`, so the model writes about 5 tokens. "attack" at
-  confidence 50 or more raises the alert at once on the case's own event. One model call runs at a time with all threads, and the system prompt stays cached.
+  confidence 50 or more raises the alert at once on the case's own event. One model call runs at a time with all threads, and the system prompts stay cached.
+- **A specialist prompt for Remote Desktop.** An outbound connection from `mstsc.exe` to
+  port 3389 is judged under a second system prompt about lateral movement: a session that
+  arrived by Remote Desktop and opens Remote Desktop onward forms a chain of hops. The SLM
+  still decides; code only picks the prompt. Under the main prompt Gemma 4 E4B called all
+  three Remote Desktop attack hops in the data normal; under this one it calls them attack
+  and still calls the 14 scripted training connections normal. It runs only with E4B.
 - **One alert per process.** A process already alerted on is not judged again; its
   children still are, because an early alert on a context event earns nothing.
 - **Explanation second.** When no verdict is waiting, a second call writes four labelled
   lines: Attack, Why this event, Chain, Evidence. Code picks the cited event IDs from the
   alerted process tree, events delivered by the alert first, so evidence holds only
   checked IDs.
-- **Start-up.** The detector starts `llama-server` on a free local port, caches both prompts
+- **Start-up.** The detector starts `llama-server` on a free local port, caches its prompts
   and times a probe case. If Gemma 4 E4B needs more than 4 s per verdict on the machine,
-  it switches to Gemma 4 E2B.
+  it switches to Gemma 4 E2B and leaves the Remote Desktop prompt off.
 
 ## Setup
 
@@ -48,8 +54,9 @@ from the SLM; code only selects, orders and feeds the cases.
   Unzip it into `submission/bin/`, or point `DETECTOR_SERVER` at `llama-server.exe`. No
   compiler and no GPU (`-ngl 0 --device none`).
 - **Model settings**, set by the detector in `submission/config.py`; each can be overridden
-  with a `DETECTOR_*` environment variable: 8,192 tokens of context as two slots of 4,096
-  (verdicts and explanations keep separate caches), threads = min(8, CPU count) for prompt
+  with a `DETECTOR_*` environment variable: 8,192 tokens of context as three slots of 2,730
+  (verdicts, explanations and Remote Desktop verdicts keep separate caches; the longest
+  prompt with its reply needs about 2,200), threads = min(8, CPU count) for prompt
   and generation, `--jinja` chat template, one request at a time, alert at confidence 50,
   fallback model when a verdict takes more than 4 s at start-up.
 - **Run:** `python evaluator/evaluate.py --detector submission.my_detector:MyDetector --set full --report scorecard.json`
@@ -57,22 +64,25 @@ from the SLM; code only selects, orders and feeds the cases.
 ## Results
 
 Real-time `--set full`, the 7 public eval waves (3 attack, 4 benign), on an Apple M5 Pro
-with 8 threads and Gemma 4 E4B (run v1.4-full-mac):
+with 8 threads and Gemma 4 E4B (run v1.6-full-mac, the submitted version):
 
 | | |
 |---|---|
-| Attacks caught | 2 of 3: both PowerShell attacks; the Remote Desktop hop is missed |
-| Timeliness | 0.563 (0.847 and 0.842 on the two caught attacks, 0 on the miss) |
-| Delay, median · max | 2.4 s · 3.0 s |
+| Attacks caught | 3 of 3: both PowerShell attacks and the Remote Desktop hop |
+| Timeliness | 0.870 (0.964 on the Remote Desktop hop, 0.803 and 0.842 on the PowerShell attacks) |
+| Delay, median · max | 3.2 s · 3.5 s |
 | False alarms | 0 in 7 waves |
 | Evidence precision | 1.00 |
-| Explanations | 5 of 5 alerts, median 10 s after the alert |
+| Explanations | 6 of 6 alerts, median 11 s after the alert |
 
-On the 15 dev attack waves, also in real time (run v1.4-dev-attacks): 15 of 15 attacks
-caught, timeliness 0.867, median delay 3.1 s, 1 false alarm, evidence precision 1.00.
-On the 17 holdout waves, from machines never used for tuning (run v1.4-holdout): 7 of 7
-attacks caught, no false alarm on the 10 benign waves, timeliness 0.814, median delay
-2.4 s, evidence precision 1.00.
+The same detector without the Remote Desktop prompt (v1.5) caught 2 of 3 on these waves,
+timeliness 0.563: under the main prompt the model judged the hop normal. On the 15 dev attack waves, in real
+time (run v1.4-dev-attacks): 15 of 15 attacks caught, timeliness 0.867, median delay 3.1 s,
+1 false alarm, evidence precision 1.00. On the 17 holdout waves, from machines never used
+for tuning (run v1.4-holdout): 7 of 7 attacks caught, no false alarm on the 10 benign
+waves, timeliness 0.814, median delay 2.4 s, evidence precision 1.00. Versions 1.5 and 1.6
+add only Remote Desktop facts and routing; replayed offline, they change no dev or holdout
+verdict.
 
 ## What did not work
 
@@ -95,25 +105,37 @@ attacks caught, no false alarm on the 10 benign waves, timeliness 0.814, median 
   each attack type is left out orders the queue instead.
 - **The main model on a 4-core laptop.** Below the target hardware, E4B needed about 8 s per
   verdict, so the detector fell back to E2B, which missed the Remote Desktop hop.
+- **Teaching the main prompt about Remote Desktop chains.** The case names the session's
+  Remote Desktop origin and the chain it makes, and the prompt lists Remote Desktop chains
+  among the signs of an attack; E4B still called the hop normal (85, or 70 with an extra
+  hint). Four worked examples from the training days added to the main prompt missed it
+  too, and raised false alarms on 9 of 86 benign cases instead of 2. What worked was a
+  separate prompt that judges only Remote Desktop connections.
+- **The Remote Desktop prompt anywhere else.** Asked about every benign case, it flagged 33
+  of 86, so it judges only the connections the router sends it. Under E2B it caught 1 of 3
+  hops and called a scripted connection an attack, so it is off with the fallback model.
 
 ## Known limitations
 
 - **What triage cannot see.** Only new process starts and new outbound connections become
   cases. An attack step that reuses pairs the machine already had, such as persistence
-  firing later, never reaches the model.
+  firing later, never reaches the model. The same holds for a Remote Desktop hop on a
+  machine whose own scripts already ran `mstsc.exe` to port 3389 earlier in the wave (seen
+  in training on host-339f).
 - **Attack types barely in the labels.** The labelled attacks are almost all remote WMI
   starting hidden PowerShell. The updater attack, a program run from a user's Temp folder
   by the Notepad++ updater, was caught live at its alert point. Offline, the model called
   the same step normal, so treat it as borderline.
-- **The Remote Desktop hop.** In eval wave w01 the attack's step is the Remote Desktop
-  client (`mstsc.exe`), started from the desktop under the account `sysadmin`, opening
-  port 3389 to an internal address. Both models judge it normal (confidence 85): from
-  that one event it looks like an administrator at work.
+- **The Remote Desktop hop rests on little data.** The specialist prompt was tested on 3
+  attack hops from 2 machines and 14 scripted benign connections, all from local sessions.
+  The data holds no legitimate chain, such as an administrator hopping through a jump host,
+  and the prompt would call one an attack. With E2B the hop is missed: from that one event,
+  the main prompt sees an administrator at work.
 - **A known false alarm.** The testbed's own logon script (`explorer.exe` → `wscript.exe`)
   is called an attack on one dev wave.
 - **Speed decides accuracy on slow CPUs.** Measured on an Apple M5 Pro and a 4-core
   i7-1165G7 laptop, not on the 8-core target. Where E4B is too slow, the detector runs E2B,
-  which is less accurate.
+  which is less accurate and runs without the Remote Desktop prompt.
 - **Explanations wait for verdicts.** During a burst, explanations queue behind verdicts:
   about 90 s after the alert at the 95th percentile on the Mac and up to 124 s on the
   laptop, inside the 5 minutes allowed.
@@ -137,16 +159,18 @@ SLM judges whatever no specialist claims and writes every explanation.
 | Script delivery | PowerShell started hidden, encoded or downloading code | a rule now (`experts.py`); public attack recordings next | built and measured |
 | Execution chain | an updater, installer, Office program or WMI starting a program it never starts, from a user folder | public attack recordings | next; target: the Notepad++ updater attack |
 | Network | a program seconds old calling a bare public IP, or calling out at a steady rhythm | timing statistics | next; target: the payload connection |
-| Lateral movement | Remote Desktop and remote-service hops | public attack recordings | next; target: the Remote Desktop hop |
+| Lateral movement | Remote Desktop and remote-service hops | a rule now (`rdp_chain`); public attack recordings next | built for Remote Desktop and measured |
 | The SLM | anything no specialist claims; every explanation | – | built: the submitted model |
 
-The first specialist is in the code behind a switch that is off in the submission
-(`DETECTOR_EXPERT_RAISES=1`). On the same 15 dev attack waves in real time it caught
-every attack at its first malicious event: timeliness 1.000 against 0.867 for the
-submitted detector, median delay 0.00 s against 3.1 s. Recall (15 of 15), false alarms
-(1, the same one) and evidence precision (1.00) were unchanged. On the 7 public eval waves
-it scored timeliness 0.667 against 0.563: the same 2 of 3 attacks, each at its first
-malicious event, and no false alarm.
+The two built specialists are in the code behind a switch that is off in the submission
+(`DETECTOR_EXPERT_RAISES=1`). On the 15 dev attack waves in real time, script delivery
+caught every attack at its first malicious event: timeliness 1.000 against 0.867 (run
+v1.4-dev-attacks), median delay 0.00 s against 3.1 s, with recall (15 of 15), false alarms
+(1, the same one) and evidence precision (1.00) unchanged. On the 7 public eval waves the
+two together caught all 3 attacks at their first malicious event: timeliness 1.000 against
+0.870 for the submitted detector, and no false alarm (run v2.1-full-mac). Within the SLM
+rule, the submitted detector already routes one family this way: code sends Remote Desktop
+connections to a specialist prompt, and the SLM decides.
 
 Each specialist has to learn from recordings of its own attack family, from public
 datasets such as OTRF Security-Datasets and Splunk attack_data, whose Sysmon fields

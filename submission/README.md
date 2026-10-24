@@ -98,10 +98,10 @@ no false alarm, timeliness 0.841, median delay 5.5 s (run win-v1.8), below the 0
 E2B reached there in v1.7 (run win-v1.7). v1.8.1's scaled check expects 4.66 s per verdict
 on that laptop, so it runs E2B there.
 
-On the 17 holdout waves, from machines never used for tuning, v1.4 caught 7 of 7 attacks
-with no false alarm, timeliness 0.814, median delay 2.4 s (run v1.4-holdout). On the 15 dev
-attack waves it caught 15 of 15, timeliness 0.867, with one false alarm (run
-v1.4-dev-attacks).
+On the 17 holdout waves, from machines never used for tuning, v1.8 caught 7 of 7 attacks
+with no false alarm, timeliness 0.850, median delay 1.6 s (run v1.8-holdout; v1.4 scored
+0.814 there). On the 15 dev attack waves v1.4 caught 15 of 15, timeliness 0.867, with one
+false alarm (run v1.4-dev-attacks).
 
 Offline, on the 25 labelled attack starts and 510 benign cases (86 from the validation
 waves, 424 from extra windows sampled from the training days), the short verdict case kept

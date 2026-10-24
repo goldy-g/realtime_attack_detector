@@ -1,0 +1,10 @@
+RUN win-v1.5 started · 7 waves (eval full, realtime) · expected ~22:48
+RUN win-v1.5 running · 0/7 waves · 0 alerts · 0/3 attacks caught · 0 false alarms · 2:53 of ~24:20
+RUN win-v1.5 running · 0/7 waves · 0 alerts · 0/3 attacks caught · 0 false alarms · 5:45 of ~24:20
+RUN win-v1.5 running · 0/7 waves · 0 alerts · 0/3 attacks caught · 0 false alarms · 8:37 of ~24:20
+RUN win-v1.5 running · 1/7 waves · 2 alerts · 0/3 attacks caught · 0 false alarms · 11:28 of ~24:20
+RUN win-v1.5 running · 2/7 waves · 5 alerts · 1/3 attacks caught · 0 false alarms · 14:20 of ~24:20
+RUN win-v1.5 running · 3/7 waves · 7 alerts · 2/3 attacks caught · 0 false alarms · 17:11 of ~24:20
+RUN win-v1.5 running · 5/7 waves · 7 alerts · 2/3 attacks caught · 0 false alarms · 20:02 of ~24:20
+RUN win-v1.5 running · 6/7 waves · 7 alerts · 2/3 attacks caught · 0 false alarms · 22:53 of ~24:20
+RUN win-v1.5 finished · 7/7 waves · 7 alerts · 2/3 attacks caught · 0 false alarms · timeliness 0.547 · 0 dropped, 0 errors · 24:07

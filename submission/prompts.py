@@ -1,9 +1,17 @@
-"""The two prompts: a verdict-only call that decides, and an explanation call that follows the alert.
+"""The prompts: a verdict-only call that decides, a Remote Desktop specialist that decides one kind of case,
+and an explanation call that follows the alert.
 
 The verdict prompt is research's prompt v1 (research/prompt_v1.py): general
 analyst guidance only, no machine, user, file or address from the labels. The
 reply is the verdict word, a space and the confidence, 3 to 5 tokens (JSON took 14
 to 15): every token written delays the alert, by 0.06 to 0.16 s each on a weak CPU.
+
+The Remote Desktop specialist (v1.6, research/out/specialist_rdp.md): code routes every outbound
+Remote Desktop connection from mstsc.exe to a prompt about lateral movement, and the SLM decides it
+there. Under the verdict prompt Gemma 4 E4B called all three attack hops normal; under this prompt it
+calls them attack and still calls the 14 scripted training connections normal. It judges by the
+session's Remote Desktop origin (remove those lines and it says normal), and it is used only behind
+the router: asked about every benign case, it flagged 33 of 86.
 """
 
 from __future__ import annotations
@@ -33,6 +41,25 @@ VERDICT_GRAMMAR = ('root ::= verdict " " conf\n'
                    'verdict ::= "attack" | "normal"\n'
                    'conf ::= [0-9] | [1-9] [0-9] | "100"\n')
 
+RDP_SYSTEM = """You are a security analyst reviewing outbound Remote Desktop connections on Windows workstations in real time.
+
+A triage step has flagged one connection to port 3389 because the program had not used that port in the machine's last hour. You see the connection, the processes behind it, how the desktop session that made it began, and the machine's recent activity. Decide whether it is lateral movement by an intruder or normal remote administration.
+
+What matters most is how the desktop session making the connection began:
+- A session that itself arrived by Remote Desktop, from another machine or through a local tunnel (a Remote Desktop logon from the machine itself), and now opens Remote Desktop to yet another machine forms a chain of hops. Intruders with stolen credentials move this way, one machine after the next.
+- A connection from a session that began at the machine itself is usually administration: help desk, IT staff, or scripts that connect with fixed arguments.
+
+How the program was started, by a script or by a person at the desktop, does not decide on its own. Tunnelling tools, credential theft or new accounts shortly before make an attack more likely.
+
+Reply with the verdict, attack or normal, then a space and your confidence from 0 to 100. Nothing else."""
+
+
+def routes_to_rdp(kind: str, pair) -> bool:
+    """The router: an outbound connection from mstsc.exe to port 3389 goes to the Remote Desktop specialist.
+    (Flow cases are outbound by construction, baseline.flow_key.) Other programs on 3389 stay with the
+    verdict prompt, which already weighs unusual programs."""
+    return kind == "flow" and tuple(pair) == ("mstsc.exe", "3389")
+
 EXPLAIN_SYSTEM = """You are a security analyst writing the incident note for an alert that has just been raised on a Windows workstation. Another analyst will read it to decide what to do.
 
 You get the event that triggered the alert, the processes behind it, the machine's recent activity, and what the same processes did after the alert. Write exactly these four lines, plain text, no markdown:
@@ -47,6 +74,10 @@ Use only facts present in the input. Do not guess at facts you were not given. K
 
 def verdict_messages(case_text: str) -> list[dict]:
     return [{"role": "system", "content": VERDICT_SYSTEM}, {"role": "user", "content": case_text}]
+
+
+def rdp_messages(case_text: str) -> list[dict]:
+    return [{"role": "system", "content": RDP_SYSTEM}, {"role": "user", "content": case_text}]
 
 
 def explain_messages(case_text: str, followed: list[str], confidence: int | None, facts: tuple = ()) -> list[dict]:

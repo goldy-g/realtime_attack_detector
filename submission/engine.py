@@ -17,6 +17,10 @@ Rules (3.6):
   are free), so silencing the tree could only lose a detection (run v1.1-dev,
   atk-efdb: cmd.exe running a downloaded .bat alerted 1 s early, and the hidden
   PowerShell it started was never judged);
+- an outbound Remote Desktop connection from mstsc.exe is judged under the Remote Desktop specialist
+  prompt in its own slot (prompts.routes_to_rdp, v1.6) when `rdp_specialist` is on, which the detector
+  sets only while the main model runs; every other case, and every case under the fallback model, is
+  judged under the verdict prompt. The router only picks the prompt; the SLM still decides;
 - verdict calls always go before explanation calls;
 - when the wave closes (`callbacks.cancelled`), its pending work is dropped;
 - solution 2 (`config.EXPERT_RAISES`, off in the submission): a case the expert
@@ -36,7 +40,7 @@ from dataclasses import dataclass, field
 
 from . import cases, config, experts, prompts
 from .baseline import Candidate
-from .llm import EXPLAIN_SLOT, VERDICT_SLOT, LlamaServer
+from .llm import EXPLAIN_SLOT, RDP_SLOT, VERDICT_SLOT, LlamaServer
 from .state import MachineState, base, line
 
 log = logging.getLogger("detector")
@@ -55,14 +59,15 @@ class Wave:
     alerted: set = field(default_factory=set)          # objectIDs of processes already alerted on
     queue: list = field(default_factory=list)          # heap of (0 if expert else 1, fleet, t, seq, Candidate)
     explain_jobs: list = field(default_factory=list)   # FIFO of dict
-    stats: dict = field(default_factory=lambda: {"cases": 0, "expert_cases": 0, "judged": 0, "skipped_alerted": 0,
-                                                 "shed": 0, "alerts": 0, "expert_alerts": 0, "explained": 0,
-                                                 "fallback_explanations": 0})
+    stats: dict = field(default_factory=lambda: {"cases": 0, "expert_cases": 0, "judged": 0, "rdp_judged": 0,
+                                                 "skipped_alerted": 0, "shed": 0, "alerts": 0, "expert_alerts": 0,
+                                                 "explained": 0, "fallback_explanations": 0})
 
 
 class Engine:
-    def __init__(self, server: LlamaServer) -> None:
+    def __init__(self, server: LlamaServer, rdp_specialist: bool = False) -> None:
         self.server = server
+        self.rdp_specialist = rdp_specialist     # route Remote Desktop out to its specialist prompt (main model only)
         self.lock = threading.Lock()             # guards the current wave's state, queue and job list
         self.wake = threading.Condition(self.lock)
         self.wave: Wave | None = None
@@ -165,9 +170,15 @@ class Engine:
             text = cases.render(wave.state, cand)
             picked_at_stream = wave.state.now
         wave.stats["judged"] += 1
+        rdp = self.rdp_specialist and prompts.routes_to_rdp(cand.kind, cand.pair)
         t0 = time.perf_counter()
-        out = self.server.chat(prompts.verdict_messages(text), max_tokens=16, slot=VERDICT_SLOT,
-                               grammar=prompts.VERDICT_GRAMMAR)
+        if rdp:
+            wave.stats["rdp_judged"] += 1
+            out = self.server.chat(prompts.rdp_messages(text), max_tokens=16, slot=RDP_SLOT,
+                                   grammar=prompts.VERDICT_GRAMMAR)
+        else:
+            out = self.server.chat(prompts.verdict_messages(text), max_tokens=16, slot=VERDICT_SLOT,
+                                   grammar=prompts.VERDICT_GRAMMAR)
         verdict, confidence = parse_verdict(out["text"])
         attack = verdict == "attack" and confidence >= config.ALERT_MIN_CONFIDENCE
         alert_id = None
@@ -186,7 +197,8 @@ class Engine:
                 if config.EXPLAIN:
                     with self.lock:
                         wave.explain_jobs.append(job)
-        self._record(wave, cand, text, verdict, confidence, out, time.perf_counter() - t0, alert_id, picked_at_stream)
+        self._record(wave, cand, text, verdict, confidence, out, time.perf_counter() - t0, alert_id, picked_at_stream,
+                     prompt="rdp" if rdp else "verdict")
 
     def _evidence(self, state: MachineState, alert_eid: str, proc_oid: str) -> list[str]:
         """The alert event, then the alerted process tree's events delivered so far, most telling first."""
@@ -222,13 +234,15 @@ class Engine:
             wave.stats["explained"] += 1
 
     def _record(self, wave: Wave, cand: Candidate, text: str, verdict: str, confidence: int | None, out: dict,
-                seconds: float, alert_id: str | None, picked_at_stream: float, by: str = "slm") -> None:
-        log.info("%s %s %s fleet=%d%s -> %s %s by %s (%.2fs)%s", wave.machine, cand.kind, "→".join(cand.pair),
-                 cand.fleet, " expert" if cand.expert else "", verdict, confidence, by, seconds,
-                 " ALERT " + alert_id if alert_id else "")
+                seconds: float, alert_id: str | None, picked_at_stream: float, by: str = "slm",
+                prompt: str | None = None) -> None:
+        log.info("%s %s %s fleet=%d%s -> %s %s by %s%s (%.2fs)%s", wave.machine, cand.kind, "→".join(cand.pair),
+                 cand.fleet, " expert" if cand.expert else "", verdict, confidence, by,
+                 " (" + prompt + " prompt)" if prompt else "", seconds, " ALERT " + alert_id if alert_id else "")
         if self.decisions:
             rec = {"machine": wave.machine, "event_id": cand.event["id"], "ts": cand.event["timestamp"],
                    "kind": cand.kind, "pair": cand.pair, "fleet": cand.fleet, "expert": list(cand.expert), "by": by,
+                   "prompt": prompt,
                    "verdict": verdict, "confidence": confidence, "alert_id": alert_id, "model_s": round(seconds, 3),
                    "queued_stream_s": round(picked_at_stream - cand.t, 3), "prompt_n": out.get("prompt_n"),
                    "cache_n": out.get("cache_n"), "case": text}

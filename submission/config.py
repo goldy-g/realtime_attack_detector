@@ -28,7 +28,9 @@ MODEL_DIRS = [d for d in (_env("MODEL_DIR", ""), os.path.join(HERE, "models"), o
 SERVER_NAMES = ("llama-server.exe", "llama-server") if sys.platform == "win32" else ("llama-server",)
 SERVER_DIRS = [d for d in (_env("SERVER_DIR", ""), os.path.join(HERE, "bin"), os.path.join(HERE, "bin", "llama")) if d]
 THREADS = _env("THREADS", min(8, os.cpu_count() or 8))      # the target has 8 cores; one model call at a time
-CTX_PER_SLOT = _env("CTX_PER_SLOT", 4096)                    # two slots: verdicts and explanations keep their own cache
+SLOTS = 3                                                    # verdicts, explanations, Remote Desktop verdicts: own caches
+CTX_PER_SLOT = _env("CTX_PER_SLOT", 8192 // SLOTS)           # 8,192 tokens in all, the assignment's limit, 2,730 each;
+                                                             # a worst-case explanation with its reply needs 2,190
 SERVER_START_TIMEOUT_S = _env("SERVER_START_TIMEOUT_S", 300.0)
 CALL_TIMEOUT_S = _env("CALL_TIMEOUT_S", 120.0)
 
@@ -42,6 +44,10 @@ QUEUE_MAX = _env("QUEUE_MAX", 40)                # beyond this, the most common 
 
 # --- decisions (3.6) ----------------------------------------------------------------------------
 ALERT_MIN_CONFIDENCE = _env("ALERT_MIN_CONFIDENCE", 50)
+# v1.6: an outbound Remote Desktop connection from mstsc.exe is judged under the Remote Desktop specialist
+# prompt (prompts.RDP_SYSTEM) in its own slot, only while the main model runs: the fallback E2B caught one
+# of three hops under it and called a scripted connection an attack (research/out/specialist_rdp.md).
+RDP_SPECIALIST = _env("RDP_SPECIALIST", 1) == 1
 # Solution 2 (research/DETECTION_APPROACH.md, "Two solutions"), off in the submission, where every
 # alert comes from an SLM verdict. On (DETECTOR_EXPERT_RAISES=1), a case an expert recognises
 # (experts.py) raises its alert at once, with no model verdict; the SLM still writes the explanation.

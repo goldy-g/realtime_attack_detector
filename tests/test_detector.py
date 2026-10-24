@@ -15,7 +15,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from submission import cases, config, experts  # noqa: E402
+from submission import cases, config, experts, prompts  # noqa: E402
 from submission.baseline import Candidate, Fleet, Triage  # noqa: E402
 from submission.engine import Engine, Wave, parse_verdict  # noqa: E402
 from submission.llm import LlamaServer, ServerError  # noqa: E402
@@ -59,13 +59,14 @@ class FakeServer:
     """Answers 'attack' when the case mentions the marker, 'normal' otherwise."""
 
     def __init__(self, marker="evil.exe"):
-        self.marker, self.calls, self.texts = marker, [], []
+        self.marker, self.calls, self.texts, self.systems = marker, [], [], []
         self.stopping = False
 
     def chat(self, messages, max_tokens, slot, grammar=None, timeout=None):
         text = messages[-1]["content"]
         self.calls.append(slot)
         self.texts.append((slot, text))
+        self.systems.append((slot, messages[0]["content"]))
         if slot == 1:
             return {"text": "Attack: x\nWhy this event: y\nChain: a -> b\nEvidence: z", "wall_s": 0.0}
         verdict = "attack" if self.marker in text else "normal"
@@ -195,9 +196,9 @@ class CaseRendering(unittest.TestCase):
 
 
 class EngineRules(unittest.TestCase):
-    def run_wave(self, events, marker="evil.exe"):
+    def run_wave(self, events, marker="evil.exe", rdp_specialist=False):
         server, cb = FakeServer(marker), Callbacks()
-        engine = Engine(server)
+        engine = Engine(server, rdp_specialist=rdp_specialist)
         wave = Wave(machine="h", callbacks=cb, state=MachineState("h"))
         tri = Triage("h", Fleet(None))
         tri.live = True
@@ -343,6 +344,40 @@ class EngineRules(unittest.TestCase):
         cb, wave, _ = self.run_wave(self.RDP_HOP)
         self.assertEqual(cb.alerts, [self.RDP_HOP[-1]["id"]])
         self.assertEqual(wave.stats["expert_alerts"], 1)
+
+    def test_remote_desktop_out_is_judged_under_the_specialist_prompt(self):
+        # the stand-in model says attack when the case shows the chain; under the specialist that is the SLM's call
+        cb, wave, server = self.run_wave(self.RDP_HOP, marker="Remote Desktop chain", rdp_specialist=True)
+        self.assertEqual(cb.alerts, [self.RDP_HOP[-1]["id"]])
+        self.assertEqual(wave.stats["rdp_judged"], 1)
+        self.assertEqual(wave.stats["expert_alerts"], 0)                       # no code rule raised it
+        rdp_calls = [(slot, s) for slot, s in server.systems if slot == 2]
+        self.assertEqual(rdp_calls, [(2, prompts.RDP_SYSTEM)])
+        self.assertTrue(all(s == prompts.VERDICT_SYSTEM for slot, s in server.systems if slot == 0))
+        # winlogon's and explorer's starts; mstsc's own start is skipped, its process already alerted (judged first)
+        self.assertEqual(len([1 for slot, _ in server.systems if slot == 0]), 2)
+
+    def test_specialist_off_and_other_programs_use_the_verdict_prompt(self):
+        _, wave, server = self.run_wave(self.RDP_HOP, rdp_specialist=False)        # the fallback model is loaded
+        self.assertEqual(wave.stats["rdp_judged"], 0)
+        self.assertNotIn(2, server.calls)
+        other = self.RDP_HOP[:-1] + [flow("C:\\x\\evil.exe", "M", "10.0.0.8", 3389, ts="2000-01-01T10:06:20.000-04:00")]
+        _, wave, server = self.run_wave(other, rdp_specialist=True)               # not the Remote Desktop client
+        self.assertEqual(wave.stats["rdp_judged"], 0)
+        self.assertNotIn(2, server.calls)
+
+
+class RdpSpecialist(unittest.TestCase):
+    def test_router(self):
+        self.assertTrue(prompts.routes_to_rdp("flow", ("mstsc.exe", "3389")))
+        self.assertTrue(prompts.routes_to_rdp("flow", ["mstsc.exe", "3389"]))     # pairs read back from JSON are lists
+        for kind, pair in (("flow", ("mstsc.exe", "443")), ("flow", ("evil.exe", "3389")),
+                           ("process", ("explorer.exe", "mstsc.exe"))):
+            self.assertFalse(prompts.routes_to_rdp(kind, pair), (kind, pair))
+
+    def test_three_slots_fit_the_context_limit(self):
+        self.assertEqual(config.SLOTS, 3)
+        self.assertLessEqual(config.SLOTS * config.CTX_PER_SLOT, 8192)
 
 class ExpertRules(unittest.TestCase):
     def cand(self, parent, child, cmd, kind="process"):

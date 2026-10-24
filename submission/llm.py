@@ -1,8 +1,8 @@
 """The model runtime: one llama-server subprocess on a free local port, called over HTTP (stdlib only).
 
-Two slots, used one at a time: slot 0 for verdicts and slot 1 for explanations,
-so each keeps its own system prompt in the prompt cache and an explanation never
-evicts the cached verdict prompt.
+Three slots, used one at a time: slot 0 for verdicts, slot 1 for explanations and
+slot 2 for Remote Desktop verdicts (the specialist prompt), so each keeps its own
+system prompt in the prompt cache and no call evicts another's cached prompt.
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ import urllib.request
 
 from . import config
 
-VERDICT_SLOT, EXPLAIN_SLOT = 0, 1
+VERDICT_SLOT, EXPLAIN_SLOT, RDP_SLOT = 0, 1, 2
 
 
 def free_port() -> int:
@@ -103,7 +103,8 @@ class LlamaServer:
             raise ServerError("llama-server was stopped; not starting it again")
         self.port = free_port()
         args = [self.server, "-m", self.model, "--host", "127.0.0.1", "--port", str(self.port),
-                "-c", str(2 * self.ctx_per_slot), "-np", "2", "-t", str(self.threads), "-tb", str(self.threads),
+                "-c", str(config.SLOTS * self.ctx_per_slot), "-np", str(config.SLOTS),
+                "-t", str(self.threads), "-tb", str(self.threads),
                 "-ngl", "0", "--device", "none",          # CPU only, as on the target
                 "--jinja", "--no-webui"]
         flags = getattr(subprocess, "CREATE_NO_WINDOW", 0) if sys.platform == "win32" else 0

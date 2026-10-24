@@ -12,6 +12,7 @@ behind it: research/DETECTION_APPROACH.md and research/FINDINGS.md.
 from __future__ import annotations
 
 import logging
+import os
 import statistics
 
 try:  # evaluate.py puts evaluator/ on sys.path
@@ -22,7 +23,7 @@ except ImportError:  # imported from the repository root, e.g. by tools/ or test
 from . import config, prompts
 from .baseline import Fleet, Triage
 from .engine import Engine, Wave
-from .llm import EXPLAIN_SLOT, VERDICT_SLOT, LlamaServer
+from .llm import EXPLAIN_SLOT, RDP_SLOT, VERDICT_SLOT, LlamaServer
 from .state import MachineState
 
 log = logging.getLogger("detector")
@@ -58,7 +59,12 @@ class MyDetector(Detector):
         _setup_logging()
         self.fleet = Fleet(config.FLEET_FILE)
         self.server = self._start_model()
-        self.engine = Engine(self.server)
+        # The Remote Desktop specialist only with the main model: under it the fallback E2B missed two of three hops.
+        rdp = config.RDP_SPECIALIST and os.path.basename(self.server.model) == config.MODEL_FILE
+        if rdp:
+            self._warm_rdp(self.server)
+        log.info("Remote Desktop specialist prompt: %s", "on" if rdp else "off")
+        self.engine = Engine(self.server, rdp_specialist=rdp)
         self.lock = self.engine.lock
         self.wave: Wave | None = None
         self.triage: Triage | None = None
@@ -103,6 +109,11 @@ class MyDetector(Detector):
         """Cache the explanation prompt now, so the first real explanation is not slower."""
         if config.EXPLAIN:
             server.chat(prompts.explain_messages(PROBE_CASE, [], 0), max_tokens=8, slot=EXPLAIN_SLOT)
+
+    @staticmethod
+    def _warm_rdp(server: LlamaServer) -> None:
+        """Cache the Remote Desktop specialist prompt now, so the first Remote Desktop verdict is not slower."""
+        server.chat(prompts.rdp_messages(PROBE_CASE), max_tokens=16, slot=RDP_SLOT, grammar=prompts.VERDICT_GRAMMAR)
 
     # ------------------------------------------------------------------ the evaluator's calls
     def start_wave(self, machine: str, callbacks) -> None:

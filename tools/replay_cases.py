@@ -5,7 +5,7 @@ Checks the production code against what research measured (research/FINDINGS.md 
 how many cases does a normal machine produce, how long is a case now, and which
 cases the expert recognises (submission/experts.py, SQ-1: it should match no benign case). With
 --score it also asks the model for a verdict on every case (the detector's own
-prompt and grammar) and reports what the detector would flag.
+prompts, routing and grammar) and reports what the detector would flag.
 
     python tools/replay_cases.py                       # validation (dev + holdout) and eval waves
     python tools/replay_cases.py --score --split dev   # plus model verdicts on the dev cases
@@ -128,16 +128,22 @@ def main() -> None:
 
 def score(all_cases: list[dict], split: str, model: str = "main", tag: str = "") -> None:
     from submission.engine import parse_verdict
-    from submission.llm import VERDICT_SLOT, LlamaServer
+    from submission.llm import RDP_SLOT, VERDICT_SLOT, LlamaServer
     sel = [c for c in all_cases if c["split"] == split]
     server = LlamaServer(config.find_server(), config.find_model(config.MODEL_FILE if model == "main" else config.FALLBACK_MODEL_FILE))
     server.start()
+    rdp_on = config.RDP_SPECIALIST and model == "main"      # as the detector: the specialist only with the main model
     t0, rows = time.perf_counter(), []
     try:
         for c in sel:
-            out = server.chat(prompts.verdict_messages(c["text"]), 16, VERDICT_SLOT, prompts.VERDICT_GRAMMAR)
+            rdp = rdp_on and prompts.routes_to_rdp(c["kind"], c["pair"])
+            if rdp:
+                out = server.chat(prompts.rdp_messages(c["text"]), 16, RDP_SLOT, prompts.VERDICT_GRAMMAR)
+            else:
+                out = server.chat(prompts.verdict_messages(c["text"]), 16, VERDICT_SLOT, prompts.VERDICT_GRAMMAR)
             verdict, conf = parse_verdict(out["text"])
             rows.append({**{k: c[k] for k in ("wave", "event_id", "label", "attack_id", "alert_point", "fleet", "kind")},
+                         "prompt": "rdp" if rdp else "verdict",
                          "verdict": verdict, "confidence": conf, "s": round(out["wall_s"], 3), "prompt_n": out["prompt_n"],
                          "predicted_n": out["predicted_n"]})
     finally:
@@ -155,7 +161,11 @@ def score(all_cases: list[dict], split: str, model: str = "main", tag: str = "")
     benign = [r for r in rows if r["label"] == "benign"]
     secs = sorted(r["s"] for r in rows)
     toks = sorted(r["prompt_n"] or 0 for r in rows)
-    print("Model verdicts ({}) on {} {} cases in {:.0f}s".format(server.name, len(rows), split, time.perf_counter() - t0))
+    print("Model verdicts ({}) on {} {} cases in {:.0f}s; Remote Desktop specialist {}: {} cases routed to it, {}".format(
+        server.name, len(rows), split, time.perf_counter() - t0, "on" if rdp_on else "off",
+        sum(1 for r in rows if r["prompt"] == "rdp"),
+        ", ".join("{} {} {} {}".format(r["wave"], r["label"], r["verdict"], r["confidence"])
+                  for r in rows if r["prompt"] == "rdp") or "none"))
     print("  attacks flagged at their first case {}/{}, at any case {}/{}".format(first, len(attacks), anyc, len(attacks)))
     print("  benign cases flagged {}/{}  waves with a benign flag: {}".format(
         sum(1 for r in benign if flag(r)), len(benign), len({r["wave"] for r in benign if flag(r)})))

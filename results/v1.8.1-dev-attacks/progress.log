@@ -1,0 +1,10 @@
+RUN v1.8.1-dev-attacks started · 15 waves (validation subset, realtime) · expected ~41:57
+RUN v1.8.1-dev-attacks running · 1/15 waves · 2 alerts · 1/15 attacks caught · 0 false alarms · 5:01 of ~42:15
+RUN v1.8.1-dev-attacks running · 3/15 waves · 7 alerts · 3/15 attacks caught · 0 false alarms · 10:02 of ~42:15
+RUN v1.8.1-dev-attacks running · 5/15 waves · 10 alerts · 5/15 attacks caught · 0 false alarms · 15:03 of ~42:15
+RUN v1.8.1-dev-attacks running · 7/15 waves · 14 alerts · 7/15 attacks caught · 0 false alarms · 20:04 of ~42:15
+RUN v1.8.1-dev-attacks running · 9/15 waves · 18 alerts · 9/15 attacks caught · 0 false alarms · 25:05 of ~42:15
+RUN v1.8.1-dev-attacks running · 11/15 waves · 20 alerts · 11/15 attacks caught · 0 false alarms · 30:06 of ~42:15
+RUN v1.8.1-dev-attacks running · 12/15 waves · 22 alerts · 12/15 attacks caught · 0 false alarms · 35:07 of ~42:15
+RUN v1.8.1-dev-attacks running · 14/15 waves · 26 alerts · 14/15 attacks caught · 0 false alarms · 40:08 of ~42:15
+RUN v1.8.1-dev-attacks finished · 15/15 waves · 28 alerts · 15/15 attacks caught · 0 false alarms · timeliness 0.914 · 0 dropped, 0 errors · 41:50

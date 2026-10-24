@@ -1,0 +1,304 @@
+set: subset atk-0dfa,atk-2758,atk-339f-1,atk-5582,atk-8329,atk-875d,atk-8875,atk-9935,atk-9ba4,atk-a5ce,atk-c8f1,atk-eaa4,atk-efdb,atk-f890,atk-fdda   mode: realtime   waves: atk-0dfa, atk-2758, atk-339f-1, atk-5582, atk-8329, atk-875d, atk-8875, atk-9935, atk-9ba4, atk-a5ce, atk-c8f1, atk-eaa4, atk-efdb, atk-f890, atk-fdda
+constructing submission.my_detector:MyDetector ...
+  build time: 18.0s
+  wave atk-0dfa     2 alerts  warm-up   0.0s  live 177.2s  lag max  0.01s
+  wave atk-2758     2 alerts  warm-up   0.0s  live 129.7s  lag max  0.01s
+  wave atk-339f-1   3 alerts  warm-up   0.0s  live 170.7s  lag max  0.01s
+  wave atk-5582     2 alerts  warm-up   0.0s  live 141.1s  lag max  0.01s
+  wave atk-8329     1 alerts  warm-up   0.0s  live 158.8s  lag max  0.01s
+  wave atk-875d     2 alerts  warm-up   0.0s  live 136.0s  lag max  0.01s
+  wave atk-8875     2 alerts  warm-up   0.0s  live 135.3s  lag max  0.01s
+  wave atk-9935     2 alerts  warm-up   0.0s  live 158.0s  lag max  0.01s
+  wave atk-9ba4     2 alerts  warm-up   0.0s  live 137.1s  lag max  0.01s
+  wave atk-a5ce     1 alerts  warm-up   0.0s  live 143.0s  lag max  0.01s
+  wave atk-c8f1     1 alerts  warm-up   0.0s  live 146.0s  lag max  0.01s
+  wave atk-eaa4     2 alerts  warm-up   0.0s  live 291.5s  lag max  0.02s
+  wave atk-efdb     2 alerts  warm-up   0.0s  live 147.6s  lag max  0.01s
+  wave atk-f890     2 alerts  warm-up   0.0s  live 148.4s  lag max  0.01s
+  wave atk-fdda     2 alerts  warm-up   0.0s  live 118.2s  lag max  0.01s
+alerts -> results/v1.8.1-dev-attacks/alerts.jsonl
+==============================================================================
+RESULTS -- v1.8.1-dev-attacks   (set: subset atk-0dfa,atk-2758,atk-339f-1,atk-5582,atk-8329,atk-875d,atk-8875,atk-9935,atk-9ba4,atk-a5ce,atk-c8f1,atk-eaa4,atk-efdb,atk-f890,atk-fdda, mode: realtime, 15 waves, 15 with an attack)
+==============================================================================
+OVERALL DETECTION SUMMARY
+                              Actual attack    Benign activity
+  Alert raised                        15 TP               0 FP
+  Attack missed                        0 FN
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Attacks detected: 15 / 15
+  Caught on time / after execution / missed: 15 / 0 / 0
+  Timeliness score: 0.914
+  False alarms: 0 (0.00 per wave; 0 warm-up, 0 live)
+  Alerts: 28 total, 12 duplicates, 0 repeat false alarms, 0 late timeouts, 1 context, 0 excused, 0 invalid
+  Evidence precision: 100.0%
+OVERALL LATENCY
+                                     p50          p95          max
+  Event -> alert                 2.510 s       5.225 s       7.640 s
+  Alert -> explanation          10.845 s      18.983 s      28.556 s
+  on_event() processing          0.020 ms      0.091 ms      3.172 ms
+  Explanations received: 28; (28 of 28 list valid event IDs)
+  Attack onset -> detection: 2.175 s p50, 2.823 s max
+  Maximum stream lag: 0.022 s; warm-up compute max: 0.0 s
+  Total evaluation time: 2490.4 s
+  Events dropped / alerts lost / detector errors: 0 / 0 / 0
+  One-off build: 18.0 s (not counted above)
+==============================================================================
+PER-WAVE RESULTS
+==============================================================================
+atk-0dfa -- host-0dfa -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 23 / 217; detection delay 1.666 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.371 s       3.012 s       3.083 s
+  Alert -> explanation          12.360 s      14.376 s      14.600 s
+  on_event() processing          0.025 ms      0.100 ms      3.172 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.010 s
+  Events delivered: 7689 warm-up + 411 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 187.3 s
+atk-2758 -- host-2758 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 24 / 134; detection delay 2.448 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.176 s       3.839 s       3.913 s
+  Alert -> explanation          22.344 s      27.935 s      28.556 s
+  on_event() processing          0.007 ms      0.065 ms      0.279 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.014 s
+  Events delivered: 6303 warm-up + 2210 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 139.8 s
+atk-339f-1 -- host-339f -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Phishing Word document run by bantonio: PowerShell download cradle, Empire agents, UAC bypasses: Caught on time, malicious event 12 / 202; detection delay 1.876 s
+  Alerts: 3; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 2 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 5.883 s       7.464 s       7.640 s
+  Alert -> explanation          12.333 s      19.700 s      20.519 s
+  on_event() processing          0.019 ms      0.088 ms      0.426 ms
+  Explanations received: 3; (3 of 3 list valid event IDs)
+  Stream lag max: 0.012 s
+  Events delivered: 8004 warm-up + 741 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 180.8 s
+atk-5582 -- host-5582 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 7 / 155; detection delay 2.164 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.845 s       3.461 s       3.530 s
+  Alert -> explanation          12.688 s      15.134 s      15.405 s
+  on_event() processing          0.028 ms      0.084 ms      0.430 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 14334 warm-up + 359 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 151.2 s
+atk-8329 -- host-8329 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server: Caught on time, malicious event 7 / 77; detection delay 1.645 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 1.640 s       1.640 s       1.640 s
+  Alert -> explanation           7.951 s       7.951 s       7.951 s
+  on_event() processing          0.030 ms      0.094 ms      0.862 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 5233 warm-up + 483 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 168.9 s
+atk-875d -- host-875d -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of an in-memory PowerShell agent, credential theft, discovery and spread to the domain controller: Caught on time, malicious event 6 / 170; detection delay 1.706 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.411 s       3.049 s       3.120 s
+  Alert -> explanation          10.899 s      13.289 s      13.555 s
+  on_event() processing          0.032 ms      0.112 ms      0.238 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 4437 warm-up + 360 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 146.1 s
+atk-8875 -- host-8875 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 20 / 197; detection delay 2.216 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.902 s       3.523 s       3.592 s
+  Alert -> explanation          10.487 s      12.930 s      13.202 s
+  on_event() processing          0.033 ms      0.101 ms      0.573 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 12773 warm-up + 350 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 145.5 s
+atk-9935 -- host-9935 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 7 / 209; detection delay 2.175 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.884 s       3.525 s       3.596 s
+  Alert -> explanation          12.473 s      14.913 s      15.185 s
+  on_event() processing          0.027 ms      0.089 ms      0.226 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 7551 warm-up + 423 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 168.1 s
+atk-9ba4 -- host-9ba4 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 27 / 188; detection delay 2.202 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.885 s       3.504 s       3.573 s
+  Alert -> explanation          11.961 s      13.865 s      14.077 s
+  on_event() processing          0.024 ms      0.090 ms      2.908 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 5180 warm-up + 725 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 147.2 s
+atk-a5ce -- host-a5ce -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of an encoded PowerShell Empire agent that beacons to its server: Caught on time, malicious event 7 / 90; detection delay 2.255 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.255 s       2.255 s       2.255 s
+  Alert -> explanation           8.942 s       8.942 s       8.942 s
+  on_event() processing          0.027 ms      0.096 ms      0.240 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 5486 warm-up + 258 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 153.1 s
+atk-c8f1 -- host-c8f1 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 7 / 80; detection delay 1.586 s
+  Alerts: 1; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 1.582 s       1.582 s       1.582 s
+  Alert -> explanation           9.178 s       9.178 s       9.178 s
+  on_event() processing          0.031 ms      0.132 ms      0.567 ms
+  Explanations received: 1; (1 of 1 list valid event IDs)
+  Stream lag max: 0.009 s
+  Events delivered: 8675 warm-up + 398 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 156.1 s
+atk-eaa4 -- host-eaa4 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a PowerShell implant, C2 beaconing, ping sweep and WMI lateral movement: Caught on time, malicious event 14 / 76; detection delay 2.170 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.888 s       3.536 s       3.608 s
+  Alert -> explanation           9.452 s      11.358 s      11.570 s
+  on_event() processing          0.015 ms      0.088 ms      2.310 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.022 s
+  Events delivered: 10557 warm-up + 2876 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 301.6 s
+atk-efdb -- host-efdb -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Downloaded batch file drops a hidden PowerShell Empire agent: UAC bypass, in-memory injection, credential and network reconnaissance, lateral-movement attempts, Run-key persistence: Caught on time, malicious event 3 / 138; detection delay 2.823 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 0 / 0 / 1 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.136 s       2.753 s       2.821 s
+  Alert -> explanation          10.825 s      13.392 s      13.677 s
+  on_event() processing          0.021 ms      0.096 ms      0.276 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.009 s
+  Events delivered: 7798 warm-up + 810 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 157.7 s
+atk-f890 -- host-f890 -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 21 / 185; detection delay 2.581 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 3.292 s       3.933 s       4.004 s
+  Alert -> explanation          10.084 s      12.267 s      12.510 s
+  on_event() processing          0.028 ms      0.111 ms      0.562 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.005 s
+  Events delivered: 5215 warm-up + 387 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 158.4 s
+atk-fdda -- host-fdda -- attack present
+------------------------------------------------------------------------------
+  TP / FP / FN: 1 / 0 / 0
+  Precision 100.0%    Recall 100.0%    F1 100.0%
+  Remote WMI launch of a hidden PowerShell Empire agent that beacons to its server: Caught on time, malicious event 23 / 179; detection delay 2.263 s
+  Alerts: 2; true detections: 1; false alarms: 0 (0 warm-up, 0 live)
+  Duplicates / repeat false alarms / context / excused / invalid / late timeout: 1 / 0 / 0 / 0 / 0 / 0
+  Evidence precision: 100.0%
+                                     p50          p95          max
+  Event -> alert                 2.933 s       3.542 s       3.610 s
+  Alert -> explanation           9.980 s      12.602 s      12.893 s
+  on_event() processing          0.027 ms      0.105 ms      0.444 ms
+  Explanations received: 2; (2 of 2 list valid event IDs)
+  Stream lag max: 0.010 s
+  Events delivered: 5297 warm-up + 434 live
+  Events dropped / alerts lost / errors: 0 / 0 / 0
+  Wave duration: 128.3 s
+==============================================================================
+scorecard -> results/v1.8.1-dev-attacks/scorecard.json

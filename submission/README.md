@@ -93,10 +93,10 @@ the median delay down from 3.2 s to 1.9 s. With the fallback model forced on the
 machine (run v1.8-full-mac-e2b): 3 of 3, timeliness 0.933, median delay 1.0 s, no false
 alarm.
 
-On a 4-core i7-1165G7 laptop, below the target, v1.8 kept E4B after a 3.88 s probe: 3 of 3,
-no false alarm, timeliness 0.841, median delay 5.5 s (run win-v1.8), below the 0.873 that
-E2B reached there in v1.7 (run win-v1.7). v1.8.1's scaled check expects 4.66 s per verdict
-on that laptop, so it runs E2B there.
+On a 4-core i7-1165G7 laptop, below the target, v1.8.1's start-up check switched to E2B
+(probe 3.98 s × 1.2 = 4.78 s expected): 3 of 3, no false alarm, timeliness 0.916, median
+delay 2.4 s (run win-v1.8.1). v1.8 had kept E4B there after a 3.88 s probe and scored 0.841
+(run win-v1.8); v1.7 on E2B scored 0.873 (run win-v1.7).
 
 On the 17 holdout waves, from machines never used for tuning, v1.8 caught 7 of 7 attacks
 with no false alarm, timeliness 0.850, median delay 1.6 s (run v1.8-holdout; v1.4 scored
@@ -137,7 +137,8 @@ waves, 424 from extra windows sampled from the training days), the short verdict
   verdict with the whole case, so the detector fell back to E2B, which then missed the
   Remote Desktop hop (v1.6). With the short case its start-up probe took 3.88 s, under the
   4 s budget, but real verdicts took a median 4.6 s, and timeliness fell from 0.873 to
-  0.841 (v1.8). The check now scales the probe to real verdict time (v1.8.1).
+  0.841 (v1.8). The check now scales the probe to real verdict time (v1.8.1), and the
+  laptop runs E2B at 0.916.
 - **Teaching the main prompt about Remote Desktop chains.** The case names the session's
   Remote Desktop origin and the chain it makes, and the prompt lists Remote Desktop chains
   among the signs of an attack; E4B still called the hop normal (85, or 70 with an extra
@@ -183,8 +184,8 @@ waves, 424 from extra windows sampled from the training days), the short verdict
   the other (2 of 6 notes on the eval waves). The cited event IDs come from code and are
   unaffected.
 - **Explanations wait for verdicts.** During a burst, explanations queue behind verdicts:
-  19 s after the alert at the 95th percentile on the eval waves on the Mac, 84 s with E2B
-  on the 4-core laptop (run win-v1.7), inside the 5 minutes allowed.
+  19 s after the alert at the 95th percentile on the eval waves on the Mac, 49 s with E2B
+  on the 4-core laptop (run win-v1.8.1), inside the 5 minutes allowed.
 - **Admin PowerShell.** Tools such as Ansible and SCCM run `powershell -NoProfile
   -EncodedCommand` legitimately. The queue rule moves such cases forward, but the model
   still decides, so this costs model time, not false alarms.

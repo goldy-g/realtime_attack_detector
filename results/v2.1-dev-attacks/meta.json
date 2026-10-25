@@ -1,0 +1,121 @@
+{
+ "label": "v2.1-dev-attacks",
+ "note": "v2.1 (commit 6698157): solution 2, hidden-PowerShell and RDP-chain experts raise alerts (DETECTOR_EXPERT_RAISES=1); on the 15 dev attack waves, real time on the Mac",
+ "detector": "submission.my_detector:MyDetector",
+ "source": "validation",
+ "set": "subset",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "data/cache/val/answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --data data/cache/val --waves atk-0dfa,atk-2758,atk-339f-1,atk-5582,atk-8329,atk-875d,atk-8875,atk-9935,atk-9ba4,atk-a5ce,atk-c8f1,atk-eaa4,atk-efdb,atk-f890,atk-fdda --answers data/cache/val/answers.json --out results/v2.1-dev-attacks/alerts.jsonl --report results/v2.1-dev-attacks/scorecard.json --label v2.1-dev-attacks",
+ "triggered_at": "2026-10-25T06:20:52+02:00",
+ "expected_s": 2516.8,
+ "waves": [
+  {
+   "id": "atk-0dfa",
+   "machine": "host-0dfa",
+   "kind": "attack",
+   "warmup_events": 7689,
+   "live_events": 411
+  },
+  {
+   "id": "atk-2758",
+   "machine": "host-2758",
+   "kind": "attack",
+   "warmup_events": 6303,
+   "live_events": 2210
+  },
+  {
+   "id": "atk-339f-1",
+   "machine": "host-339f",
+   "kind": "attack",
+   "warmup_events": 8004,
+   "live_events": 741
+  },
+  {
+   "id": "atk-5582",
+   "machine": "host-5582",
+   "kind": "attack",
+   "warmup_events": 14334,
+   "live_events": 359
+  },
+  {
+   "id": "atk-8329",
+   "machine": "host-8329",
+   "kind": "attack",
+   "warmup_events": 5233,
+   "live_events": 483
+  },
+  {
+   "id": "atk-875d",
+   "machine": "host-875d",
+   "kind": "attack",
+   "warmup_events": 4437,
+   "live_events": 360
+  },
+  {
+   "id": "atk-8875",
+   "machine": "host-8875",
+   "kind": "attack",
+   "warmup_events": 12773,
+   "live_events": 350
+  },
+  {
+   "id": "atk-9935",
+   "machine": "host-9935",
+   "kind": "attack",
+   "warmup_events": 7551,
+   "live_events": 423
+  },
+  {
+   "id": "atk-9ba4",
+   "machine": "host-9ba4",
+   "kind": "attack",
+   "warmup_events": 5180,
+   "live_events": 725
+  },
+  {
+   "id": "atk-a5ce",
+   "machine": "host-a5ce",
+   "kind": "attack",
+   "warmup_events": 5486,
+   "live_events": 258
+  },
+  {
+   "id": "atk-c8f1",
+   "machine": "host-c8f1",
+   "kind": "attack",
+   "warmup_events": 8675,
+   "live_events": 398
+  },
+  {
+   "id": "atk-eaa4",
+   "machine": "host-eaa4",
+   "kind": "attack",
+   "warmup_events": 10557,
+   "live_events": 2876
+  },
+  {
+   "id": "atk-efdb",
+   "machine": "host-efdb",
+   "kind": "attack",
+   "warmup_events": 7798,
+   "live_events": 810
+  },
+  {
+   "id": "atk-f890",
+   "machine": "host-f890",
+   "kind": "attack",
+   "warmup_events": 5215,
+   "live_events": 387
+  },
+  {
+   "id": "atk-fdda",
+   "machine": "host-fdda",
+   "kind": "attack",
+   "warmup_events": 5297,
+   "live_events": 434
+  }
+ ],
+ "finished_at": "2026-10-25T07:02:59+02:00"
+}

@@ -1,0 +1,49 @@
+2026-10-25 01:59:18,578 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 2.5s, verdict 2.92s
+2026-10-25 01:59:26,881 INFO Remote Desktop specialist prompt: on
+2026-10-25 02:00:08,582 INFO host-1038 process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (verdict prompt) (2.91s) ALERT atk-1038-A0001
+2026-10-25 02:00:11,695 INFO host-1038 process powershell.exe→conhost.exe fleet=27 -> attack 85 by slm (verdict prompt) (3.11s) ALERT atk-1038-A0002
+2026-10-25 02:01:43,545 INFO wave host-1038 done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'rdp_judged': 0, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 02:02:03,589 INFO host-3c03 process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (verdict prompt) (1.80s) ALERT atk-3c03-A0001
+2026-10-25 02:02:06,033 INFO host-3c03 process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (verdict prompt) (2.44s) ALERT atk-3c03-A0002
+2026-10-25 02:02:07,334 INFO host-3c03 flow lsass.exe→88 fleet=61 -> normal 95 by slm (verdict prompt) (1.30s)
+2026-10-25 02:04:42,109 INFO wave host-3c03 done: {'cases': 4, 'expert_cases': 1, 'judged': 3, 'rdp_judged': 0, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 02:05:23,129 INFO host-6d5d process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (verdict prompt) (2.11s) ALERT atk-6d5d-A0001
+2026-10-25 02:05:25,567 INFO host-6d5d process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (verdict prompt) (2.43s) ALERT atk-6d5d-A0002
+2026-10-25 02:07:38,803 INFO wave host-6d5d done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'rdp_judged': 0, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 02:08:22,519 INFO host-7f7a process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (verdict prompt) (1.79s) ALERT atk-7f7a-A0001
+2026-10-25 02:08:24,942 INFO host-7f7a process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (verdict prompt) (2.42s) ALERT atk-7f7a-A0002
+2026-10-25 02:10:17,909 INFO wave host-7f7a done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'rdp_judged': 0, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 02:10:31,455 INFO host-e7e0 process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (verdict prompt) (1.83s) ALERT atk-e7e0-A0001
+2026-10-25 02:10:33,880 INFO host-e7e0 process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (verdict prompt) (2.42s) ALERT atk-e7e0-A0002
+2026-10-25 02:13:03,172 INFO wave host-e7e0 done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'rdp_judged': 0, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 02:13:38,017 INFO host-f3ac process svchost.exe→dllhost.exe fleet=55 -> normal 95 by slm (verdict prompt) (2.03s)
+2026-10-25 02:13:40,899 INFO host-f3ac process explorer.exe→notepad++.exe fleet=0 -> normal 70 by slm (verdict prompt) (1.25s)
+2026-10-25 02:13:42,726 INFO host-f3ac flow notepad++.exe→80 fleet=0 -> normal 85 by slm (verdict prompt) (1.48s)
+2026-10-25 02:13:47,709 INFO host-f3ac process svchost.exe→consent.exe fleet=1 -> normal 85 by slm (verdict prompt) (1.72s)
+2026-10-25 02:13:49,285 INFO host-f3ac flow conhost.exe→80 fleet=14 -> normal 85 by slm (verdict prompt) (1.07s)
+2026-10-25 02:13:51,155 INFO host-f3ac process notepad++.exe→gup.exe fleet=0 -> normal 95 by slm (verdict prompt) (1.87s)
+2026-10-25 02:13:56,068 INFO host-f3ac flow gup.exe→80 fleet=0 -> normal 85 by slm (verdict prompt) (2.53s)
+2026-10-25 02:14:01,058 INFO host-f3ac flow googleupdate.exe→8080 fleet=0 -> normal 85 by slm (verdict prompt) (1.45s)
+2026-10-25 02:14:04,075 INFO host-f3ac process gup.exe→ckfgw.exe fleet=0 -> attack 85 by slm (verdict prompt) (3.02s) ALERT atk-f3ac-1-A0001
+2026-10-25 02:15:37,772 INFO wave host-f3ac done: {'cases': 9, 'expert_cases': 0, 'judged': 9, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 1, 'expert_alerts': 0, 'explained': 1, 'fallback_explanations': 0}
+2026-10-25 02:16:06,975 INFO host-f59c process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (verdict prompt) (2.80s) ALERT atk-f59c-A0001
+2026-10-25 02:16:09,986 INFO host-f59c process powershell.exe→conhost.exe fleet=27 -> attack 85 by slm (verdict prompt) (3.01s) ALERT atk-f59c-A0002
+2026-10-25 02:18:32,311 INFO wave host-f59c done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'rdp_judged': 0, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 02:20:55,378 INFO wave host-0597 done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:23:06,611 INFO wave host-3fed done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:25:23,569 INFO host-4460 process svchost.exe→gpupdate.exe fleet=61 -> normal 95 by slm (verdict prompt) (2.21s)
+2026-10-25 02:25:25,916 INFO host-4460 process gpupdate.exe→conhost.exe fleet=61 -> normal 95 by slm (verdict prompt) (2.34s)
+2026-10-25 02:25:28,178 INFO host-4460 flow lsass.exe→49155 fleet=61 -> normal 85 by slm (verdict prompt) (2.26s)
+2026-10-25 02:25:30,000 INFO host-4460 flow svchost.exe→389 fleet=61 -> normal 95 by slm (verdict prompt) (1.82s)
+2026-10-25 02:25:53,973 INFO wave host-4460 done: {'cases': 4, 'expert_cases': 0, 'judged': 4, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:28:28,724 INFO wave host-594f done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:31:16,757 INFO wave host-60ee done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:32:30,878 INFO host-9099 process cmd.exe→powershell.exe fleet=61 -> normal 85 by slm (verdict prompt) (2.80s)
+2026-10-25 02:32:49,027 INFO host-9099 flow python.exe→389 fleet=50 -> normal 70 by slm (verdict prompt) (2.85s)
+2026-10-25 02:34:05,856 INFO wave host-9099 done: {'cases': 2, 'expert_cases': 0, 'judged': 2, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:35:54,122 INFO host-9135 flow svchost.exe→123 fleet=61 -> normal 95 by slm (verdict prompt) (1.25s)
+2026-10-25 02:36:48,404 INFO wave host-9135 done: {'cases': 1, 'expert_cases': 0, 'judged': 1, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:38:55,698 INFO wave host-cce5 done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:38:57,414 INFO host-d467 process schtasks.exe→conhost.exe fleet=52 -> normal 85 by slm (verdict prompt) (1.59s)
+2026-10-25 02:41:10,671 INFO wave host-d467 done: {'cases': 1, 'expert_cases': 0, 'judged': 1, 'rdp_judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 02:43:04,249 INFO host-ea7c process svchost.exe→winword.exe fleet=52 -> normal 95 by slm (verdict prompt) (1.53s)

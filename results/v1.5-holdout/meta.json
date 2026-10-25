@@ -1,0 +1,135 @@
+{
+ "label": "v1.5-holdout",
+ "note": "v1.5 (freeze-v1.5, 4da6706, Remote Desktop chain in cases) on the 17 holdout waves (7 attack, 10 benign), real time on the Mac, E4B: machines never used for tuning",
+ "detector": "submission.my_detector:MyDetector",
+ "source": "validation",
+ "set": "holdout",
+ "mode": "realtime",
+ "explain": true,
+ "answers": "data/cache/val/answers.json",
+ "command": "python evaluator/evaluate.py --detector submission.my_detector:MyDetector --data data/cache/val --set holdout --answers data/cache/val/answers.json --out results/v1.5-holdout/alerts.jsonl --report results/v1.5-holdout/scorecard.json --label v1.5-holdout",
+ "triggered_at": "2026-10-25T04:53:41+02:00",
+ "expected_s": 2708.4,
+ "waves": [
+  {
+   "id": "atk-1038",
+   "machine": "host-1038",
+   "kind": "attack",
+   "warmup_events": 5379,
+   "live_events": 226
+  },
+  {
+   "id": "atk-3c03",
+   "machine": "host-3c03",
+   "kind": "attack",
+   "warmup_events": 4820,
+   "live_events": 453
+  },
+  {
+   "id": "atk-6d5d",
+   "machine": "host-6d5d",
+   "kind": "attack",
+   "warmup_events": 9525,
+   "live_events": 881
+  },
+  {
+   "id": "atk-7f7a",
+   "machine": "host-7f7a",
+   "kind": "attack",
+   "warmup_events": 5312,
+   "live_events": 540
+  },
+  {
+   "id": "atk-e7e0",
+   "machine": "host-e7e0",
+   "kind": "attack",
+   "warmup_events": 4733,
+   "live_events": 416
+  },
+  {
+   "id": "atk-f3ac-1",
+   "machine": "host-f3ac",
+   "kind": "attack",
+   "warmup_events": 6438,
+   "live_events": 526
+  },
+  {
+   "id": "atk-f59c",
+   "machine": "host-f59c",
+   "kind": "attack",
+   "warmup_events": 6169,
+   "live_events": 295
+  },
+  {
+   "id": "ben-0597",
+   "machine": "host-0597",
+   "kind": "benign",
+   "warmup_events": 3970,
+   "live_events": 114
+  },
+  {
+   "id": "ben-3fed",
+   "machine": "host-3fed",
+   "kind": "benign",
+   "warmup_events": 10093,
+   "live_events": 120
+  },
+  {
+   "id": "ben-4460",
+   "machine": "host-4460",
+   "kind": "benign",
+   "warmup_events": 4093,
+   "live_events": 339
+  },
+  {
+   "id": "ben-594f",
+   "machine": "host-594f",
+   "kind": "benign",
+   "warmup_events": 10027,
+   "live_events": 155
+  },
+  {
+   "id": "ben-60ee",
+   "machine": "host-60ee",
+   "kind": "benign",
+   "warmup_events": 12177,
+   "live_events": 144
+  },
+  {
+   "id": "ben-9099",
+   "machine": "host-9099",
+   "kind": "benign",
+   "warmup_events": 10874,
+   "live_events": 531
+  },
+  {
+   "id": "ben-9135",
+   "machine": "host-9135",
+   "kind": "benign",
+   "warmup_events": 7231,
+   "live_events": 142
+  },
+  {
+   "id": "ben-cce5",
+   "machine": "host-cce5",
+   "kind": "benign",
+   "warmup_events": 7020,
+   "live_events": 130
+  },
+  {
+   "id": "ben-d467",
+   "machine": "host-d467",
+   "kind": "benign",
+   "warmup_events": 10341,
+   "live_events": 124
+  },
+  {
+   "id": "ben-ea7c",
+   "machine": "host-ea7c",
+   "kind": "benign",
+   "warmup_events": 7317,
+   "live_events": 648
+  }
+ ],
+ "finished_at": "2026-10-25T05:38:41+02:00"
+}

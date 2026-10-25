@@ -1,0 +1,48 @@
+2026-10-25 04:53:58,744 INFO model gemma-4-E4B_q4_0-it.gguf: loaded in 2.7s, verdict 2.86s
+2026-10-25 04:54:44,186 INFO host-1038 process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (2.79s) ALERT atk-1038-A0001
+2026-10-25 04:54:47,235 INFO host-1038 process powershell.exe→conhost.exe fleet=27 -> attack 85 by slm (3.05s) ALERT atk-1038-A0002
+2026-10-25 04:56:19,205 INFO wave host-1038 done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 04:56:39,317 INFO host-3c03 process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (1.88s) ALERT atk-3c03-A0001
+2026-10-25 04:56:41,743 INFO host-3c03 process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (2.42s) ALERT atk-3c03-A0002
+2026-10-25 04:56:43,044 INFO host-3c03 flow lsass.exe→88 fleet=61 -> normal 95 by slm (1.30s)
+2026-10-25 04:59:17,743 INFO wave host-3c03 done: {'cases': 4, 'expert_cases': 1, 'judged': 3, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 04:59:58,460 INFO host-6d5d process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (1.83s) ALERT atk-6d5d-A0001
+2026-10-25 05:00:00,892 INFO host-6d5d process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (2.43s) ALERT atk-6d5d-A0002
+2026-10-25 05:02:14,496 INFO wave host-6d5d done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 05:02:58,835 INFO host-7f7a process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (2.40s) ALERT atk-7f7a-A0001
+2026-10-25 05:03:01,286 INFO host-7f7a process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (2.45s) ALERT atk-7f7a-A0002
+2026-10-25 05:04:53,596 INFO wave host-7f7a done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 05:05:07,109 INFO host-e7e0 process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (1.80s) ALERT atk-e7e0-A0001
+2026-10-25 05:05:09,520 INFO host-e7e0 process powershell.exe→conhost.exe fleet=28 -> attack 95 by slm (2.41s) ALERT atk-e7e0-A0002
+2026-10-25 05:07:38,898 INFO wave host-e7e0 done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 05:08:13,528 INFO host-f3ac process svchost.exe→dllhost.exe fleet=55 -> normal 95 by slm (1.81s)
+2026-10-25 05:08:16,628 INFO host-f3ac process explorer.exe→notepad++.exe fleet=0 -> normal 70 by slm (1.25s)
+2026-10-25 05:08:18,478 INFO host-f3ac flow notepad++.exe→80 fleet=0 -> normal 85 by slm (1.51s)
+2026-10-25 05:08:23,419 INFO host-f3ac process svchost.exe→consent.exe fleet=1 -> normal 85 by slm (1.71s)
+2026-10-25 05:08:25,023 INFO host-f3ac flow conhost.exe→80 fleet=14 -> normal 85 by slm (1.08s)
+2026-10-25 05:08:26,865 INFO host-f3ac process notepad++.exe→gup.exe fleet=0 -> normal 95 by slm (1.84s)
+2026-10-25 05:08:31,763 INFO host-f3ac flow gup.exe→80 fleet=0 -> normal 85 by slm (2.50s)
+2026-10-25 05:08:36,781 INFO host-f3ac flow googleupdate.exe→8080 fleet=0 -> normal 85 by slm (1.45s)
+2026-10-25 05:08:39,795 INFO host-f3ac process gup.exe→ckfgw.exe fleet=0 -> attack 85 by slm (3.01s) ALERT atk-f3ac-1-A0001
+2026-10-25 05:10:13,496 INFO wave host-f3ac done: {'cases': 9, 'expert_cases': 0, 'judged': 9, 'skipped_alerted': 0, 'shed': 0, 'alerts': 1, 'expert_alerts': 0, 'explained': 1, 'fallback_explanations': 0}
+2026-10-25 05:10:42,706 INFO host-f59c process wmiprvse.exe→powershell.exe fleet=0 expert -> attack 98 by slm (2.81s) ALERT atk-f59c-A0001
+2026-10-25 05:10:45,715 INFO host-f59c process powershell.exe→conhost.exe fleet=27 -> attack 85 by slm (3.01s) ALERT atk-f59c-A0002
+2026-10-25 05:13:08,001 INFO wave host-f59c done: {'cases': 3, 'expert_cases': 1, 'judged': 2, 'skipped_alerted': 1, 'shed': 0, 'alerts': 2, 'expert_alerts': 0, 'explained': 2, 'fallback_explanations': 0}
+2026-10-25 05:15:31,147 INFO wave host-0597 done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:17:42,351 INFO wave host-3fed done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:19:59,394 INFO host-4460 process svchost.exe→gpupdate.exe fleet=61 -> normal 95 by slm (2.30s)
+2026-10-25 05:20:01,743 INFO host-4460 process gpupdate.exe→conhost.exe fleet=61 -> normal 95 by slm (2.35s)
+2026-10-25 05:20:04,009 INFO host-4460 flow lsass.exe→49155 fleet=61 -> normal 85 by slm (2.27s)
+2026-10-25 05:20:05,832 INFO host-4460 flow svchost.exe→389 fleet=61 -> normal 95 by slm (1.82s)
+2026-10-25 05:20:29,635 INFO wave host-4460 done: {'cases': 4, 'expert_cases': 0, 'judged': 4, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:23:04,364 INFO wave host-594f done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:25:52,397 INFO wave host-60ee done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:27:06,671 INFO host-9099 process cmd.exe→powershell.exe fleet=61 -> normal 85 by slm (2.95s)
+2026-10-25 05:27:24,701 INFO host-9099 flow python.exe→389 fleet=50 -> normal 70 by slm (2.87s)
+2026-10-25 05:28:41,520 INFO wave host-9099 done: {'cases': 2, 'expert_cases': 0, 'judged': 2, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:30:30,388 INFO host-9135 flow svchost.exe→123 fleet=61 -> normal 95 by slm (1.86s)
+2026-10-25 05:31:24,047 INFO wave host-9135 done: {'cases': 1, 'expert_cases': 0, 'judged': 1, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:33:31,284 INFO wave host-cce5 done: {'cases': 0, 'expert_cases': 0, 'judged': 0, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:33:33,024 INFO host-d467 process schtasks.exe→conhost.exe fleet=52 -> normal 85 by slm (1.61s)
+2026-10-25 05:35:46,210 INFO wave host-d467 done: {'cases': 1, 'expert_cases': 0, 'judged': 1, 'skipped_alerted': 0, 'shed': 0, 'alerts': 0, 'expert_alerts': 0, 'explained': 0, 'fallback_explanations': 0}
+2026-10-25 05:37:39,906 INFO host-ea7c process svchost.exe→winword.exe fleet=52 -> normal 95 by slm (1.64s)

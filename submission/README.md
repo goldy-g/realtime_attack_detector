@@ -75,21 +75,21 @@ decision comes from the SLM; code only selects, orders, routes and feeds the cas
 ## Results
 
 Real-time `--set full`, the 7 public eval waves (3 attack, 4 benign), on an Apple M5 Pro
-with 8 threads and Gemma 4 E4B (run v1.8-full-mac; v1.8.1 changes only the start-up check, and
-this machine's 1.4 s probe keeps E4B under either):
+with 8 threads and Gemma 4 E4B, which the start-up check keeps here (1.4 s probe; run
+v1.8.1-full-mac):
 
 | | |
 |---|---|
 | Attacks caught | 3 of 3: both PowerShell attacks and the Remote Desktop hop |
 | Timeliness | 0.924 (0.978 on the Remote Desktop hop, 0.952 and 0.842 on the PowerShell attacks) |
-| Delay, median · max | 1.9 s · 2.3 s |
+| Delay, median · max | 1.7 s · 1.9 s |
 | False alarms | 0 in 7 waves |
 | Evidence precision | 1.00 |
-| Explanations | 6 of 6 alerts, median 10 s after the alert |
+| Explanations | 6 of 6 alerts, median 11 s after the alert |
 
 How it got there, on the same waves: without the Remote Desktop prompt (v1.5) 2 of 3,
-timeliness 0.563; with it (v1.6) 3 of 3, 0.870; with the short verdict case (v1.8) 0.924,
-the median delay down from 3.2 s to 1.9 s. With the fallback model forced on the same
+timeliness 0.563; with it (v1.6) 3 of 3, 0.870; with the short verdict case (v1.8 and
+v1.8.1) 0.924, the median delay down from 3.2 s to 1.7 s. With the fallback model forced on the same
 machine (run v1.8-full-mac-e2b): 3 of 3, timeliness 0.933, median delay 1.0 s, no false
 alarm.
 
